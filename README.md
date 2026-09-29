@@ -18,19 +18,26 @@ and prerendered to plain HTML — there is no database, no CMS and no server.
 
 ## Commands
 
-| Command           | What it does                                           |
-| ----------------- | ------------------------------------------------------ |
-| `npm run dev`     | Dev server. Drafts are visible.                        |
-| `npm run build`   | Builds to `build/`, then indexes it with Pagefind.     |
-| `npm run preview` | Serves `build/` — the only way to test search locally. |
-| `npm run check`   | `svelte-check` type checking.                          |
-| `npm run lint`    | Prettier check plus ESLint.                            |
-| `npm run format`  | Rewrites files to Prettier style.                      |
-| `npm test`        | Vitest — the content loader, the graph, and filtering. |
+| Command           | What it does                                                     |
+| ----------------- | ---------------------------------------------------------------- |
+| `npm run dev`     | Dev server. Drafts are visible.                                  |
+| `npm run build`   | Builds to `build/`, then indexes it with Pagefind.               |
+| `npm run preview` | Serves `build/` like a static host. The only way to test search. |
+| `npm run check`   | `svelte-check` type checking.                                    |
+| `npm run lint`    | Prettier check plus ESLint.                                      |
+| `npm run format`  | Rewrites files to Prettier style.                                |
+| `npm test`        | Vitest — the content loader, the graph, and filtering.           |
 
 `npm run build` runs `pagefind --site build` afterwards via npm's `postbuild`
 hook, so there is no separate indexing step to remember. Running `vite build`
 directly skips it, and search will 404.
+
+`npm run preview` is a small dependency-free static server
+(`scripts/preview.js`) rather than `vite preview`. It has to be: `vite preview`
+serves the app from SvelteKit's manifest and never sees `build/pagefind`, so
+search would always look broken. The script resolves paths the way Cloudflare
+Pages and Netlify do — exact file, then `<path>.html`, then `404.html` — which
+makes it the closest local approximation of the deployed site.
 
 ## Project structure
 
@@ -51,6 +58,7 @@ src/lib/rides/      URL-driven filtering for /rides
 src/lib/components/ RideCard, PairingCard, PairingBadge, IntensityMeter,
                     FilterBar, Header, Footer, Seo
 src/routes/         pages, plus sitemap.xml and rss.xml
+scripts/preview.js  static server for `npm run preview`
 ```
 
 The content pipeline is split so the interesting parts are pure functions with

@@ -9,7 +9,7 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"postbuild": "pagefind --site build",
-		"preview": "vite preview",
+		"preview": "node scripts/preview.js",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
