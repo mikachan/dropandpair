@@ -1,3 +1,14 @@
+### Node / SvelteKit
+node_modules/
+/build/
+/.svelte-kit/
+/static/pagefind/
+.env
+.env.*
+!.env.example
+vite.config.ts.timestamp-*
+vite.config.js.timestamp-*
+
 ### macOS
 # Finder metadata
 .DS_Store
@@ -6,7 +17,7 @@
 ._*
 
 # Custom folder icons
-Icon
+Icon
 
 # Volume root files
 .DocumentRevisions-V100
