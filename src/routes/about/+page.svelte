@@ -102,8 +102,7 @@
 			true, this paragraph will change.
 		</p>
 		<p>
-			There is no advertising, no tracking, and no analytics on this site as it stands. It is a
-			static site: plain HTML and CSS, written in Markdown, built from a Git repository.
+			This is a static site: plain HTML and CSS, written in Markdown, built from a Git repository.
 		</p>
 
 		<h2>Corrections</h2>

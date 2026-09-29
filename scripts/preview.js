@@ -1,14 +1,13 @@
 /*
- * Serves `build/` the way a static host does.
+ * Serves the contents of `build/` over HTTP.
  *
  * `vite preview` cannot be used for this: it serves the app from SvelteKit's
  * manifest, so it never sees the Pagefind index, which is written into
  * `build/pagefind` after the build finishes. Search would always look broken.
  *
- * Path resolution matches Cloudflare Pages and Netlify: try the exact file,
- * then `<path>.html`, then `<path>/index.html`, and fall back to `404.html`
- * with a 404 status. That makes this the closest local approximation of the
- * deployed site, which is the point of a preview.
+ * Path resolution follows the usual convention for a directory of static
+ * files: try the exact file, then `<path>.html`, then `<path>/index.html`, and
+ * fall back to `404.html` with a 404 status.
  *
  * Usage: node scripts/preview.js [--port 4173]
  */
@@ -46,7 +45,7 @@ function isFile(path) {
 	return existsSync(path) && statSync(path).isFile();
 }
 
-/** The candidate files a static host would try, in order. */
+/** The candidate files to try, in order. */
 function resolveFile(pathname) {
 	const relative = decodeURIComponent(pathname).replace(/^\/+/, '');
 	const target = resolve(ROOT, relative);

@@ -5,8 +5,8 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 const config = {
 	preprocess: vitePreprocess(),
 	kit: {
-		// Everything is prerendered. The /404 route writes build/404.html, which
-		// static hosts serve for unknown paths — see src/routes/404.
+		// Everything is prerendered. The /404 route writes build/404.html, the
+		// conventional place for a not-found page — see src/routes/404.
 		adapter: adapter(),
 		prerender: {
 			handleHttpError: 'fail',

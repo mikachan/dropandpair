@@ -18,15 +18,15 @@ and prerendered to plain HTML — there is no database, no CMS and no server.
 
 ## Commands
 
-| Command           | What it does                                                     |
-| ----------------- | ---------------------------------------------------------------- |
-| `npm run dev`     | Dev server. Drafts are visible.                                  |
-| `npm run build`   | Builds to `build/`, then indexes it with Pagefind.               |
-| `npm run preview` | Serves `build/` like a static host. The only way to test search. |
-| `npm run check`   | `svelte-check` type checking.                                    |
-| `npm run lint`    | Prettier check plus ESLint.                                      |
-| `npm run format`  | Rewrites files to Prettier style.                                |
-| `npm test`        | Vitest — the content loader, the graph, and filtering.           |
+| Command           | What it does                                            |
+| ----------------- | ------------------------------------------------------- |
+| `npm run dev`     | Dev server. Drafts are visible.                         |
+| `npm run build`   | Builds to `build/`, then indexes it with Pagefind.      |
+| `npm run preview` | Serves `build/` over HTTP. The only way to test search. |
+| `npm run check`   | `svelte-check` type checking.                           |
+| `npm run lint`    | Prettier check plus ESLint.                             |
+| `npm run format`  | Rewrites files to Prettier style.                       |
+| `npm test`        | Vitest — the content loader, the graph, and filtering.  |
 
 `npm run build` runs `pagefind --site build` afterwards via npm's `postbuild`
 hook, so there is no separate indexing step to remember. Running `vite build`
@@ -35,9 +35,8 @@ directly skips it, and search will 404.
 `npm run preview` is a small dependency-free static server
 (`scripts/preview.js`) rather than `vite preview`. It has to be: `vite preview`
 serves the app from SvelteKit's manifest and never sees `build/pagefind`, so
-search would always look broken. The script resolves paths the way Cloudflare
-Pages and Netlify do — exact file, then `<path>.html`, then `404.html` — which
-makes it the closest local approximation of the deployed site.
+search would always look broken. The script resolves paths the usual way for a
+directory of static files — exact file, then `<path>.html`, then `404.html`.
 
 ## Project structure
 
@@ -184,40 +183,19 @@ published build therefore cannot contain a dead internal link.
 > `TODO: verify` note because their opening year or manufacturer is unverified.
 > Check them against a reliable source, then remove the flag and the note.
 
-## Deploying
+## The site URL
 
-The build output is `build/` — plain static files. Both hosts below pick up
-`404.html` automatically for unknown paths.
+`src/lib/site.ts` and `static/robots.txt` both carry the site's address, and it
+needs to be the real one: canonical tags, Open Graph tags, the sitemap and the
+feed all require absolute URLs. Set it in both places before the site goes
+anywhere public.
 
-Before the first deploy, set the real domain in `src/lib/site.ts` and in
-`static/robots.txt`. It is used for canonical URLs, Open Graph tags, the
-sitemap and the feed, and those need absolute URLs.
-
-### Cloudflare Pages
-
-Connect the repository, then:
-
-- Framework preset: **None**
-- Build command: `npm run build`
-- Build output directory: `build`
-
-### Netlify
-
-Connect the repository, or commit this `netlify.toml`:
-
-```toml
-[build]
-  command = "npm run build"
-  publish = "build"
-```
-
-Either way `npm run build` triggers the Pagefind `postbuild` hook, so search
-works on the deployed site with no extra configuration.
+`npm run build` writes plain static files to `build/`, including `404.html`.
 
 ## Notes and deliberate choices
 
 - **Fonts are system stacks.** No webfont request, no layout shift, decent
-  character everywhere. To self-host a display serif later, change
+  character everywhere. To swap in a downloaded display serif later, change
   `--font-display` in `src/lib/styles/tokens.css` and add an `@font-face`.
 - **Filtering needs JavaScript.** A static site generates one file for
   `/rides`, so the prerendered page is the full list — which is what a visitor
@@ -225,8 +203,6 @@ works on the deployed site with no extra configuration.
   case, and `/pairings` offers a no-JS way to browse by type.
 - **Search needs the build.** Pagefind indexes `build/`, so `npm run dev` has
   no index. `/search` says so and links to the browse pages instead.
-- **No analytics, ads or tracking.** Nothing to configure, nothing to consent
-  to. If that changes, `/about` needs changing too.
 - **`{@html}` is used for content bodies.** Markdown is authored by hand in
   this repository and rendered at build time, so it is trusted. That stops
   being true the moment content comes from anywhere else.
