@@ -1,0 +1,84 @@
+/*
+ * Design tokens.
+ *
+ * Fairground signage meets wine label: a confident serif for display type, a
+ * clean sans for reading, warm paper, one strong accent.
+ *
+ * Every colour pair used for text meets WCAG AA (4.5:1) in both schemes, and
+ * the focus ring clears 3:1 against both backgrounds. If you change a colour,
+ * re-check it.
+ *
+ * Fonts are system stacks on purpose — no network request, no build step, and
+ * good character on every platform. To self-host a display serif later, that is
+ * a one-line change to --font-display plus an @font-face rule.
+ */
+
+:root {
+	color-scheme: light dark;
+
+	--font-display:
+		ui-serif, 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+	--font-body:
+		ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+	--font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+	/* Fluid type scale, roughly a 1.2 ratio on mobile opening to 1.25 on desktop. */
+	--step--2: clamp(0.72rem, 0.7rem + 0.1vw, 0.78rem);
+	--step--1: clamp(0.84rem, 0.81rem + 0.14vw, 0.92rem);
+	--step-0: clamp(1rem, 0.96rem + 0.2vw, 1.09rem);
+	--step-1: clamp(1.2rem, 1.13rem + 0.36vw, 1.45rem);
+	--step-2: clamp(1.44rem, 1.31rem + 0.66vw, 1.94rem);
+	--step-3: clamp(1.73rem, 1.5rem + 1.13vw, 2.59rem);
+	--step-4: clamp(2.07rem, 1.69rem + 1.86vw, 3.45rem);
+
+	--space-3xs: 0.25rem;
+	--space-2xs: 0.5rem;
+	--space-xs: 0.75rem;
+	--space-s: 1rem;
+	--space-m: 1.5rem;
+	--space-l: 2.25rem;
+	--space-xl: 3.5rem;
+	--space-2xl: 5rem;
+
+	/* Comfortable line length for body copy, and the outer page width. */
+	--measure: 64ch;
+	--page-max: 74rem;
+
+	--radius: 4px;
+	--radius-lg: 10px;
+	--radius-pill: 999px;
+
+	--transition: 160ms ease;
+
+	/* Light: warm paper and a deep vermilion. */
+	--paper: #f6efe2;
+	--surface: #fdf9f1;
+	--ink: #1f1c19;
+	--ink-muted: #5a5249;
+	--accent: #b3301b;
+	--accent-contrast: #fdf9f1;
+	--accent-wash: #f1ddd5;
+	--gold: #82590f;
+	--line: #ded2bd;
+	--line-strong: #c4b498;
+	--shadow: 0 1px 2px rgb(31 28 25 / 0.06), 0 6px 18px -12px rgb(31 28 25 / 0.3);
+	--grain-opacity: 0.055;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		/* Dark: late-evening aubergine and a lit coral. */
+		--paper: #15141b;
+		--surface: #1e1c26;
+		--ink: #f2ece1;
+		--ink-muted: #b3a999;
+		--accent: #ff7a5c;
+		--accent-contrast: #15141b;
+		--accent-wash: #2f2028;
+		--gold: #e0b45e;
+		--line: #332f3d;
+		--line-strong: #4a4557;
+		--shadow: 0 1px 2px rgb(0 0 0 / 0.5), 0 10px 24px -14px rgb(0 0 0 / 0.85);
+		--grain-opacity: 0.04;
+	}
+}
