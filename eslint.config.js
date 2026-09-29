@@ -15,6 +15,15 @@ export default ts.config(
 	{
 		languageOptions: {
 			globals: { ...globals.browser, ...globals.node }
+		},
+		rules: {
+			/*
+			 * The site is served from the root of its own domain with no `base`
+			 * path, so wrapping every internal href in `resolve()` would add
+			 * noise without preventing a real bug. Turn this back on if the site
+			 * ever moves to a subpath.
+			 */
+			'svelte/no-navigation-without-resolve': 'off'
 		}
 	},
 	{
