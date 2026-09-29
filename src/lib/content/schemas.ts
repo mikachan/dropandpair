@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { PAIRING_TYPES, RIDE_TYPES } from './constants';
 
 /**
  * Frontmatter schemas for everything in `content/`.
@@ -9,20 +10,6 @@ import { z } from 'zod';
  * the field, and what was expected.
  */
 
-export const RIDE_TYPES = ['coaster', 'dark-ride', 'flat-ride', 'water-ride', 'drop-tower'] as const;
-
-export const PAIRING_TYPES = [
-	'aperitif',
-	'chaser',
-	'palate-cleanser',
-	'eat-and-drink',
-	'do-next',
-	'listen',
-	'read',
-	'watch',
-	'nightcap'
-] as const;
-
 /** Lowercase kebab-case, matching the Markdown file name. */
 const slug = z
 	.string()
@@ -32,6 +19,18 @@ const slug = z
 const scale = z.number().int().min(1).max(5);
 
 const nonEmpty = z.string().trim().min(1, 'must not be empty');
+
+/**
+ * A `YYYY-MM-DD` date.
+ *
+ * YAML turns an unquoted date into a JS Date, so both forms are accepted and
+ * normalised to a string. Keeping it a plain string means no timezone can
+ * shift the day it was written.
+ */
+const isoDate = z.preprocess(
+	(value) => (value instanceof Date ? value.toISOString().slice(0, 10) : value),
+	z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'must be a date like 2026-09-29')
+);
 
 export const parkSchema = z.strictObject({
 	id: slug,
@@ -83,6 +82,11 @@ export const rideSchema = z.strictObject({
 	rideType: z.enum(RIDE_TYPES),
 	opened: z.number().int().min(1800).max(2100),
 	manufacturer: nonEmpty,
+	/**
+	 * The day this write-up was added, used to order the RSS feed. Optional:
+	 * an undated ride sorts last in the feed rather than failing the build.
+	 */
+	added: isoDate.optional(),
 	stats: rideStatsSchema.optional(),
 	/** Body, in wine terms. */
 	intensity: scale,

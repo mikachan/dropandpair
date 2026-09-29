@@ -1,5 +1,4 @@
-import { PAIRING_TYPES } from './schemas';
-import type { PairingType, RideType } from './types';
+import { PAIRING_TYPES, type PairingType, type RideType } from './constants';
 
 /**
  * Every bit of UI vocabulary lives here, so the house style is consistent and

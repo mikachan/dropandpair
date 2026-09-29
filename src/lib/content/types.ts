@@ -1,15 +1,7 @@
 import type { z } from 'zod';
-import type {
-	PAIRING_TYPES,
-	RIDE_TYPES,
-	pairingSchema,
-	parkSchema,
-	rideSchema,
-	rideStatsSchema
-} from './schemas';
+import type { pairingSchema, parkSchema, rideSchema, rideStatsSchema } from './schemas';
 
-export type RideType = (typeof RIDE_TYPES)[number];
-export type PairingType = (typeof PAIRING_TYPES)[number];
+export type { PairingType, RideType } from './constants';
 
 /** Added to every entry by the parser, so errors and URLs can point back at the file. */
 export interface ContentMeta {

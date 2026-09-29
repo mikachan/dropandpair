@@ -14,11 +14,25 @@ import { parseCollections, type RawFile } from './parse';
  * Invalid content throws while this module is evaluating, which fails the build.
  */
 
-const asRaw = { query: '?raw', import: 'default', eager: true } as const;
+// Vite reads these calls statically, so the options must be inline literals —
+// hoisting them into a shared constant silently stops `?raw` being applied.
+const rideFiles = import.meta.glob('/content/rides/*.md', {
+	query: '?raw',
+	import: 'default',
+	eager: true
+}) as Record<string, string>;
 
-const rideFiles = import.meta.glob('/content/rides/*.md', asRaw) as Record<string, string>;
-const parkFiles = import.meta.glob('/content/parks/*.md', asRaw) as Record<string, string>;
-const pairingFiles = import.meta.glob('/content/pairings/*.md', asRaw) as Record<string, string>;
+const parkFiles = import.meta.glob('/content/parks/*.md', {
+	query: '?raw',
+	import: 'default',
+	eager: true
+}) as Record<string, string>;
+
+const pairingFiles = import.meta.glob('/content/pairings/*.md', {
+	query: '?raw',
+	import: 'default',
+	eager: true
+}) as Record<string, string>;
 
 /** Sorted so validation problems are reported in a stable, file-order sequence. */
 function toRawFiles(modules: Record<string, string>): RawFile[] {

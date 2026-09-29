@@ -1,12 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { makeCollections, makePairing, makePark, makeRide } from './fixtures';
-import {
-	buildGraph,
-	pairingsForRide,
-	parkForRide,
-	ridesForPairing,
-	ridesForPark
-} from './graph';
+import { buildGraph, pairingsForRide, parkForRide, ridesForPairing, ridesForPark } from './graph';
 import { ContentError } from './parse';
 
 const PUBLISHED = { includeDrafts: false };
@@ -113,7 +107,10 @@ describe('buildGraph reverse lookups', () => {
 
 	it('returns an empty list for a pairing nothing uses yet', () => {
 		const graph = buildGraph(
-			makeCollections({ ...collections, pairings: [...collections.pairings, makePairing('unused')] }),
+			makeCollections({
+				...collections,
+				pairings: [...collections.pairings, makePairing('unused')]
+			}),
 			PUBLISHED
 		);
 

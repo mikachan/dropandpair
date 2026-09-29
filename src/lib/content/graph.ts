@@ -1,3 +1,4 @@
+import type { PairingType } from './constants';
 import { pairingTypeRank } from './labels';
 import { ContentError, type Collections, type ContentProblem } from './parse';
 import type { PairedRide, Pairing, Park, Ride, RidePairing } from './types';
@@ -26,7 +27,8 @@ export interface ContentGraph {
 }
 
 const byName = (a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name, 'en');
-const byTitle = (a: { title: string }, b: { title: string }) => a.title.localeCompare(b.title, 'en');
+const byTitle = (a: { title: string }, b: { title: string }) =>
+	a.title.localeCompare(b.title, 'en');
 
 /**
  * Checks every cross-collection reference. Runs against the full content set,
@@ -106,16 +108,12 @@ export function buildGraph(
 	const pairingById = new Map(pairings.map((pairing) => [pairing.id, pairing]));
 
 	const ridesByPark = new Map<string, Ride[]>(parks.map((park) => [park.id, []]));
-	const ridesByPairing = new Map<string, PairedRide[]>(
-		pairings.map((pairing) => [pairing.id, []])
-	);
+	const ridesByPairing = new Map<string, PairedRide[]>(pairings.map((pairing) => [pairing.id, []]));
 
 	for (const ride of rides) {
 		ridesByPark.get(ride.park)?.push(ride);
 		for (const ref of ride.pairings) {
-			ridesByPairing
-				.get(ref.pairing)
-				?.push({ ride, blurb: ref.blurb, strength: ref.strength });
+			ridesByPairing.get(ref.pairing)?.push({ ride, blurb: ref.blurb, strength: ref.strength });
 		}
 	}
 
@@ -133,6 +131,19 @@ export function buildGraph(
 		ridesByPark,
 		ridesByPairing
 	};
+}
+
+/**
+ * Rides newest first, for the feed and any "latest" listing. An undated ride
+ * sorts after every dated one rather than pretending to be new.
+ */
+export function ridesByAdded(graph: ContentGraph): Ride[] {
+	return [...graph.rides].sort((a, b) => {
+		if (a.added && b.added) return b.added.localeCompare(a.added) || byName(a, b);
+		if (a.added) return -1;
+		if (b.added) return 1;
+		return byName(a, b);
+	});
 }
 
 /** A ride's pairings, resolved and ordered like a tasting flight. */
@@ -166,14 +177,11 @@ export function parkForRide(graph: ContentGraph, ride: Ride): Park {
 }
 
 /** The distinct pairing types a ride covers, in flight order. Used by the filters. */
-export function pairingTypesForRide(graph: ContentGraph, ride: Ride): string[] {
-	const types = new Set<string>();
+export function pairingTypesForRide(graph: ContentGraph, ride: Ride): PairingType[] {
+	const types = new Set<PairingType>();
 	for (const ref of ride.pairings) {
 		const pairing = graph.pairingById.get(ref.pairing);
 		if (pairing) types.add(pairing.pairingType);
 	}
-	return [...types].sort(
-		(a, b) =>
-			pairingTypeRank(a as Pairing['pairingType']) - pairingTypeRank(b as Pairing['pairingType'])
-	);
+	return [...types].sort((a, b) => pairingTypeRank(a) - pairingTypeRank(b));
 }

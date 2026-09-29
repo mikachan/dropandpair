@@ -108,7 +108,9 @@ describe('parseCollections', () => {
 	});
 
 	it('reports every problem at once rather than stopping at the first', () => {
-		const raw = validRide.replace('park: alton-towers\n', '').replace('intensity: 5', 'intensity: 9');
+		const raw = validRide
+			.replace('park: alton-towers\n', '')
+			.replace('intensity: 5', 'intensity: 9');
 
 		try {
 			parseRides(ride(raw));
