@@ -1,50 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/state';
-
-	const isNotFound = $derived(page.status === 404);
+	import ErrorPanel from '$lib/components/ErrorPanel.svelte';
 </script>
 
 <svelte:head>
-	<title>{isNotFound ? 'Not found' : 'Something went wrong'} · Drop and Pair</title>
+	<title>{page.status === 404 ? 'Not found' : 'Something went wrong'} · Drop and Pair</title>
 	<meta name="robots" content="noindex" />
 </svelte:head>
 
-<div class="page section error">
-	<p class="eyebrow">Error {page.status}</p>
-	<h1>{isNotFound ? 'Nothing on that shelf' : 'Something went wrong'}</h1>
-
-	{#if isNotFound}
-		<p class="lede">
-			That page is not in the cellar. It may have been renamed, or it may never have existed.
-		</p>
-	{:else}
-		<p class="lede">{page.error?.message ?? 'An unexpected error occurred.'}</p>
-	{/if}
-
-	<nav aria-label="Error recovery">
-		<ul class="error__links">
-			<li><a class="button" href="/">Back to the front page</a></li>
-			<li><a class="button button--quiet" href="/rides">All rides</a></li>
-			<li><a class="button button--quiet" href="/search">Search</a></li>
-		</ul>
-	</nav>
-</div>
-
-<style>
-	.error {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-s);
-		align-items: start;
-		max-width: var(--measure);
-	}
-
-	.error__links {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-2xs);
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-</style>
+<ErrorPanel status={page.status} message={page.error?.message} />

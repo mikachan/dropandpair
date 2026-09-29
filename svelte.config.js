@@ -5,9 +5,9 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 const config = {
 	preprocess: vitePreprocess(),
 	kit: {
-		// Everything is prerendered. `fallback` gives static hosts (Cloudflare
-		// Pages, Netlify) a 404.html to serve for unknown paths.
-		adapter: adapter({ fallback: '404.html' }),
+		// Everything is prerendered. The /404 route writes build/404.html, which
+		// static hosts serve for unknown paths — see src/routes/404.
+		adapter: adapter(),
 		prerender: {
 			handleHttpError: 'fail',
 			handleMissingId: 'fail'
