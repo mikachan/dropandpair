@@ -24,6 +24,11 @@ furtherReading:
   - title: RCDB
     url: https://rcdb.com/846.htm
 pairings:
+  - pairing: the-walking-dead-tv
+    blurb: >-
+      The ride is themed on it, so this is the obvious one. Watch a few episodes
+      first and the bunker in the queue will make a lot more sense.
+    strength: 5
   - pairing: alien-1979
     blurb: >-
       Same idea, done properly slowly: a sealed building, something in the

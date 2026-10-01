@@ -20,6 +20,11 @@ furtherReading:
   - title: Efteling
     url: https://www.efteling.com/en/park/attractions/danse-macabre
 pairings:
+  - pairing: saint-saens-danse-macabre
+    blurb: >-
+      This is the music the ride dances to, in a new orchestral arrangement.
+      Listen to the original first and you will hear it coming.
+    strength: 5
   - pairing: nothing-for-ten-minutes
     blurb: >-
       Linger outside first. The story starts before the ride does, and it is

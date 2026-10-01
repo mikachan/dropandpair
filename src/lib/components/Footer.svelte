@@ -23,7 +23,7 @@
 		</nav>
 
 		<p class="colophon__small muted">
-			Pairings are opinions, not advice. Some links are affiliate links and are labelled as such.
+			Pairings are <a href="https://sekai.co.uk">opinions</a>, not advice.
 			Written by hand · © {year}
 		</p>
 	</div>

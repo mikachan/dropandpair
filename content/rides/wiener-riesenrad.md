@@ -22,6 +22,11 @@ furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/Wiener_Riesenrad
 pairings:
+  - pairing: the-third-man
+    blurb: >-
+      Its most famous scene happens on this wheel. Watch it first, and you will
+      spend your whole turn looking down at the people below.
+    strength: 5
   - pairing: the-before-trilogy
     blurb: >-
       Watch Before Sunrise first. Its couple ride this exact wheel at sunset,

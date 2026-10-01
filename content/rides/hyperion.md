@@ -22,6 +22,11 @@ furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/Hyperion_(roller_coaster)
 pairings:
+  - pairing: hyperion-dan-simmons
+    blurb: >-
+      Nothing to do with the ride's moon of Saturn, apart from the name. But it
+      is a long, strange journey into space, and so is this.
+    strength: 3
   - pairing: nothing-for-ten-minutes
     blurb: >-
       Look up at the lift hill from the queue and let it sink in. It is going

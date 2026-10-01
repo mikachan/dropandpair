@@ -23,6 +23,11 @@ furtherReading:
   - title: Intamin
     url: https://www.intamin.com/project/gold-rush/
 pairings:
+  - pairing: the-gold-rush-1925
+    blurb: >-
+      Same name, same hunt for gold, nearly a hundred years apart. Chaplin's version
+      has fewer track switches and more boot-eating.
+    strength: 4
   - pairing: an-ice-cream-you-have-to-eat-fast
     blurb: >-
       A family ride wants a family reward. Get one each and eat it while
