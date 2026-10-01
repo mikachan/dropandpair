@@ -123,8 +123,8 @@ ride page read better.
 existing word before inventing one — every vibe becomes a filter option, and
 `rattly` plus `rattling` plus `rough ride` is three filters for one idea.
 
-In use so far: `brutal`, `drenching`, `eerie`, `industrial`, `nostalgic`,
-`rattly`, `scenic`, `seaside`, `stately`, `weightless`, `whimsical`.
+In use so far: `brutal`, `dizzying`, `eerie`, `fiery`, `industrial`, `scenic`,
+`weightless`.
 
 Two or three per ride. Adjectives, lowercase, singular.
 
