@@ -1,5 +1,11 @@
 import type { z } from 'zod';
-import type { pairingSchema, parkSchema, rideSchema, rideStatsSchema } from './schemas';
+import type {
+	furtherReadingSchema,
+	pairingSchema,
+	parkSchema,
+	rideSchema,
+	rideStatsSchema
+} from './schemas';
 
 export type { PairingType, RideType } from './constants';
 
@@ -12,6 +18,7 @@ export interface ContentMeta {
 }
 
 export type RideStats = z.output<typeof rideStatsSchema>;
+export type FurtherReading = z.output<typeof furtherReadingSchema>;
 export type Ride = z.output<typeof rideSchema> & ContentMeta;
 export type Park = z.output<typeof parkSchema> & ContentMeta;
 export type Pairing = z.output<typeof pairingSchema> & ContentMeta;

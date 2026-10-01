@@ -43,6 +43,7 @@ export function makeRide(id: string, overrides: Partial<Ride> = {}): Ride {
 		vibe: ['brutal'],
 		gist: 'Mostly airtime.',
 		pairings: [],
+		furtherReading: [],
 		featured: false,
 		draft: false,
 		body: '',

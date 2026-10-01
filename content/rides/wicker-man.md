@@ -18,6 +18,11 @@ vibe:
 gist: >-
   Timber, smoke and a crowd that seems a little too pleased to see you. Moderate
   and bumpy, and the only coaster here that brings its own bonfire.
+furtherReading:
+  - title: Wikipedia
+    url: https://en.wikipedia.org/wiki/Wicker_Man_(roller_coaster)
+  - title: RCDB
+    url: https://rcdb.com/15029.htm
 pairings:
   - pairing: nothing-for-ten-minutes
     blurb: >-

@@ -75,6 +75,12 @@ export const ridePairingRefSchema = z.strictObject({
 	strength: scale
 });
 
+/** A link out to somewhere worth reading more, e.g. Wikipedia or RCDB. */
+export const furtherReadingSchema = z.strictObject({
+	title: nonEmpty,
+	url: z.url()
+});
+
 export const rideSchema = z.strictObject({
 	id: slug,
 	name: nonEmpty,
@@ -95,6 +101,7 @@ export const rideSchema = z.strictObject({
 	vibe: z.array(nonEmpty).min(1, 'needs at least one vibe'),
 	gist: nonEmpty,
 	pairings: z.array(ridePairingRefSchema).default([]),
+	furtherReading: z.array(furtherReadingSchema).default([]),
 	featured: z.boolean().default(false),
 	draft: z.boolean().default(false)
 });

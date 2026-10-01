@@ -19,6 +19,9 @@ vibe:
 gist: >-
   A huge drop with Mount Fuji somewhere behind you, while your seat spins head
   over heels on its own. Maximum intensity, bumpy, and gloriously confusing.
+furtherReading:
+  - title: Wikipedia
+    url: https://en.wikipedia.org/wiki/Eejanaika_(roller_coaster)
 pairings:
   - pairing: nothing-for-ten-minutes
     blurb: >-

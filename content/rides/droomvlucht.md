@@ -16,6 +16,9 @@ vibe:
 gist: >-
   Castles, fairies and a forest full of trolls, seen from a little cabin hanging
   in the air. Gentle, silky, and six minutes of pure daydream.
+furtherReading:
+  - title: Wikipedia
+    url: https://en.wikipedia.org/wiki/Droomvlucht
 pairings:
   - pairing: a-pot-of-tea
     blurb: >-

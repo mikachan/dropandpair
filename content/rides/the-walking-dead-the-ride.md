@@ -18,6 +18,11 @@ vibe:
 gist: >-
   A bunker, a siren and a coaster you cannot see in a building you cannot see
   out of. Mild, bumpy, and the queue does most of the scaring.
+furtherReading:
+  - title: Wikipedia
+    url: https://en.wikipedia.org/wiki/The_Walking_Dead:_The_Ride
+  - title: RCDB
+    url: https://rcdb.com/846.htm
 pairings:
   - pairing: alien-1979
     blurb: >-

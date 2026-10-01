@@ -18,6 +18,9 @@ vibe:
 gist: >-
   A slow turn, the whole of Vienna, and no hurry at all. Gentle, silky,
   and a good deal older than anything else on this list.
+furtherReading:
+  - title: Wikipedia
+    url: https://en.wikipedia.org/wiki/Wiener_Riesenrad
 pairings:
   - pairing: the-before-trilogy
     blurb: >-

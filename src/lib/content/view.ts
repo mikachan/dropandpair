@@ -1,5 +1,13 @@
 import { pairingTypesForRide, pairingsForRide, parkForRide, type ContentGraph } from './graph';
-import type { Pairing, PairingType, Park, Ride, RideStats, RideType } from './types';
+import type {
+	FurtherReading,
+	Pairing,
+	PairingType,
+	Park,
+	Ride,
+	RideStats,
+	RideType
+} from './types';
 
 /**
  * View models: the plain, serialisable shapes that load functions hand to pages.
@@ -150,6 +158,7 @@ export interface RideDetail extends RideSummary {
 	stats?: RideStats;
 	body: string;
 	pairings: RidePairingView[];
+	furtherReading: FurtherReading[];
 }
 
 export function toRideDetail(graph: ContentGraph, ride: Ride): RideDetail {
@@ -158,6 +167,7 @@ export function toRideDetail(graph: ContentGraph, ride: Ride): RideDetail {
 		manufacturer: ride.manufacturer,
 		stats: ride.stats,
 		body: ride.body,
-		pairings: toRidePairingViews(graph, ride)
+		pairings: toRidePairingViews(graph, ride),
+		furtherReading: ride.furtherReading
 	};
 }

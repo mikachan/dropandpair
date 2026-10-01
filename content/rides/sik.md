@@ -19,6 +19,11 @@ vibe:
 gist: >-
   Ten inversions in a space that looks like it holds about four. Maximum
   intensity, bumpy, and you will not know which way up you are until the brakes.
+furtherReading:
+  - title: Wikipedia
+    url: https://en.wikipedia.org/wiki/Sik_(roller_coaster)
+  - title: RCDB
+    url: https://rcdb.com/17570.htm
 pairings:
   - pairing: a-pot-of-tea
     blurb: >-

@@ -98,6 +98,9 @@ pairings:
   - pairing: alien-1979 # must match a file in content/pairings/
     blurb: Same register exactly. Watch it the same evening.
     strength: 5 # 1-5, how well it suits *this* ride
+furtherReading: # optional; links listed at the bottom of the ride page
+  - title: Wikipedia
+    url: https://en.wikipedia.org/wiki/Nemesis_Reborn
 ---
 
 The Markdown body is the long write-up, and is optional.

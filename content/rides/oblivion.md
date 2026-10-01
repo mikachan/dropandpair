@@ -15,6 +15,9 @@ vibe:
 gist: >-
   All wait and no ride: a long hold at the lip, one vertical drop into a hole
   in the ground, and it is over. Short, and completely unambiguous.
+furtherReading:
+  - title: Wikipedia
+    url: https://en.wikipedia.org/wiki/Oblivion_(roller_coaster)
 pairings:
   - pairing: nothing-for-ten-minutes
     blurb: >-

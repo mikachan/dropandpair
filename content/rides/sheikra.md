@@ -19,6 +19,9 @@ vibe:
 gist: >-
   Held face-down over the edge for four long seconds, then straight down.
   Maximum intensity, smooth, and it finishes by throwing water at the sky.
+furtherReading:
+  - title: Wikipedia
+    url: https://en.wikipedia.org/wiki/SheiKra
 pairings:
   - pairing: nothing-for-ten-minutes
     blurb: >-

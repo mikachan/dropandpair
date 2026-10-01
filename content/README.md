@@ -147,6 +147,15 @@ _wrong_ rather than merely disagreed with.
 Rides get retracked, renamed, re-profiled and closed. When something changes,
 correct the file rather than adding a note on top of the old text.
 
+## Further reading
+
+`furtherReading` is an optional list of links shown at the bottom of a ride
+page. Use it for the sources behind the facts: Wikipedia, RCDB, the park's own
+page. If you checked a fact somewhere, that is usually the link to add.
+
+Keep titles short and plain — `Wikipedia`, `RCDB` — and say so in the title if
+the page is under a different name, as with a renamed ride.
+
 ## Affiliate links
 
 `url` is optional. If it is an affiliate link, set `affiliate: true` — that

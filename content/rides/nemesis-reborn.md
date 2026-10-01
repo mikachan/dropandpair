@@ -1,6 +1,6 @@
 ---
-id: nemesis
-name: Nemesis
+id: nemesis-reborn
+name: Nemesis Reborn
 park: alton-towers
 rideType: coaster
 opened: 1994
@@ -9,6 +9,11 @@ added: 2026-09-29
 intensity: 5
 roughness: 2
 featured: true
+stats:
+  height: 13
+  speed: 81
+  length: 716
+  inversions: 4
 vibe:
   - brutal
   - scenic
@@ -16,6 +21,9 @@ vibe:
 gist: >-
   Wet rock and rusted iron, a long hang in the trees, then four seconds
   somewhere else entirely. Maximum intensity, and somehow still silky.
+furtherReading:
+  - title: Wikipedia
+    url: https://en.wikipedia.org/wiki/Nemesis_Reborn
 pairings:
   - pairing: nothing-for-ten-minutes
     blurb: >-
@@ -38,6 +46,11 @@ pairings:
       not quite fine.
     strength: 3
 ---
+
+This is the 2024 version of a 1994 original. Nemesis closed in November 2022
+for a full retrack, with most of its support columns replaced as well, and
+reopened in March 2024 as Nemesis Reborn. The layout and the manufacturer are
+the same, so the ride below is the one you remember.
 
 The trick of Nemesis is that it is built down into the ground rather than up
 into the sky, so there is no skyline shot and no gradual reveal. You queue

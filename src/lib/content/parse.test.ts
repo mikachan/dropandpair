@@ -54,6 +54,28 @@ describe('parseCollections', () => {
 		expect(entry.draft).toBe(false);
 		expect(entry.featured).toBe(false);
 		expect(entry.stats).toBeUndefined();
+		expect(entry.furtherReading).toEqual([]);
+	});
+
+	it('parses further reading links', () => {
+		const raw = validRide.replace(
+			'pairings:',
+			'furtherReading:\n  - title: Wikipedia\n    url: https://en.wikipedia.org/wiki/Nemesis\npairings:'
+		);
+		const [entry] = parseRides(ride(raw));
+
+		expect(entry.furtherReading).toEqual([
+			{ title: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Nemesis' }
+		]);
+	});
+
+	it('rejects a further reading link that is not a URL', () => {
+		const raw = validRide.replace(
+			'pairings:',
+			'furtherReading:\n  - title: Wikipedia\n    url: not a link\npairings:'
+		);
+
+		expect(() => parseRides(ride(raw))).toThrow(/furtherReading/);
 	});
 
 	it('handles a file with no body', () => {

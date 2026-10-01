@@ -18,6 +18,9 @@ vibe:
 gist: >-
   A purple hyper coaster with fire, a soundtrack and an enormous drop. Maximum
   intensity, bumpy, and it has since turned back into Superman.
+furtherReading:
+  - title: 'Wikipedia (as Superman The Ride)'
+    url: https://en.wikipedia.org/wiki/Superman_the_Ride
 pairings:
   - pairing: nothing-for-ten-minutes
     blurb: >-

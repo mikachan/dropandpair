@@ -18,6 +18,9 @@ vibe:
 gist: >-
   Nought to 180 km/h in under two seconds, launched by compressed air. Maximum
   intensity, brutal, and no longer running at all.
+furtherReading:
+  - title: 'Wikipedia (as Do-Dodonpa)'
+    url: https://en.wikipedia.org/wiki/Do-Dodonpa
 pairings:
   - pairing: nothing-for-ten-minutes
     blurb: >-

@@ -18,6 +18,9 @@ vibe:
 gist: >-
   A pleasant run through a dark forest, and then the floor stops agreeing
   with the track. Moderate, smooth, and built around one good trick.
+furtherReading:
+  - title: Wikipedia
+    url: https://en.wikipedia.org/wiki/Thirteen_(roller_coaster)
 pairings:
   - pairing: nothing-for-ten-minutes
     blurb: >-

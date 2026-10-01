@@ -14,6 +14,11 @@ vibe:
 gist: >-
   A ruined abbey, a cursed orchestra and a dance floor that refuses to sit
   still. Mild, silky, and the music is doing most of the steering.
+furtherReading:
+  - title: Wikipedia
+    url: https://en.wikipedia.org/wiki/Danse_Macabre_(Efteling)
+  - title: Efteling
+    url: https://www.efteling.com/en/park/attractions/danse-macabre
 pairings:
   - pairing: nothing-for-ten-minutes
     blurb: >-

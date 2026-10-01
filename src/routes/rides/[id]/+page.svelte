@@ -143,6 +143,18 @@
 		{/if}
 	</section>
 
+	{#if ride.furtherReading.length > 0}
+		<section class="ride__reading" aria-labelledby="reading-heading">
+			<h2 id="reading-heading">Further reading</h2>
+			<hr class="rule" />
+			<ul>
+				{#each ride.furtherReading as link (link.url)}
+					<li><a href={link.url} rel="noopener">{link.title}</a></li>
+				{/each}
+			</ul>
+		</section>
+	{/if}
+
 	<p class="ride__back"><a href="/rides">← All rides</a></p>
 </article>
 
@@ -242,6 +254,17 @@
 
 	.course:last-child {
 		margin-block-end: 0;
+	}
+
+	.ride__reading h2 + .rule {
+		margin-block: var(--space-2xs) var(--space-s);
+	}
+
+	.ride__reading ul {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-3xs);
+		padding-inline-start: var(--space-s);
 	}
 
 	.ride__back {
