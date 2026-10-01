@@ -7,12 +7,12 @@
 
 	let { data }: { data: PageData } = $props();
 
-	const all = $derived(data.courses.flatMap((course) => course.pairings));
+	const all = $derived(data.moments.flatMap((moment) => moment.pairings));
 </script>
 
 <Seo
 	title="Pairings"
-	description="Everything we pair rides with, grouped by course: before, right after, wind down, later and the rest."
+	description="Everything we pair rides with, grouped by moment: before, right after, wind down, later and the rest."
 	path="/pairings"
 	jsonLd={jsonld.graph(
 		jsonld.collection(
@@ -32,27 +32,27 @@
 		<p class="eyebrow">The list</p>
 		<h1>Pairings</h1>
 		<p class="lede">
-			{data.total} things worth putting either side of a ride, grouped by course.
+			{data.total} things worth putting either side of a ride, grouped by moment.
 		</p>
 
-		{#if data.courses.length > 1}
-			<nav aria-label="Courses">
+		{#if data.moments.length > 1}
+			<nav aria-label="Moments">
 				<ul class="tag-list">
-					{#each data.courses as course (course.type)}
-						<li><a class="jump" href="#{course.type}">{pairingTypeLabels[course.type]}</a></li>
+					{#each data.moments as moment (moment.type)}
+						<li><a class="jump" href="#{moment.type}">{pairingTypeLabels[moment.type]}</a></li>
 					{/each}
 				</ul>
 			</nav>
 		{/if}
 	</header>
 
-	{#each data.courses as course (course.type)}
-		<section class="course" id={course.type}>
-			<h2>{pairingTypeLabels[course.type]}</h2>
+	{#each data.moments as moment (moment.type)}
+		<section class="moment" id={moment.type}>
+			<h2>{pairingTypeLabels[moment.type]}</h2>
 			<hr class="rule" />
-			<p class="muted course__description">{pairingTypeDescriptions[course.type]}</p>
+			<p class="muted moment__description">{pairingTypeDescriptions[moment.type]}</p>
 			<ul class="card-grid">
-				{#each course.pairings as pairing (pairing.id)}
+				{#each moment.pairings as pairing (pairing.id)}
 					<li><PairingCard {pairing} showType={false} /></li>
 				{/each}
 			</ul>
@@ -88,16 +88,16 @@
 		border-color: var(--accent);
 	}
 
-	.course h2 + .rule {
+	.moment h2 + .rule {
 		margin-block: var(--space-2xs) var(--space-2xs);
 	}
 
 	/* Offset so an anchored heading is not tight against the viewport edge. */
-	.course {
+	.moment {
 		scroll-margin-block-start: var(--space-m);
 	}
 
-	.course__description {
+	.moment__description {
 		font-size: var(--step--1);
 		margin-block-end: var(--space-s);
 	}

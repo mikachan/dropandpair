@@ -145,7 +145,7 @@ describe('buildFacets', () => {
 	it('keeps controlled vocabularies in their canonical order, not alphabetical', () => {
 		const facets = buildFacets(rides);
 
-		// Course order: eat-and-drink, listen, watch, later.
+		// Moment order: eat-and-drink, listen, watch, later.
 		expect(facets.pairingTypes).toEqual(['eat-and-drink', 'listen', 'watch', 'later']);
 	});
 

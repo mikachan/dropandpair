@@ -96,10 +96,10 @@ The pairing's own `description` is the general case — what the thing is, for
 anyone. The `blurb` is the argument for pairing it with one ride. Don't repeat
 one in the other.
 
-## The courses
+## The moments
 
-Pairings go in courses, ordered as you would meet them. Pick the one that
-answers _when_, not _what_:
+Every pairing has a moment, and the moments are ordered as you would meet
+them. Pick the one that answers _when_, not _what_:
 
 | Type            | When                                          |
 | --------------- | --------------------------------------------- |

@@ -58,7 +58,7 @@
 		<p class="search__note">
 			Search needs JavaScript. Everything is browsable without it:
 			<a href="/rides">all rides</a>, <a href="/parks">all parks</a> and
-			<a href="/pairings">all pairings</a>, grouped by course.
+			<a href="/pairings">all pairings</a>, grouped by moment.
 		</p>
 	</noscript>
 </div>

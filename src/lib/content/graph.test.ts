@@ -117,7 +117,7 @@ describe('buildGraph reverse lookups', () => {
 		expect(ridesForPairing(graph, 'unused')).toEqual([]);
 	});
 
-	it('orders a ride pairings in course order, not like the file', () => {
+	it('orders a ride pairings in moment order, not like the file', () => {
 		const graph = buildGraph(collections, PUBLISHED);
 		const ordered = pairingsForRide(graph, graph.rideById.get('nemesis')!);
 

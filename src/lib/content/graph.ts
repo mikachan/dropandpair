@@ -176,7 +176,7 @@ export function parkForRide(graph: ContentGraph, ride: Ride): Park {
 	return park;
 }
 
-/** The distinct pairing types a ride covers, in course order. Used by the filters. */
+/** The distinct pairing types a ride covers, in moment order. Used by the filters. */
 export function pairingTypesForRide(graph: ContentGraph, ride: Ride): PairingType[] {
 	const types = new Set<PairingType>();
 	for (const ref of ride.pairings) {

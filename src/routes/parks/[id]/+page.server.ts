@@ -14,7 +14,7 @@ export const load: PageServerLoad = ({ params }) => {
 
 	/*
 	 * Every pairing used anywhere in the park, deduplicated. Because
-	 * `pairingsForRide` returns course order, walking the rides in order and
+	 * `pairingsForRide` returns moment order, walking the rides in order and
 	 * keeping first sight of each pairing gives a sensibly ordered list.
 	 */
 	const seen = new Set<string>();

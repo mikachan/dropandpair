@@ -38,7 +38,7 @@ export interface RideSummary {
 	vibe: string[];
 	gist: string;
 	park: ParkRef;
-	/** Distinct pairing types this ride covers, in course order. Drives the filters. */
+	/** Distinct pairing types this ride covers, in moment order. Drives the filters. */
 	pairingTypes: PairingType[];
 	pairingCount: number;
 	featured: boolean;

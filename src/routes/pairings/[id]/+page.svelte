@@ -31,7 +31,7 @@
 		<p><PairingBadge type={pairing.pairingType} href="/pairings#{pairing.pairingType}" /></p>
 		<h1>{pairing.title}</h1>
 		<p class="lede">{pairing.description}</p>
-		<p class="muted pairing__course">{pairingTypeDescriptions[pairing.pairingType]}</p>
+		<p class="muted pairing__moment">{pairingTypeDescriptions[pairing.pairingType]}</p>
 
 		{#if pairing.url}
 			<p>
@@ -107,7 +107,7 @@
 		gap: var(--space-2xs);
 	}
 
-	.pairing__course,
+	.pairing__moment,
 	.pairing__disclosure {
 		font-size: var(--step--1);
 		max-width: var(--measure);

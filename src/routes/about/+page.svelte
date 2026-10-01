@@ -14,7 +14,7 @@
 
 <Seo
 	title="About"
-	description="How Drop and Pair works: what the courses mean, how intensity and comfort are judged, and where the affiliate links are."
+	description="How Drop and Pair works: what the moments mean, how intensity and comfort are judged, and where the affiliate links are."
 	path="/about"
 	jsonLd={jsonld.graph(
 		jsonld.breadcrumbs([
@@ -76,13 +76,13 @@
 			<em>that</em> ride, not how good the film or the record is on its own.
 		</p>
 
-		<h2>The courses</h2>
-		<p>Pairings are grouped into courses, and read in the order you would meet them.</p>
+		<h2>The moments</h2>
+		<p>Every pairing has a moment, and they are listed in the order you would meet them.</p>
 	</div>
 
-	<dl class="courses">
+	<dl class="moments">
 		{#each PAIRING_TYPES as type (type)}
-			<div class="courses__item">
+			<div class="moments__item">
 				<dt>{pairingTypeLabels[type]}</dt>
 				<dd>{pairingTypeDescriptions[type]}</dd>
 			</div>
@@ -125,30 +125,30 @@
 	}
 
 	.glossary,
-	.courses {
+	.moments {
 		display: grid;
 		gap: var(--space-s);
 		margin: 0;
 	}
 
-	.courses {
+	.moments {
 		grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
 	}
 
-	.courses__item {
+	.moments__item {
 		padding: var(--space-s);
 		border: 1px solid var(--line);
 		border-radius: var(--radius-lg);
 		background: var(--surface);
 	}
 
-	:is(.glossary, .courses) dt {
+	:is(.glossary, .moments) dt {
 		font-family: var(--font-display);
 		font-size: var(--step-1);
 		font-weight: 600;
 	}
 
-	:is(.glossary, .courses) dd {
+	:is(.glossary, .moments) dd {
 		margin: 0;
 		color: var(--ink-muted);
 	}

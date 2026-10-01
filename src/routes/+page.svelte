@@ -49,19 +49,19 @@
 </section>
 
 <section class="page section">
-	<h2>Browse by course</h2>
+	<h2>Browse by moment</h2>
 	<hr class="rule" />
 	<p class="lede">
-		Pairings come in courses, from something before you queue to something for later, once the car
-		park has emptied.
+		Every pairing has its moment, from something before you queue to something for later, once the
+		car park has emptied.
 	</p>
-	<ul class="course-grid">
+	<ul class="moment-grid">
 		{#each data.pairingTypes as entry (entry.type)}
 			<li>
-				<a class="course" href="/pairings#{entry.type}">
-					<span class="course__name">{pairingTypeLabels[entry.type]}</span>
-					<span class="course__description muted">{pairingTypeDescriptions[entry.type]}</span>
-					<span class="course__count muted">
+				<a class="moment" href="/pairings#{entry.type}">
+					<span class="moment__name">{pairingTypeLabels[entry.type]}</span>
+					<span class="moment__description muted">{pairingTypeDescriptions[entry.type]}</span>
+					<span class="moment__count muted">
 						{entry.count} pairing{entry.count === 1 ? '' : 's'}
 					</span>
 				</a>
@@ -112,7 +112,7 @@
 		margin-block: var(--space-2xs) var(--space-m);
 	}
 
-	.course-grid {
+	.moment-grid {
 		display: grid;
 		gap: var(--space-s);
 		grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
@@ -121,7 +121,7 @@
 		margin-block-start: var(--space-m);
 	}
 
-	.course {
+	.moment {
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-3xs);
@@ -135,25 +135,25 @@
 		transition: border-color var(--transition);
 	}
 
-	.course:hover {
+	.moment:hover {
 		border-color: var(--accent);
 	}
 
-	.course__name {
+	.moment__name {
 		font-family: var(--font-display);
 		font-size: var(--step-1);
 		font-weight: 600;
 	}
 
-	.course:hover .course__name {
+	.moment:hover .moment__name {
 		color: var(--accent);
 	}
 
-	.course__description {
+	.moment__description {
 		font-size: var(--step--1);
 	}
 
-	.course__count {
+	.moment__count {
 		margin-block-start: auto;
 		padding-block-start: var(--space-2xs);
 		font-size: var(--step--2);

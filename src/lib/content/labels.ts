@@ -25,7 +25,7 @@ export const pairingTypeLabels: Record<PairingType, string> = {
 	later: 'Later'
 };
 
-/** The one-line explanation of each course, used on browse pages. */
+/** The one-line explanation of each moment, used on browse pages. */
 export const pairingTypeDescriptions: Record<PairingType, string> = {
 	before: 'Something to do before you ride.',
 	'right-after': 'Take this one straight after.',

@@ -4,14 +4,14 @@ import { toPairingSummary } from '$lib/content/view';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = () => {
-	// Grouped by course, in course order, with an anchor per group. This is the
+	// Grouped by moment, in moment order, with an anchor per group. This is the
 	// browse-by-type route, and it needs no JavaScript to work.
-	const courses = PAIRING_TYPES.map((type) => ({
+	const moments = PAIRING_TYPES.map((type) => ({
 		type,
 		pairings: graph.pairings
 			.filter((pairing) => pairing.pairingType === type)
 			.map((pairing) => toPairingSummary(graph, pairing))
-	})).filter((course) => course.pairings.length > 0);
+	})).filter((moment) => moment.pairings.length > 0);
 
-	return { courses, total: graph.pairings.length };
+	return { moments, total: graph.pairings.length };
 };

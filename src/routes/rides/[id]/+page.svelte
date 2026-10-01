@@ -19,8 +19,8 @@
 
 	const ride = $derived(data.ride);
 
-	/** Pairings arrive in course order, so consecutive runs are the groups. */
-	const courses = $derived(
+	/** Pairings arrive in moment order, so consecutive runs are the groups. */
+	const moments = $derived(
 		ride.pairings.reduce<Array<{ type: PairingType; items: RidePairingView[] }>>((groups, item) => {
 			const current = groups.at(-1);
 			if (current && current.type === item.pairing.pairingType) current.items.push(item);
@@ -118,13 +118,13 @@
 		<h2>What to have with it</h2>
 		<hr class="rule" />
 
-		{#if courses.length > 0}
-			{#each courses as course (course.type)}
-				<section class="course">
-					<h3 class="course__heading">{pairingTypeLabels[course.type]}</h3>
-					<p class="muted course__description">{pairingTypeDescriptions[course.type]}</p>
+		{#if moments.length > 0}
+			{#each moments as moment (moment.type)}
+				<section class="moment">
+					<h3 class="moment__heading">{pairingTypeLabels[moment.type]}</h3>
+					<p class="muted moment__description">{pairingTypeDescriptions[moment.type]}</p>
 					<ul class="card-grid">
-						{#each course.items as item (item.pairing.id)}
+						{#each moment.items as item (item.pairing.id)}
 							<li>
 								<PairingCard
 									pairing={item.pairing}
@@ -239,20 +239,20 @@
 		margin-block: var(--space-2xs) var(--space-m);
 	}
 
-	.course {
+	.moment {
 		margin-block-end: var(--space-l);
 	}
 
-	.course__heading {
+	.moment__heading {
 		font-size: var(--step-1);
 	}
 
-	.course__description {
+	.moment__description {
 		font-size: var(--step--1);
 		margin-block-end: var(--space-s);
 	}
 
-	.course:last-child {
+	.moment:last-child {
 		margin-block-end: 0;
 	}
 
