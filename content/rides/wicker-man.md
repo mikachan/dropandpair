@@ -24,6 +24,21 @@ furtherReading:
   - title: RCDB
     url: https://rcdb.com/15029.htm
 pairings:
+  - pairing: the-wicker-man-1973
+    blurb: >-
+      Watch it before you go. The ride shares its name and its taste for fire,
+      and the film supplies the dread to bring with you into the queue.
+    strength: 5
+  - pairing: wicker-2026
+    blurb: >-
+      The antidote. Same material, opposite mood: a wicker man who wants to be
+      loved rather than lit. Watch it if the ride has left you a little on edge.
+    strength: 3
+  - pairing: iron-maiden-the-wicker-man
+    blurb: >-
+      For the queue, loud. Its title comes from the same film the ride shares a
+      name with, and the chorus is exactly the right volume for what is coming.
+    strength: 4
   - pairing: nothing-for-ten-minutes
     blurb: >-
       The queue is half the ritual. Take it slowly and let the build-up do its

@@ -124,7 +124,7 @@ existing word before inventing one — every vibe becomes a filter option, and
 `rattly` plus `rattling` plus `rough ride` is three filters for one idea.
 
 In use so far: `brutal`, `dizzying`, `eerie`, `fiery`, `industrial`,
-`nostalgic`, `scenic`, `stately`, `weightless`, `whimsical`.
+`indoor`, `nostalgic`, `scenic`, `stately`, `weightless`, `whimsical`.
 
 Two or three per ride. Adjectives, lowercase, singular.
 
