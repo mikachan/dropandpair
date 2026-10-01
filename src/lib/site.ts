@@ -2,7 +2,7 @@
 export const site = {
 	name: 'Drop and Pair',
 	url: 'https://dropandpair.com',
-	tagline: 'Rides, and what to have with them.',
+	tagline: 'Before the queue and after the drop.',
 	description:
 		'Curated pairings for theme park rides: quick takes, and the films, records, meals and detours that belong with them.',
 	locale: 'en_GB',

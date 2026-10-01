@@ -21,8 +21,7 @@
 		<p class="eyebrow">Curated pairings for theme park rides</p>
 		<h1>{site.tagline}</h1>
 		<p class="lede">
-			Every ride gets rated for how hard it hits and how you feel walking off. We tell you what to
-			watch, eat, read and do either side of it — and which rides deserve a spa afterwards.
+			Every ride gets rated for its intensity, elements, speed, height, and the manufacturer's rep. We suggest what to watch, eat, read and do either side of it, including which rides deserve a massage afterwards.
 		</p>
 		<p class="hero__actions">
 			<a class="button" href="/rides">Browse the rides</a>

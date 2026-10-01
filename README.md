@@ -1,11 +1,8 @@
 # Drop and Pair
 
-Curated pairings for theme park rides. Every ride gets a short gist and a set
-of things worth putting either side of it: a film,
-a record, a meal, a walk, or occasionally a hot bath.
+Curated pairings for theme park rides. Every ride gets a short gist and a set of things worth putting either side of it: a film, a record, a meal, a walk, or occasionally a hot bath.
 
-A static site. Content is Markdown in this repository, validated at build time
-and prerendered to plain HTML — there is no database, no CMS and no server.
+A static site. Content is Markdown in this repository, validated at build time and prerendered to plain HTML — there is no database, no CMS and no server.
 
 ## Stack
 
