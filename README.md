@@ -21,6 +21,7 @@ and prerendered to plain HTML — there is no database, no CMS and no server.
 | Command           | What it does                                            |
 | ----------------- | ------------------------------------------------------- |
 | `npm run dev`     | Dev server. Drafts are visible.                         |
+| `npm start`       | Same as `npm run dev`.                                  |
 | `npm run build`   | Builds to `build/`, then indexes it with Pagefind.      |
 | `npm run preview` | Serves `build/` over HTTP. The only way to test search. |
 | `npm run check`   | `svelte-check` type checking.                           |
