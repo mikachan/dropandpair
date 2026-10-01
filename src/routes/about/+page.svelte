@@ -1,20 +1,14 @@
 <script lang="ts">
 	import Seo from '$lib/components/Seo.svelte';
 	import { PAIRING_TYPES } from '$lib/content/constants';
-	import {
-		comfortLabels,
-		intensityLabels,
-		pairingTypeDescriptions,
-		pairingTypeLabels,
-		strengthLabels
-	} from '$lib/content/labels';
+	import { pairingTypeDescriptions, pairingTypeLabels } from '$lib/content/labels';
 	import * as jsonld from '$lib/seo/jsonld';
 	import { site } from '$lib/site';
 </script>
 
 <Seo
 	title="About"
-	description="How Drop and Pair works: what the moments mean and how intensity and comfort are judged."
+	description="Why Drop and Pair exists, who writes it, and where the ride facts come from."
 	path="/about"
 	jsonLd={jsonld.graph(
 		jsonld.breadcrumbs([
@@ -26,58 +20,38 @@
 
 <article class="page section about" data-pagefind-body data-pagefind-meta="kind:Page">
 	<header class="about__header">
-		<p class="eyebrow">The method</p>
+		<p class="eyebrow">Hello</p>
 		<h1>About</h1>
 		<p class="lede">{site.tagline}</p>
 	</header>
 
 	<div class="prose">
 		<p>
-			Food gets pairings. Drinks get pairings. Rides, for some reason, do not — even though a
-			four-minute coaster leaves you in a very specific mood, and that mood has a right film, a
-			right record, and a right thing to eat while your hands stop shaking.
+			Getting as immersed as possible in whatever I'm doing is one of my favourite things. When I
+			travel, I'll often read up on the local folklore, or pick up a local story or bestselling
+			novel, and on the way there I'll usually have a playlist of local music on (especially local
+			rock music).
 		</p>
 		<p>
-			So: every ride here gets a quick take and a set of pairings. Some are obvious. Some exist
-			because a park was in a film, or because a ride is rough enough that the honest pairing is a
-			hot bath. All of them are opinions, written by hand by one enthusiast, and none of them are
-			sponsored placements dressed up as recommendations.
+			Rides are an easy fit for this, because so many of them are already based on a film, a book or
+			a legend. I'm also a massive fan of a well-themed ride. Wicker Man at Alton Towers is a great
+			example: there's a whole pre-show before you even get on. Drop and Pair is my way of
+			trying to give every ride that feeling, with things to read, watch or listen to in
+			anticipation, and things to do afterwards. Some rides make that easier than others!
 		</p>
 
-		<h2>How rides are described</h2>
+		<h2>About me</h2>
 		<p>
-			Two scales do most of the work, and a word for each step is more useful than a number on its
-			own.
-		</p>
-
-		<dl class="glossary">
-			<div>
-				<dt>Intensity</dt>
-				<dd>
-					How hard it hits, from {intensityLabels[1].toLowerCase()} to
-					{intensityLabels[5].toLowerCase()}. A slow dark ride is gentle; a launch coaster with no
-					let-up is maximum.
-				</dd>
-			</div>
-			<div>
-				<dt>Comfort</dt>
-				<dd>
-					How you feel walking off, from {comfortLabels[1].toLowerCase()} to
-					{comfortLabels[5].toLowerCase()}. This is about roughness, not intensity: a ride can be
-					enormous and still silky, or mild and still rattle your teeth.
-				</dd>
-			</div>
-		</dl>
-
-		<p>
-			Each pairing also carries a match rating, from
-			<em>{strengthLabels[1].toLowerCase()}</em> up to a
-			<em>{strengthLabels[5].toLowerCase()}</em>. That rating is about how well the pairing suits
-			<em>that</em> ride, not how good the film or the record is on its own.
+			I'm a coaster nerd and a software engineer. My favourite park is Alton Towers, and my
+			favourite rides include Wicker Man at Alton Towers, Zadra at Energylandia and Helios at
+			Fantasiana.
 		</p>
 
 		<h2>The moments</h2>
-		<p>Every pairing has a moment, and they are listed in the order you would meet them.</p>
+		<p>
+			Every pairing has a moment. They're listed in the order you'd likely want to experience them,
+			from before you queue to after you've left the park.
+		</p>
 	</div>
 
 	<dl class="moments">
@@ -90,21 +64,25 @@
 	</dl>
 
 	<div class="prose">
-		<h2>Honesty</h2>
+		<h2>Thank you</h2>
 		<p>
-			Nothing is listed here because someone paid for it. Pairings are chosen first, and links are
-			added afterwards, if they exist at all.
+			The ride facts and stats here come from some brilliant resources, and I'm really grateful to
+			everyone who keeps them going:
 		</p>
-		<p>
-			This is a static site: plain HTML and CSS, written in Markdown, built from a Git repository.
-		</p>
+		<ul>
+			<li>
+				<a href="https://rcdb.com" rel="noopener">RCDB</a>, the Roller Coaster DataBase, for most of
+				the coaster stats and opening dates
+			</li>
+			<li>
+				<a href="https://darkridedatabase.com" rel="noopener">the Dark Ride Database</a>, for the
+				dark rides
+			</li>
 
-		<h2>Corrections</h2>
-		<p>
-			Ride statistics and opening years get misremembered, re-profiled and quietly changed. If
-			something here is wrong, it is worth telling me, and it will be fixed in the repository rather
-			than patched over.
-		</p>
+			<li>Wikipedia and YouTube, for ride histories, and for the films, books and music</li>
+			<li>the parks' own websites and local tourist boards</li>
+		</ul>
+		<p>Every ride page links to the sources used for it, under Further reading.</p>
 	</div>
 </article>
 
@@ -122,14 +100,10 @@
 		gap: var(--space-2xs);
 	}
 
-	.glossary,
 	.moments {
 		display: grid;
 		gap: var(--space-s);
 		margin: 0;
-	}
-
-	.moments {
 		grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
 	}
 
@@ -140,20 +114,14 @@
 		background: var(--surface);
 	}
 
-	:is(.glossary, .moments) dt {
+	.moments dt {
 		font-family: var(--font-display);
 		font-size: var(--step-1);
 		font-weight: 600;
 	}
 
-	:is(.glossary, .moments) dd {
+	.moments dd {
 		margin: 0;
 		color: var(--ink-muted);
-	}
-
-	.glossary {
-		max-width: var(--measure);
-		padding-inline-start: var(--space-s);
-		border-inline-start: 3px double var(--line-strong);
 	}
 </style>
