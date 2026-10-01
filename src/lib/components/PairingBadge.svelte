@@ -20,12 +20,12 @@
 <style>
 	.badge {
 		display: inline-block;
-		padding: 0.15em 0.6em;
-		border: 1px solid var(--line-strong);
-		border-radius: var(--radius-pill);
+		padding: 0.1em 0.5em;
+		border: 2px solid currentColor;
+		border-radius: 3px;
 		color: var(--gold);
 		font-size: var(--step--2);
-		font-weight: 600;
+		font-weight: 700;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
 		white-space: nowrap;

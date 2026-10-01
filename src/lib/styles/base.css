@@ -51,16 +51,22 @@ svg {
 	height: auto;
 }
 
-/* Display type: serif, tight, and never wider than it reads well. */
+/* Display type: chunky slab, tight, and never wider than it reads well. */
 h1,
 h2,
 h3,
 h4 {
 	font-family: var(--font-display);
-	font-weight: 600;
+	font-weight: 700;
 	line-height: 1.12;
-	letter-spacing: -0.015em;
+	letter-spacing: -0.01em;
 	text-wrap: balance;
+}
+
+/* Section headings, the ones sitting on a rule, read like poster billing. */
+h2:has(+ .rule) {
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
 }
 
 h1 {
@@ -165,14 +171,20 @@ textarea {
 	margin-block-start: 0;
 }
 
-/* Small letterspaced label, the "appellation" line above a heading. */
+/* Small letterspaced label above a heading, billed between stars. */
 .eyebrow {
 	font-family: var(--font-body);
 	font-size: var(--step--2);
-	font-weight: 600;
+	font-weight: 700;
 	letter-spacing: 0.12em;
 	text-transform: uppercase;
 	color: var(--ink-muted);
+}
+
+.eyebrow::before {
+	content: '★ ';
+	content: '★ ' / '';
+	color: var(--accent);
 }
 
 .lede {
@@ -185,10 +197,61 @@ textarea {
 	color: var(--ink-muted);
 }
 
-/* A double rule, used under section headings. */
+/* A zig-zag ribbon, used under section headings. */
 .rule {
+	block-size: 8px;
 	border: 0;
-	border-top: 3px double var(--line-strong);
+	background:
+		linear-gradient(135deg, var(--accent) 25%, transparent 25%) -6px 0 / 12px 8px repeat-x,
+		linear-gradient(225deg, var(--accent) 25%, transparent 25%) -6px 0 / 12px 8px repeat-x;
+}
+
+/*
+ * Bunting: a string of triangular flags in three colours. Pure decoration,
+ * drawn with gradients on an empty element or pseudo-element.
+ */
+.bunting {
+	block-size: 22px;
+	background:
+		linear-gradient(to bottom, var(--line-strong) 2px, transparent 2px),
+		conic-gradient(from -30deg at 50% 100%, var(--flag-a) 60deg, transparent 60deg) 0 0 / 72px 20px
+			repeat-x,
+		conic-gradient(from -30deg at 50% 100%, var(--flag-b) 60deg, transparent 60deg) 24px 0 / 72px
+			20px repeat-x,
+		conic-gradient(from -30deg at 50% 100%, var(--flag-c) 60deg, transparent 60deg) 48px 0 / 72px
+			20px repeat-x;
+}
+
+/*
+ * A ticket: notched corners cut out with a mask, and a perforated line that
+ * any child marked .ticket__stub sits below.
+ */
+.ticket {
+	--notch: 10px;
+	position: relative;
+	border: 1px solid var(--line-strong);
+	border-radius: var(--radius);
+	background: var(--surface);
+	box-shadow: var(--shadow);
+	mask:
+		radial-gradient(circle var(--notch) at 0 0, transparent 98%, #000) top left,
+		radial-gradient(circle var(--notch) at 100% 0, transparent 98%, #000) top right,
+		radial-gradient(circle var(--notch) at 0 100%, transparent 98%, #000) bottom left,
+		radial-gradient(circle var(--notch) at 100% 100%, transparent 98%, #000) bottom right;
+	mask-size: 51% 51%;
+	mask-repeat: no-repeat;
+	transition: transform var(--transition);
+}
+
+.ticket:hover {
+	transform: rotate(-0.6deg) translateY(-2px);
+}
+
+/* Scoped under .ticket so it beats list resets like .tag-list. */
+.ticket .ticket__stub {
+	margin-block-start: auto;
+	padding-block-start: var(--space-s);
+	border-block-start: 2px dashed var(--line-strong);
 }
 
 .card-grid {
@@ -211,36 +274,45 @@ textarea {
 
 .button {
 	display: inline-block;
-	padding: var(--space-2xs) var(--space-s);
-	border: 1px solid var(--accent);
+	/*
+	 * All-caps labels have no descenders, so a normal line box leaves more room
+	 * below the text than above it. Trimming to the cap height makes equal
+	 * padding look equal; browsers without text-box fall back to line-height 1.
+	 */
+	padding: 0.8em 1.4em;
+	line-height: 1;
+	text-box: trim-both cap alphabetic;
+	border: 2px solid var(--ink);
 	border-radius: var(--radius);
 	background: var(--accent);
+	box-shadow: 4px 4px 0 var(--offset-colour);
 	color: var(--accent-contrast);
-	font-weight: 600;
-	font-size: var(--step--1);
+	font-family: var(--font-display);
+	font-weight: 700;
+	font-size: var(--step-0);
+	letter-spacing: 0.04em;
 	text-decoration: none;
+	text-transform: uppercase;
 	cursor: pointer;
 	transition:
-		background var(--transition),
-		color var(--transition);
+		transform var(--transition),
+		box-shadow var(--transition);
 }
 
 .button:hover {
-	background: transparent;
-	color: var(--accent);
+	transform: translate(-1px, -1px);
+	box-shadow: 5px 5px 0 var(--offset-colour);
 	text-decoration: none;
 }
 
-.button--quiet {
-	background: transparent;
-	color: var(--accent);
-	border-color: var(--line-strong);
+.button:active {
+	transform: translate(4px, 4px);
+	box-shadow: 0 0 0 var(--offset-colour);
 }
 
-.button--quiet:hover {
-	background: var(--accent);
-	color: var(--accent-contrast);
-	border-color: var(--accent);
+.button--quiet {
+	background: var(--surface);
+	color: var(--ink);
 }
 
 /*

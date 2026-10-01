@@ -48,22 +48,24 @@
 		color: var(--ink-muted);
 	}
 
+	/* Marquee bulbs: lit ones glow, unlit ones are just the empty socket. */
 	.meter__pips {
 		grid-column: 2;
 		display: flex;
-		gap: 3px;
+		gap: 5px;
 	}
 
 	.meter__pip {
-		inline-size: 0.7rem;
-		block-size: 0.7rem;
-		border: 1px solid var(--line-strong);
+		inline-size: 0.8rem;
+		block-size: 0.8rem;
+		border: 2px solid var(--line-strong);
 		border-radius: 50%;
 	}
 
 	.meter__pip.is-filled {
-		background: var(--accent);
-		border-color: var(--accent);
+		background: radial-gradient(circle at 35% 35%, #fff8 0 20%, var(--bulb) 45%);
+		border-color: var(--gold);
+		box-shadow: 0 0 6px 1px var(--bulb-glow);
 	}
 
 	.meter__text {

@@ -17,7 +17,7 @@
 	let { pairing, blurb, strength, showType = true, headingLevel = 3 }: Props = $props();
 </script>
 
-<article class="pairing-card">
+<article class="pairing-card ticket">
 	{#if pairing.image}
 		<!-- Images are optional everywhere; the card is designed to work without one. -->
 		<img class="pairing-card__image" src={pairing.image} alt="" loading="lazy" decoding="async" />
@@ -34,7 +34,7 @@
 
 		<p class="pairing-card__note">{blurb ?? pairing.description}</p>
 
-		<p class="pairing-card__meta muted">
+		<p class="pairing-card__meta muted ticket__stub">
 			{#if strength !== undefined}
 				<span>{strengthLabel(strength)}</span>
 				<span aria-hidden="true"> · </span>
@@ -44,12 +44,8 @@
 			</span>
 			{#if pairing.url}
 				<span aria-hidden="true"> · </span>
-				<a
-					class="pairing-card__link"
-					href={pairing.url}
-					rel={pairing.affiliate ? 'nofollow sponsored noopener' : 'noopener'}
-				>
-					{pairing.affiliate ? 'Buy (affiliate)' : 'Find it'}
+				<a class="pairing-card__link" href={pairing.url} rel="noopener">
+					Find it
 					<span class="visually-hidden">— opens {new URL(pairing.url).hostname}</span>
 				</a>
 			{/if}
@@ -66,10 +62,6 @@
 		display: flex;
 		flex-direction: column;
 		block-size: 100%;
-		border: 1px solid var(--line);
-		border-radius: var(--radius-lg);
-		background: var(--surface);
-		box-shadow: var(--shadow);
 		overflow: hidden;
 	}
 
@@ -85,7 +77,7 @@
 		flex-direction: column;
 		gap: var(--space-2xs);
 		flex: 1;
-		padding: var(--space-s);
+		padding: var(--space-s) var(--space-m);
 	}
 
 	.pairing-card__title {
@@ -107,8 +99,6 @@
 	}
 
 	.pairing-card__meta {
-		margin-block-start: auto;
-		padding-block-start: var(--space-3xs);
 		font-size: var(--step--1);
 	}
 </style>

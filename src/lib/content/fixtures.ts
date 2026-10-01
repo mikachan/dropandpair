@@ -22,7 +22,6 @@ export function makePairing(id: string, overrides: Partial<Pairing> = {}): Pairi
 		title: id,
 		pairingType: 'watch',
 		description: 'A description.',
-		affiliate: false,
 		draft: false,
 		body: '',
 		sourcePath: `content/pairings/${id}.md`,

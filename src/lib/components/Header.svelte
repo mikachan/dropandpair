@@ -44,11 +44,11 @@
 			</ul>
 		</nav>
 	</div>
+	<div class="bunting" aria-hidden="true"></div>
 </header>
 
 <style>
 	.masthead {
-		border-block-end: 3px double var(--line-strong);
 		background: color-mix(in srgb, var(--surface) 70%, transparent);
 	}
 
@@ -82,10 +82,11 @@
 
 	.brand__name {
 		font-family: var(--font-display);
-		font-size: var(--step-1);
-		font-weight: 600;
+		font-size: var(--step-2);
+		font-weight: 700;
 		line-height: 1.05;
-		letter-spacing: -0.01em;
+		letter-spacing: 0.02em;
+		text-transform: uppercase;
 	}
 
 	.brand__tagline {
@@ -111,7 +112,7 @@
 		padding-block: var(--space-3xs);
 		color: var(--ink);
 		text-decoration: none;
-		border-block-end: 2px solid transparent;
+		border-block-end: 3px solid transparent;
 	}
 
 	.masthead__nav a:hover {

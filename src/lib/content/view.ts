@@ -52,7 +52,6 @@ export interface PairingSummary {
 	pairingType: PairingType;
 	description: string;
 	url?: string;
-	affiliate: boolean;
 	image?: string;
 	rideCount: number;
 	draft: boolean;
@@ -103,7 +102,6 @@ export function toPairingSummary(graph: ContentGraph, pairing: Pairing): Pairing
 		pairingType: pairing.pairingType,
 		description: pairing.description,
 		url: pairing.url,
-		affiliate: pairing.affiliate,
 		image: pairing.image,
 		rideCount: graph.ridesByPairing.get(pairing.id)?.length ?? 0,
 		draft: pairing.draft

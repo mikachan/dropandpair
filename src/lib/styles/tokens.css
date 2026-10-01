@@ -1,23 +1,25 @@
 /*
  * Design tokens.
  *
- * Fairground signage meets the printed programme: a confident serif for display type, a
- * clean sans for reading, warm paper, one strong accent.
+ * A fairground poster: cream paper, circus red, deep navy and a little gold.
+ * Chunky slab lettering for display type, a clean sans for reading.
  *
  * Every colour pair used for text meets WCAG AA (4.5:1) in both schemes, and
  * the focus ring clears 3:1 against both backgrounds. If you change a colour,
- * re-check it.
+ * re-check it. The bunting, stripe and bulb colours are decoration only and
+ * never carry text.
  *
  * Fonts are system stacks on purpose — no network request, no build step, and
- * good character on every platform. To self-host a display serif later, that is
- * a one-line change to --font-display plus an @font-face rule.
+ * good character on every platform. Rockwell ships with macOS and Windows; other
+ * platforms fall back to a serif. To self-host a display face later, that is a
+ * one-line change to --font-display plus an @font-face rule.
  */
 
 :root {
 	color-scheme: light dark;
 
 	--font-display:
-		ui-serif, 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+		Rockwell, 'Rockwell Nova', 'Roboto Slab', 'DejaVu Serif', ui-serif, Georgia, serif;
 	--font-body:
 		ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 	--font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -45,40 +47,59 @@
 	--page-max: 74rem;
 
 	--radius: 4px;
-	--radius-lg: 10px;
+	--radius-lg: 8px;
 	--radius-pill: 999px;
 
 	--transition: 160ms ease;
 
-	/* Light: warm paper and a deep vermilion. */
-	--paper: #f6efe2;
-	--surface: #fdf9f1;
-	--ink: #1f1c19;
-	--ink-muted: #5a5249;
-	--accent: #b3301b;
-	--accent-contrast: #fdf9f1;
-	--accent-wash: #f1ddd5;
-	--gold: #82590f;
-	--line: #ded2bd;
-	--line-strong: #c4b498;
-	--shadow: 0 1px 2px rgb(31 28 25 / 0.06), 0 6px 18px -12px rgb(31 28 25 / 0.3);
+	/* Light: cream paper, circus red and deep navy. */
+	--paper: #f6ecd6;
+	--surface: #fffaf0;
+	--ink: #1b2340;
+	--ink-muted: #4a5170;
+	--accent: #b8251a;
+	--accent-contrast: #fffaf0;
+	--accent-wash: #f3dcc8;
+	--gold: #7d5200;
+	--line: #e3d3b0;
+	--line-strong: #c9b285;
+	--shadow: 0 1px 2px rgb(27 35 64 / 0.08), 0 6px 18px -12px rgb(27 35 64 / 0.35);
+	--offset-colour: var(--ink);
 	--grain-opacity: 0.055;
+
+	/* Decoration only: bunting flags, hero stripes and marquee bulbs. */
+	--flag-a: #b8251a;
+	--flag-b: #1b2a5c;
+	--flag-c: #e8b23a;
+	--stripe: #e9cfc0;
+	--bulb: #f2c35b;
+	--bulb-glow: rgb(242 195 91 / 0.55);
+	--bulb-off: #e3d3b0;
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		/* Dark: late-evening aubergine and a lit coral. */
-		--paper: #15141b;
-		--surface: #1e1c26;
-		--ink: #f2ece1;
-		--ink-muted: #b3a999;
-		--accent: #ff7a5c;
-		--accent-contrast: #15141b;
-		--accent-wash: #2f2028;
-		--gold: #e0b45e;
-		--line: #332f3d;
-		--line-strong: #4a4557;
+		/* Dark: the fairground after dark, navy night and lit bulbs. */
+		--paper: #0f1630;
+		--surface: #18213f;
+		--ink: #f6ecd6;
+		--ink-muted: #b9b4c6;
+		--accent: #ff7262;
+		--accent-contrast: #0f1630;
+		--accent-wash: #241a3a;
+		--gold: #f2c35b;
+		--line: #2a3560;
+		--line-strong: #40508a;
 		--shadow: 0 1px 2px rgb(0 0 0 / 0.5), 0 10px 24px -14px rgb(0 0 0 / 0.85);
+		--offset-colour: #050a1c;
 		--grain-opacity: 0.04;
+
+		--flag-a: #ff7262;
+		--flag-b: #f6ecd6;
+		--flag-c: #f2c35b;
+		--stripe: #1d2850;
+		--bulb: #ffd36b;
+		--bulb-glow: rgb(255 211 107 / 0.6);
+		--bulb-off: #2a3560;
 	}
 }

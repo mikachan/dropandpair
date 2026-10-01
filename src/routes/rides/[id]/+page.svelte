@@ -69,7 +69,7 @@
 	</header>
 
 	<!-- The label: the gist, the meters and the facts at a glance. -->
-	<section class="label" aria-labelledby="label-heading">
+	<section class="label ticket" aria-labelledby="label-heading">
 		<h2 class="visually-hidden" id="label-heading">The gist</h2>
 		<p class="label__note">{ride.gist}</p>
 
@@ -115,7 +115,7 @@
 	{/if}
 
 	<section class="ride__pairings">
-		<h2>What to have with it</h2>
+		<h2>What goes with it</h2>
 		<hr class="rule" />
 
 		{#if moments.length > 0}
@@ -176,11 +176,12 @@
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-m);
-		padding: var(--space-m);
-		border: 1px solid var(--line-strong);
-		border-radius: var(--radius-lg);
-		background: var(--surface);
-		box-shadow: var(--shadow);
+		padding: var(--space-m) var(--space-l);
+	}
+
+	/* A big ticket should not wobble like a small one. */
+	.label.ticket:hover {
+		transform: none;
 	}
 
 	.label__note {
@@ -196,7 +197,7 @@
 		gap: var(--space-m);
 		grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
 		padding-block: var(--space-s);
-		border-block: 3px double var(--line-strong);
+		border-block: 2px dashed var(--line-strong);
 	}
 
 	.label__facts {

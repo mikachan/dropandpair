@@ -180,6 +180,5 @@ image: /images/poster.jpg
 		});
 
 		expect(pairings[0].image).toBe('/images/poster.jpg');
-		expect(pairings[0].affiliate).toBe(false);
 	});
 });

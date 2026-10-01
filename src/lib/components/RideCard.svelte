@@ -12,7 +12,7 @@
 	let { ride, headingLevel = 3 }: Props = $props();
 </script>
 
-<article class="ride-card">
+<article class="ride-card ticket">
 	<p class="eyebrow">{rideTypeLabels[ride.rideType]} · {ride.opened}</p>
 
 	<svelte:element this={`h${headingLevel}`} class="ride-card__name">
@@ -34,7 +34,7 @@
 	</p>
 
 	{#if ride.pairingTypes.length > 0}
-		<ul class="tag-list">
+		<ul class="tag-list ticket__stub">
 			{#each ride.pairingTypes as type (type)}
 				<li><PairingBadge {type} /></li>
 			{/each}
@@ -52,11 +52,7 @@
 		flex-direction: column;
 		gap: var(--space-2xs);
 		block-size: 100%;
-		padding: var(--space-s);
-		border: 1px solid var(--line);
-		border-radius: var(--radius-lg);
-		background: var(--surface);
-		box-shadow: var(--shadow);
+		padding: var(--space-s) var(--space-m);
 	}
 
 	.ride-card__name {
@@ -83,16 +79,9 @@
 		font-size: var(--step-0);
 		font-style: italic;
 		padding-block: var(--space-3xs);
-		border-block: 1px solid var(--line);
 	}
 
 	.ride-card__body {
 		font-size: var(--step--1);
-	}
-
-	/* Push the badges to the bottom so cards in a row line up. */
-	.tag-list {
-		margin-block-start: auto;
-		padding-block-start: var(--space-3xs);
 	}
 </style>

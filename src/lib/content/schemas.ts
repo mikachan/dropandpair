@@ -47,7 +47,6 @@ export const pairingSchema = z.strictObject({
 	pairingType: z.enum(PAIRING_TYPES),
 	description: nonEmpty,
 	url: z.url().optional(),
-	affiliate: z.boolean().default(false),
 	image: z
 		.string()
 		.refine(

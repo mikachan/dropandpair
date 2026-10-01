@@ -14,7 +14,7 @@
 
 <Seo
 	title="About"
-	description="How Drop and Pair works: what the moments mean, how intensity and comfort are judged, and where the affiliate links are."
+	description="How Drop and Pair works: what the moments mean and how intensity and comfort are judged."
 	path="/about"
 	jsonLd={jsonld.graph(
 		jsonld.breadcrumbs([
@@ -90,12 +90,10 @@
 	</dl>
 
 	<div class="prose">
-		<h2>Affiliate links and honesty</h2>
+		<h2>Honesty</h2>
 		<p>
-			Some outbound links are affiliate links. Every one of them is labelled on the page, and marked
-			up as sponsored so search engines know too. Nothing is listed here because it pays; pairings
-			are chosen first and links added afterwards, if they exist at all. If that ever stops being
-			true, this paragraph will change.
+			Nothing is listed here because someone paid for it. Pairings are chosen first, and links are
+			added afterwards, if they exist at all.
 		</p>
 		<p>
 			This is a static site: plain HTML and CSS, written in Markdown, built from a Git repository.

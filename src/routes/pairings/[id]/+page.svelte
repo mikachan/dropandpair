@@ -35,20 +35,8 @@
 
 		{#if pairing.url}
 			<p>
-				<a
-					class="button button--quiet"
-					href={pairing.url}
-					rel={pairing.affiliate ? 'nofollow sponsored noopener' : 'noopener'}
-				>
-					{pairing.affiliate ? 'Buy it (affiliate link)' : 'Find it'}
-				</a>
+				<a class="button button--quiet" href={pairing.url} rel="noopener"> Find it </a>
 			</p>
-			{#if pairing.affiliate}
-				<p class="muted pairing__disclosure">
-					That is an affiliate link: if you buy through it we may earn a small commission, at no
-					cost to you. It makes no difference to whether something is listed here.
-				</p>
-			{/if}
 		{/if}
 
 		{#if pairing.draft}
@@ -107,8 +95,7 @@
 		gap: var(--space-2xs);
 	}
 
-	.pairing__moment,
-	.pairing__disclosure {
+	.pairing__moment {
 		font-size: var(--step--1);
 		max-width: var(--measure);
 	}

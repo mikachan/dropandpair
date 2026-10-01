@@ -131,7 +131,6 @@ pairingType:
 description: >-
   Ninety per cent waiting, ten per cent consequence, and every frame damp.
 url: https://example.com/somewhere # optional
-affiliate: false # optional; true labels the link
 image: /images/poster.jpg # optional; local paths only
 draft: false # optional
 ---

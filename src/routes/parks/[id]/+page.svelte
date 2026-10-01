@@ -12,7 +12,7 @@
 
 <Seo
 	title="{park.name}, {park.country}"
-	description="The rides we have tried at {park.name}, and what to have with them."
+	description="The rides we have tried at {park.name}, and what goes with them."
 	path="/parks/{park.id}"
 	jsonLd={jsonld.graph(
 		jsonld.amusementPark(park, data.rides.length),

@@ -17,7 +17,7 @@
 />
 
 <section class="hero">
-	<div class="page hero__inner">
+	<div class="page hero__inner marquee">
 		<p class="eyebrow">Curated pairings for theme park rides</p>
 		<h1>{site.tagline}</h1>
 		<p class="lede">
@@ -59,10 +59,10 @@
 	<ul class="moment-grid">
 		{#each data.pairingTypes as entry (entry.type)}
 			<li>
-				<a class="moment" href="/pairings#{entry.type}">
+				<a class="moment ticket" href="/pairings#{entry.type}">
 					<span class="moment__name">{pairingTypeLabels[entry.type]}</span>
 					<span class="moment__description muted">{pairingTypeDescriptions[entry.type]}</span>
-					<span class="moment__count muted">
+					<span class="moment__count muted ticket__stub">
 						{entry.count} pairing{entry.count === 1 ? '' : 's'}
 					</span>
 				</a>
@@ -72,23 +72,54 @@
 </section>
 
 <style>
+	/* Big-top stripes behind a solid poster panel, so the text never sits on them. */
 	.hero {
-		border-block-end: 1px solid var(--line);
-		background: var(--accent-wash);
+		padding: var(--space-xl) var(--space-s);
+		background: repeating-linear-gradient(90deg, var(--stripe) 0 2.5rem, var(--paper) 2.5rem 5rem);
 	}
 
 	.hero__inner {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-s);
-		padding-block: var(--space-xl);
-		max-width: 52rem;
+		gap: var(--space-m);
+		/* Keep the text well clear of the marquee bulbs, without crowding phones. */
+		padding: var(--space-xl) clamp(var(--space-l), 6vw, var(--space-2xl));
+		max-width: 56rem;
 		margin-inline: auto;
+		border: 3px solid var(--ink);
+		border-radius: var(--radius-lg);
+		background: var(--surface);
+		box-shadow: 6px 6px 0 var(--offset-colour);
 		text-align: center;
 	}
 
+	/*
+	 * Marquee bulbs round the panel: a dotted ring of light drawn on an inset
+	 * pseudo-element, so it adds nothing to the accessibility tree.
+	 */
+	.marquee {
+		position: relative;
+	}
+
+	.marquee::before {
+		content: '';
+		position: absolute;
+		inset: 8px;
+		border-radius: calc(var(--radius-lg) - 2px);
+		pointer-events: none;
+		background:
+			radial-gradient(circle, var(--bulb) 3px, transparent 3.5px) 0 0 / 22px 22px repeat-x,
+			radial-gradient(circle, var(--bulb) 3px, transparent 3.5px) 0 100% / 22px 22px repeat-x,
+			radial-gradient(circle, var(--bulb) 3px, transparent 3.5px) 0 0 / 22px 22px repeat-y,
+			radial-gradient(circle, var(--bulb) 3px, transparent 3.5px) 100% 0 / 22px 22px repeat-y;
+		filter: drop-shadow(0 0 3px var(--bulb-glow));
+	}
+
 	.hero h1 {
-		font-style: italic;
+		font-size: var(--step-4);
+		letter-spacing: 0.02em;
+		text-transform: uppercase;
+		color: var(--accent);
 	}
 
 	.hero .lede {
@@ -99,7 +130,7 @@
 	.hero__actions {
 		display: flex;
 		flex-wrap: wrap;
-		gap: var(--space-2xs);
+		gap: var(--space-s);
 		justify-content: center;
 	}
 
@@ -127,13 +158,9 @@
 		flex-direction: column;
 		gap: var(--space-3xs);
 		block-size: 100%;
-		padding: var(--space-s);
-		border: 1px solid var(--line);
-		border-radius: var(--radius-lg);
-		background: var(--surface);
+		padding: var(--space-s) var(--space-m);
 		color: var(--ink);
 		text-decoration: none;
-		transition: border-color var(--transition);
 	}
 
 	.moment:hover {
@@ -155,8 +182,6 @@
 	}
 
 	.moment__count {
-		margin-block-start: auto;
-		padding-block-start: var(--space-2xs);
 		font-size: var(--step--2);
 		letter-spacing: 0.08em;
 		text-transform: uppercase;

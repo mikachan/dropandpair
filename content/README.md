@@ -156,11 +156,7 @@ page. If you checked a fact somewhere, that is usually the link to add.
 Keep titles short and plain — `Wikipedia`, `RCDB` — and say so in the title if
 the page is under a different name, as with a renamed ride.
 
-## Affiliate links
+## Links
 
-`url` is optional. If it is an affiliate link, set `affiliate: true` — that
-labels it in the UI and marks it `rel="nofollow sponsored"`. Never set an
-affiliate link without the flag.
-
-Choose the pairing first and look for a link afterwards. A pairing that exists
+`url` is optional, and shows as a "Find it" link. Choose the pairing first and look for a link afterwards. A pairing that exists
 because it has a link available is the thing this site is not for.

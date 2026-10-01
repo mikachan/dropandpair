@@ -5,6 +5,7 @@
 </script>
 
 <footer class="colophon">
+	<div class="bunting" aria-hidden="true"></div>
 	<div class="page colophon__inner">
 		<div class="colophon__block">
 			<p class="colophon__brand">{site.name}</p>
@@ -23,8 +24,7 @@
 		</nav>
 
 		<p class="colophon__small muted">
-			Pairings are <a href="https://sekai.co.uk">opinions</a>, not advice.
-			Written by hand · © {year}
+			Pairings are <a href="https://sekai.co.uk">opinions</a>, not advice. Written by hand · © {year}
 		</p>
 	</div>
 </footer>
@@ -32,7 +32,6 @@
 <style>
 	.colophon {
 		margin-block-start: auto;
-		border-block-start: 3px double var(--line-strong);
 		background: color-mix(in srgb, var(--surface) 70%, transparent);
 	}
 
@@ -46,7 +45,9 @@
 	.colophon__brand {
 		font-family: var(--font-display);
 		font-size: var(--step-1);
-		font-weight: 600;
+		font-weight: 700;
+		letter-spacing: 0.02em;
+		text-transform: uppercase;
 	}
 
 	.colophon__nav {
