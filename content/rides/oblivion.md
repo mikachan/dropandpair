@@ -8,7 +8,6 @@ manufacturer: Bolliger & Mabillard
 added: 2026-09-27
 intensity: 4
 roughness: 2
-featured: true
 vibe:
   - brutal
   - industrial

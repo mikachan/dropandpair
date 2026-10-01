@@ -8,6 +8,7 @@ manufacturer: Great Coasters International
 added: 2026-10-01
 intensity: 3
 roughness: 3
+featured: true
 stats:
   speed: 70
   length: 795
