@@ -21,11 +21,11 @@
 		<p class="eyebrow">Curated pairings for theme park rides</p>
 		<h1>{site.tagline}</h1>
 		<p class="lede">
-			Every ride has a body, a finish and a vintage. We tell you what to watch, eat, read and do
-			either side of it — and which rides deserve a spa afterwards.
+			Every ride gets rated for how hard it hits and how you feel walking off. We tell you what to
+			watch, eat, read and do either side of it — and which rides deserve a spa afterwards.
 		</p>
 		<p class="hero__actions">
-			<a class="button" href="/rides">Browse the cellar</a>
+			<a class="button" href="/rides">Browse the rides</a>
 			<a class="button button--quiet" href="/about">How this works</a>
 		</p>
 		<p class="hero__stats muted">
@@ -35,7 +35,7 @@
 </section>
 
 <section class="page section">
-	<h2>On the shelf</h2>
+	<h2>Worth a ride</h2>
 	<hr class="rule" />
 	{#if data.featured.length > 0}
 		<ul class="card-grid">
@@ -44,7 +44,7 @@
 			{/each}
 		</ul>
 	{:else}
-		<p class="muted">The cellar is empty. Add a ride in <code>content/rides/</code>.</p>
+		<p class="muted">The list is empty. Add a ride in <code>content/rides/</code>.</p>
 	{/if}
 </section>
 
@@ -52,8 +52,8 @@
 	<h2>Browse by course</h2>
 	<hr class="rule" />
 	<p class="lede">
-		Pairings come in courses, from an aperitif before you queue to a nightcap once the car park has
-		emptied.
+		Pairings come in courses, from something before you queue to something for later, once the car
+		park has emptied.
 	</p>
 	<ul class="course-grid">
 		{#each data.pairingTypes as entry (entry.type)}

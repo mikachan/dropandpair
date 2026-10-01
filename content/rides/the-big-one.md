@@ -14,9 +14,9 @@ vibe:
   - seaside
   - rattly
   - scenic
-tastingNote: >-
+gist: >-
   Salt air, cold steel and a lift hill long enough to have second thoughts on.
-  Full-bodied, coarse finish, unmistakably of its vintage.
+  Strong, rough, and unmistakably of its era.
 pairings:
   - pairing: fish-and-chips-on-the-prom
     blurb: >-
@@ -43,8 +43,8 @@ directly beneath you.
 
 Then it turns you round and hands you back down.
 
-It is not a smooth ride and it does not pretend to be. The finish is coarse
-in the way that a much-loved pub chair is coarse: this is thirty years of
+It is not a smooth ride and it does not pretend to be. It is rough in the
+way that a much-loved pub chair is rough: this is thirty years of
 British weather doing its work on a great deal of steel, and you can feel every
 one of them through the seat. Some people find that unforgivable. It is, in
 fact, most of the charm.

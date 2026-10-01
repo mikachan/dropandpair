@@ -17,17 +17,23 @@ export interface Filters {
 	vibe: string;
 	country: string;
 	/** Intensity, as a string so it round-trips through the URL unchanged. */
-	body: string;
+	intensity: string;
 }
 
-export const EMPTY_FILTERS: Filters = { types: [], pairing: '', vibe: '', country: '', body: '' };
+export const EMPTY_FILTERS: Filters = {
+	types: [],
+	pairing: '',
+	vibe: '',
+	country: '',
+	intensity: ''
+};
 
 export interface Facets {
 	rideTypes: string[];
 	pairingTypes: string[];
 	vibes: string[];
 	countries: string[];
-	bodies: number[];
+	intensities: number[];
 }
 
 export function parseFilters(params: URLSearchParams): Filters {
@@ -36,7 +42,7 @@ export function parseFilters(params: URLSearchParams): Filters {
 		pairing: params.get('pairing') ?? '',
 		vibe: params.get('vibe') ?? '',
 		country: params.get('country') ?? '',
-		body: params.get('body') ?? ''
+		intensity: params.get('intensity') ?? ''
 	};
 }
 
@@ -47,7 +53,7 @@ export function toSearchParams(filters: Filters): URLSearchParams {
 	if (filters.pairing) params.set('pairing', filters.pairing);
 	if (filters.vibe) params.set('vibe', filters.vibe);
 	if (filters.country) params.set('country', filters.country);
-	if (filters.body) params.set('body', filters.body);
+	if (filters.intensity) params.set('intensity', filters.intensity);
 	return params;
 }
 
@@ -57,7 +63,7 @@ export function isFiltered(filters: Filters): boolean {
 		Boolean(filters.pairing) ||
 		Boolean(filters.vibe) ||
 		Boolean(filters.country) ||
-		Boolean(filters.body)
+		Boolean(filters.intensity)
 	);
 }
 
@@ -68,7 +74,7 @@ export function filterRides(rides: RideSummary[], filters: Filters): RideSummary
 			return false;
 		if (filters.vibe && !ride.vibe.includes(filters.vibe)) return false;
 		if (filters.country && ride.park.country !== filters.country) return false;
-		if (filters.body && ride.intensity !== Number(filters.body)) return false;
+		if (filters.intensity && ride.intensity !== Number(filters.intensity)) return false;
 		return true;
 	});
 }
@@ -79,12 +85,12 @@ export function buildFacets(rides: RideSummary[]): Facets {
 	const countries = new Set<string>();
 	const rideTypes = new Set<string>();
 	const pairingTypes = new Set<string>();
-	const bodies = new Set<number>();
+	const intensities = new Set<number>();
 
 	for (const ride of rides) {
 		rideTypes.add(ride.rideType);
 		countries.add(ride.park.country);
-		bodies.add(ride.intensity);
+		intensities.add(ride.intensity);
 		for (const vibe of ride.vibe) vibes.add(vibe);
 		for (const type of ride.pairingTypes) pairingTypes.add(type);
 	}
@@ -99,6 +105,6 @@ export function buildFacets(rides: RideSummary[]): Facets {
 		pairingTypes: [...pairingTypes].sort(byVocabulary(PAIRING_TYPES)),
 		vibes: [...vibes].sort(alphabetical),
 		countries: [...countries].sort(alphabetical),
-		bodies: [...bodies].sort((a, b) => a - b)
+		intensities: [...intensities].sort((a, b) => a - b)
 	};
 }

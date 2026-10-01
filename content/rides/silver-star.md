@@ -13,9 +13,9 @@ vibe:
   - stately
   - weightless
   - scenic
-tastingNote: >-
+gist: >-
   Long, tall and unhurried: a great deal of height spent slowly and on purpose.
-  Full-bodied, silky finish, no rough edges anywhere.
+  Strong, silky, and no rough edges anywhere.
 pairings:
   - pairing: kraftwerk-autobahn
     blurb: >-
@@ -37,7 +37,7 @@ A ride about scale rather than aggression. It is tall, it is long, and it
 spends both of those generously — big sweeping drops and hills taken at a speed
 that makes them feel inevitable rather than sudden.
 
-The finish is the smoothest on this site. Nothing here rattles, nothing pinches,
+It is the smoothest ride on this site. Nothing here rattles, nothing pinches,
 and you could ride it repeatedly without paying for it later, which is a
 genuinely rare property in something this size.
 

@@ -14,51 +14,51 @@ export const rideTypeLabels: Record<RideType, string> = {
 };
 
 export const pairingTypeLabels: Record<PairingType, string> = {
-	aperitif: 'Aperitif',
-	chaser: 'Chaser',
-	'palate-cleanser': 'Palate cleanser',
+	before: 'Before',
+	'right-after': 'Right after',
+	'wind-down': 'Wind down',
 	'eat-and-drink': 'Eat and drink',
 	'do-next': 'Do next',
 	listen: 'Listen',
 	read: 'Read',
 	watch: 'Watch',
-	nightcap: 'Nightcap'
+	later: 'Later'
 };
 
 /** The one-line explanation of each course, used on browse pages. */
 export const pairingTypeDescriptions: Record<PairingType, string> = {
-	aperitif: 'Something to do before you ride.',
-	chaser: 'Take this one straight after.',
-	'palate-cleanser': 'Something gentle, for after a brutal ride.',
+	before: 'Something to do before you ride.',
+	'right-after': 'Take this one straight after.',
+	'wind-down': 'Something gentle, for after a brutal ride.',
 	'eat-and-drink': 'What to put in your hands once the restraints are up.',
 	'do-next': 'Where to walk while the adrenaline wears off.',
 	listen: 'For the queue, the car park, or the long drive home.',
 	read: 'For the hotel, the flight, or the winter closed season.',
 	watch: 'A film or a show that belongs with this ride.',
-	nightcap: 'Save this one for later.'
+	later: 'Save this one for later.'
 };
 
-/** Sort key giving the order of a tasting flight: before, after, then later. */
+/** Sort key giving the order you would meet them in: before, after, then later. */
 export function pairingTypeRank(type: PairingType): number {
 	return PAIRING_TYPES.indexOf(type);
 }
 
-/** Intensity, as body. */
-export const bodyLabels: Record<number, string> = {
-	1: 'Light-bodied',
-	2: 'Easy-going',
-	3: 'Medium-bodied',
-	4: 'Full-bodied',
-	5: 'Cask strength'
+/** Intensity — how hard it hits. */
+export const intensityLabels: Record<number, string> = {
+	1: 'Gentle',
+	2: 'Mild',
+	3: 'Moderate',
+	4: 'Strong',
+	5: 'Maximum'
 };
 
-/** Roughness, as finish — how you feel walking off. */
-export const finishLabels: Record<number, string> = {
-	1: 'Silky finish',
-	2: 'Smooth finish',
-	3: 'Textured finish',
-	4: 'Coarse finish',
-	5: 'Abrasive finish'
+/** Roughness, as comfort — how you feel walking off. */
+export const comfortLabels: Record<number, string> = {
+	1: 'Silky',
+	2: 'Smooth',
+	3: 'Bumpy',
+	4: 'Rough',
+	5: 'Brutal'
 };
 
 /** How well a pairing suits its ride. */
@@ -70,21 +70,16 @@ export const strengthLabels: Record<number, string> = {
 	5: 'Perfect marriage'
 };
 
-export function bodyLabel(intensity: number): string {
-	return bodyLabels[intensity] ?? 'Unrated body';
+export function intensityLabel(intensity: number): string {
+	return intensityLabels[intensity] ?? 'Unrated intensity';
 }
 
-export function finishLabel(roughness: number): string {
-	return finishLabels[roughness] ?? 'Unrated finish';
+export function comfortLabel(roughness: number): string {
+	return comfortLabels[roughness] ?? 'Unrated comfort';
 }
 
 export function strengthLabel(strength: number): string {
 	return strengthLabels[strength] ?? 'Unrated';
-}
-
-/** Opening year, as vintage. */
-export function vintageLabel(opened: number): string {
-	return `Vintage ${opened}`;
 }
 
 export const statLabels = {

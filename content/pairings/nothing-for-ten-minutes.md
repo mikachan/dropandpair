@@ -1,7 +1,7 @@
 ---
 id: nothing-for-ten-minutes
 title: Ten minutes of nothing
-pairingType: aperitif
+pairingType: before
 description: >-
   Arrive early, stand somewhere you can see the ride, and let the anticipation
   do its work before you join the queue.

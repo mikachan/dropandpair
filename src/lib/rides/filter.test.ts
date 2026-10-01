@@ -18,7 +18,7 @@ function summary(overrides: Partial<RideSummary> = {}): RideSummary {
 		intensity: 3,
 		roughness: 3,
 		vibe: ['brutal'],
-		tastingNote: 'Notes of airtime.',
+		gist: 'Mostly airtime.',
 		park: {
 			id: 'a-park',
 			name: 'A Park',
@@ -40,7 +40,7 @@ const rides: RideSummary[] = [
 		rideType: 'water-ride',
 		intensity: 3,
 		vibe: ['eerie'],
-		pairingTypes: ['nightcap']
+		pairingTypes: ['later']
 	}),
 	summary({
 		id: 'silver-star',
@@ -55,7 +55,7 @@ const rides: RideSummary[] = [
 describe('parseFilters and toSearchParams', () => {
 	it('round-trips a full selection', () => {
 		const params = new URLSearchParams(
-			'type=coaster&type=water-ride&pairing=watch&vibe=brutal&country=Germany&body=4'
+			'type=coaster&type=water-ride&pairing=watch&vibe=brutal&country=Germany&intensity=4'
 		);
 		const filters = parseFilters(params);
 
@@ -64,7 +64,7 @@ describe('parseFilters and toSearchParams', () => {
 			pairing: 'watch',
 			vibe: 'brutal',
 			country: 'Germany',
-			body: '4'
+			intensity: '4'
 		});
 		expect(toSearchParams(filters).toString()).toBe(params.toString());
 	});
@@ -112,8 +112,8 @@ describe('filterRides', () => {
 		]);
 	});
 
-	it('matches body as an exact intensity', () => {
-		expect(filterRides(rides, { ...EMPTY_FILTERS, body: '5' }).map((r) => r.id)).toEqual([
+	it('matches intensity as an exact intensity', () => {
+		expect(filterRides(rides, { ...EMPTY_FILTERS, intensity: '5' }).map((r) => r.id)).toEqual([
 			'nemesis'
 		]);
 	});
@@ -138,15 +138,15 @@ describe('buildFacets', () => {
 
 		expect(facets.rideTypes).toEqual(['coaster', 'water-ride']);
 		expect(facets.countries).toEqual(['Germany', 'United Kingdom']);
-		expect(facets.bodies).toEqual([3, 4, 5]);
+		expect(facets.intensities).toEqual([3, 4, 5]);
 		expect(facets.vibes).toEqual(['brutal', 'eerie', 'scenic', 'stately']);
 	});
 
 	it('keeps controlled vocabularies in their canonical order, not alphabetical', () => {
 		const facets = buildFacets(rides);
 
-		// Flight order: eat-and-drink, listen, watch, nightcap.
-		expect(facets.pairingTypes).toEqual(['eat-and-drink', 'listen', 'watch', 'nightcap']);
+		// Course order: eat-and-drink, listen, watch, later.
+		expect(facets.pairingTypes).toEqual(['eat-and-drink', 'listen', 'watch', 'later']);
 	});
 
 	it('every facet value matches at least one ride', () => {

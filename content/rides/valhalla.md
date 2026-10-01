@@ -13,9 +13,9 @@ vibe:
   - eerie
   - nostalgic
   - drenching
-tastingNote: >-
+gist: >-
   Cold water, colder darkness, and fire where you were not expecting fire.
-  Medium-bodied, and you will be wearing the finish for an hour.
+  Moderate, and you will still be dripping an hour later.
 pairings:
   - pairing: a-long-hot-bath
     blurb: >-
@@ -42,7 +42,7 @@ A dark water ride that understands the assignment: the darkness is genuinely
 dark, the effects arrive from directions you were not watching, and the water
 is not a splash at the end but an ongoing condition throughout.
 
-Medium-bodied as a ride — nothing here is violent — but the _finish_ is the
+Moderate as a ride — nothing here is violent — but the _aftermath_ is the
 longest on this site by a wide margin, because you do not stop experiencing it
 when you get off. You experience it for the next hour, in the wind, on a
 seafront, in shoes that have opinions now.

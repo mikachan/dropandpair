@@ -70,7 +70,7 @@ describe('buildGraph reverse lookups', () => {
 		parks: [makePark('alton-towers'), makePark('blackpool')],
 		pairings: [
 			makePairing('a-film', { pairingType: 'watch', title: 'A Film' }),
-			makePairing('a-spa', { pairingType: 'palate-cleanser', title: 'A Spa' })
+			makePairing('a-spa', { pairingType: 'wind-down', title: 'A Spa' })
 		],
 		rides: [
 			makeRide('nemesis', {
@@ -117,13 +117,13 @@ describe('buildGraph reverse lookups', () => {
 		expect(ridesForPairing(graph, 'unused')).toEqual([]);
 	});
 
-	it('orders a ride pairings like a tasting flight, not like the file', () => {
+	it('orders a ride pairings in course order, not like the file', () => {
 		const graph = buildGraph(collections, PUBLISHED);
-		const flight = pairingsForRide(graph, graph.rideById.get('nemesis')!);
+		const ordered = pairingsForRide(graph, graph.rideById.get('nemesis')!);
 
-		// palate-cleanser comes before watch, whatever order the file used.
-		expect(flight.map((entry) => entry.pairing.pairingType)).toEqual(['palate-cleanser', 'watch']);
-		expect(flight[0].blurb).toBe('Book it.');
+		// wind-down comes before watch, whatever order the file used.
+		expect(ordered.map((entry) => entry.pairing.pairingType)).toEqual(['wind-down', 'watch']);
+		expect(ordered[0].blurb).toBe('Book it.');
 	});
 
 	it('resolves a ride park', () => {

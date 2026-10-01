@@ -41,7 +41,7 @@ export function makeRide(id: string, overrides: Partial<Ride> = {}): Ride {
 		intensity: 3,
 		roughness: 3,
 		vibe: ['brutal'],
-		tastingNote: 'Notes of airtime.',
+		gist: 'Mostly airtime.',
 		pairings: [],
 		featured: false,
 		draft: false,

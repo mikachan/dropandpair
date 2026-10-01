@@ -45,7 +45,7 @@
 
 <Seo
 	title="Rides"
-	description="Every ride in the cellar, filterable by type, pairing, body, vibe and country."
+	description="Every ride on the list, filterable by type, pairing, intensity, vibe and country."
 	path="/rides"
 	jsonLd={jsonld.graph(
 		jsonld.collection(
@@ -62,11 +62,10 @@
 
 <div class="page section stack">
 	<header class="stack">
-		<p class="eyebrow">The cellar</p>
+		<p class="eyebrow">The list</p>
 		<h1>Rides</h1>
 		<p class="lede">
-			Sorted by name, described like wine. Body is how hard it hits, finish is how you feel walking
-			off, vintage is the year it opened.
+			Sorted by name. Intensity is how hard it hits, comfort is how you feel walking off.
 		</p>
 	</header>
 
@@ -86,7 +85,7 @@
 		</ul>
 	{:else}
 		<p class="empty">
-			Nothing in the cellar matches that combination.
+			Nothing on the list matches that combination.
 			{#if isFiltered(filters)}
 				<a href="/rides">Clear the filters</a> and start again.
 			{/if}

@@ -13,9 +13,9 @@ vibe:
   - brutal
   - scenic
   - eerie
-tastingNote: >-
-  Notes of wet rock and rusted iron, a long hang in the trees, then four
-  seconds somewhere else entirely. Cask strength, silky finish.
+gist: >-
+  Wet rock and rusted iron, a long hang in the trees, then four seconds
+  somewhere else entirely. Maximum intensity, and somehow still silky.
 pairings:
   - pairing: nothing-for-ten-minutes
     blurb: >-
@@ -49,7 +49,7 @@ to let go. There is no airtime pause, no coasting section, no moment where the
 train is simply travelling from one thing to the next. It commits at the bottom
 of the first drop and does not decommit until the brake run.
 
-The finish is the surprising part. For something this relentless it is
+The walk-off is the surprising part. For something this relentless it is
 remarkably smooth: the intensity is all in the forces, not in the hardware, so
 you walk off shaken rather than rattled. Which is why the pairings below skew
 towards _calm down_ rather than _lie down_.

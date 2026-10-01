@@ -13,8 +13,8 @@ vibe:
   - brutal
   - industrial
   - weightless
-tastingNote: >-
-  All nose and no body: a long hold at the lip, one vertical drop into a hole
+gist: >-
+  All wait and no ride: a long hold at the lip, one vertical drop into a hole
   in the ground, and it is over. Short, and completely unambiguous.
 pairings:
   - pairing: nothing-for-ten-minutes

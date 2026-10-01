@@ -4,13 +4,12 @@
 	import Seo from '$lib/components/Seo.svelte';
 	import type { PairingType } from '$lib/content/constants';
 	import {
-		bodyLabel,
-		finishLabel,
+		comfortLabel,
+		intensityLabel,
 		pairingTypeDescriptions,
 		pairingTypeLabels,
 		rideTypeLabels,
-		statLabels,
-		vintageLabel
+		statLabels
 	} from '$lib/content/labels';
 	import type { RidePairingView } from '$lib/content/view';
 	import * as jsonld from '$lib/seo/jsonld';
@@ -20,7 +19,7 @@
 
 	const ride = $derived(data.ride);
 
-	/** Pairings arrive in flight order, so consecutive runs are the groups. */
+	/** Pairings arrive in course order, so consecutive runs are the groups. */
 	const courses = $derived(
 		ride.pairings.reduce<Array<{ type: PairingType; items: RidePairingView[] }>>((groups, item) => {
 			const current = groups.at(-1);
@@ -41,7 +40,7 @@
 
 <Seo
 	title="{ride.name}, {ride.park.name}"
-	description={ride.tastingNote}
+	description={ride.gist}
 	path="/rides/{ride.id}"
 	type="article"
 	jsonLd={jsonld.graph(
@@ -69,23 +68,27 @@
 		{/if}
 	</header>
 
-	<!-- The label: the bit you would read on the back of a bottle. -->
+	<!-- The label: the gist, the meters and the facts at a glance. -->
 	<section class="label" aria-labelledby="label-heading">
-		<h2 class="visually-hidden" id="label-heading">Tasting note</h2>
-		<p class="label__note">{ride.tastingNote}</p>
+		<h2 class="visually-hidden" id="label-heading">The gist</h2>
+		<p class="label__note">{ride.gist}</p>
 
 		<div class="label__meters">
-			<IntensityMeter label="Body" value={ride.intensity} text={bodyLabel(ride.intensity)} />
-			<IntensityMeter label="Finish" value={ride.roughness} text={finishLabel(ride.roughness)} />
+			<IntensityMeter
+				label="Intensity"
+				value={ride.intensity}
+				text={intensityLabel(ride.intensity)}
+			/>
+			<IntensityMeter label="Comfort" value={ride.roughness} text={comfortLabel(ride.roughness)} />
 		</div>
 
 		<dl class="label__facts">
 			<div>
-				<dt>Vintage</dt>
-				<dd>{vintageLabel(ride.opened)}</dd>
+				<dt>Opened</dt>
+				<dd>{ride.opened}</dd>
 			</div>
 			<div>
-				<dt>Producer</dt>
+				<dt>Manufacturer</dt>
 				<dd>{ride.manufacturer}</dd>
 			</div>
 			{#each stats as stat (stat.key)}
@@ -136,7 +139,7 @@
 				</section>
 			{/each}
 		{:else}
-			<p class="muted">No pairings yet. This one is still being tasted.</p>
+			<p class="muted">No pairings yet. This one is still being tried out.</p>
 		{/if}
 	</section>
 

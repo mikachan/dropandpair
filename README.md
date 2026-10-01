@@ -1,7 +1,7 @@
 # Drop and Pair
 
-Curated pairings for theme park rides, like wine or whisky pairings. Every ride
-gets a tasting note and a set of things worth putting either side of it: a film,
+Curated pairings for theme park rides. Every ride gets a short gist and a set
+of things worth putting either side of it: a film,
 a record, a meal, a walk, or occasionally a hot bath.
 
 A static site. Content is Markdown in this repository, validated at build time
@@ -51,7 +51,7 @@ src/lib/content/    the content pipeline
   parse.ts            pure: raw files -> validated entries
   graph.ts            pure: entries -> reverse lookups, reference checks
   load.server.ts      the only module that reads the files
-  labels.ts           every user-facing label and the wine vocabulary
+  labels.ts           every user-facing label and scale word
   view.ts             narrow, serialisable shapes for pages
 src/lib/rides/      URL-driven filtering for /rides
 src/lib/components/ RideCard, PairingCard, PairingBadge, IntensityMeter,
@@ -79,8 +79,8 @@ rideType: coaster # coaster | dark-ride | flat-ride | water-ride | drop-tower
 opened: 1994 # year
 manufacturer: Bolliger & Mabillard
 added: 2026-09-29 # optional; orders the RSS feed
-intensity: 5 # 1-5, shown as "body"
-roughness: 2 # 1-5, shown as "finish"
+intensity: 5 # 1-5, shown as "intensity"
+roughness: 2 # 1-5, shown as "comfort"
 featured: true # optional; puts it on the front page
 draft: false # optional; true hides it from production
 stats: # optional, and only where it says something
@@ -91,8 +91,8 @@ stats: # optional, and only where it says something
 vibe: # free text, at least one
   - brutal
   - scenic
-tastingNote: >-
-  Notes of wet rock and rusted iron, a long hang in the trees.
+gist: >-
+  Wet rock and rusted iron, a long hang in the trees.
 pairings:
   - pairing: alien-1979 # must match a file in content/pairings/
     blurb: Same register exactly. Watch it the same evening.
@@ -125,8 +125,8 @@ draft: false # optional
 id: alien-1979
 title: Alien (1979)
 pairingType:
-  watch # aperitif | chaser | palate-cleanser | eat-and-drink
-  # do-next | listen | read | watch | nightcap
+  watch # before | right-after | wind-down | eat-and-drink
+  # do-next | listen | read | watch | later
 description: >-
   Ninety per cent waiting, ten per cent consequence, and every frame damp.
 url: https://example.com/somewhere # optional
@@ -136,7 +136,7 @@ draft: false # optional
 ---
 ```
 
-`pairingType` values are ordered like a tasting flight — before the ride,
+`pairingType` values are ordered as you would meet them — before the ride,
 straight after, then later — and that order drives the grouping on a ride page
 and the filter menus. It is defined once, in `src/lib/content/constants.ts`.
 

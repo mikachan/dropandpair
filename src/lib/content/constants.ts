@@ -15,19 +15,19 @@ export const RIDE_TYPES = [
 ] as const;
 
 /**
- * Ordered like a tasting flight: before the ride, straight after, then later.
+ * Ordered as you would meet them: before the ride, straight after, then later.
  * This order drives the grouping on a ride page and the filter menus.
  */
 export const PAIRING_TYPES = [
-	'aperitif',
-	'chaser',
-	'palate-cleanser',
+	'before',
+	'right-after',
+	'wind-down',
 	'eat-and-drink',
 	'do-next',
 	'listen',
 	'read',
 	'watch',
-	'nightcap'
+	'later'
 ] as const;
 
 export type RideType = (typeof RIDE_TYPES)[number];

@@ -13,9 +13,9 @@ vibe:
   - eerie
   - whimsical
   - nostalgic
-tastingNote: >-
+gist: >-
   Cold stone, candlelight and a room that will not stay where you left it.
-  Light-bodied, silky finish, lingers far longer than it has any right to.
+  Gentle, silky, and it lingers far longer than it has any right to.
 pairings:
   - pairing: the-haunting-of-hill-house
     blurb: >-
@@ -38,7 +38,7 @@ misdirection. You are seated, told a story, and then the room does something
 that your eyes and your inner ear cannot agree about. The disagreement is the
 ride.
 
-Light-bodied by any measure — nothing here will trouble your back or your
+Gentle by any measure — nothing here will trouble your back or your
 breakfast — and yet it is the one people bring up hours later, usually while
 insisting to each other that they know exactly how it works. They mostly do
 not, and it does not help.

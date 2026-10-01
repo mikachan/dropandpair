@@ -24,7 +24,7 @@ export const GET: RequestHandler = () => {
 			const url = absoluteUrl(`/rides/${ride.id}`);
 			const park = graph.parkById.get(ride.park);
 			const description = [
-				ride.tastingNote,
+				ride.gist,
 				park ? `${rideTypeLabels[ride.rideType]} at ${park.name}, ${park.country}.` : '',
 				ride.pairings.length > 0
 					? `${ride.pairings.length} pairing${ride.pairings.length === 1 ? '' : 's'}.`

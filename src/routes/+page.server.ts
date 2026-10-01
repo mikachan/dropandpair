@@ -8,7 +8,7 @@ const SHELF_SIZE = 6;
 
 export const load: PageServerLoad = () => {
 	const featured = graph.rides.filter((ride) => ride.featured);
-	// Before anything is marked featured, show whatever is in the cellar so the
+	// Before anything is marked featured, show whatever is on the list so the
 	// front page is never empty.
 	const shelf = (featured.length > 0 ? featured : graph.rides).slice(0, SHELF_SIZE);
 

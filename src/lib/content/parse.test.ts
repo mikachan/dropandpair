@@ -13,7 +13,7 @@ roughness: 2
 vibe:
   - brutal
   - scenic
-tastingNote: Notes of airtime, a hint of headbanging.
+gist: Mostly airtime, a hint of headbanging.
 pairings:
   - pairing: a-film
     blurb: Watch it afterwards.

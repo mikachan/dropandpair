@@ -1,10 +1,10 @@
 <script lang="ts">
 	interface Props {
-		/** The trait being measured, e.g. "Body" or "Finish". */
+		/** The trait being measured, e.g. "Intensity" or "Comfort". */
 		label: string;
 		value: number;
 		max?: number;
-		/** The word this value maps to, e.g. "Full-bodied". */
+		/** The word this value maps to, e.g. "Strong". */
 		text: string;
 	}
 

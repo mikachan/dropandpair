@@ -9,7 +9,7 @@ description: >-
 
 Walk out of the noisiest part of the park and into a valley of planting and
 paths where the loudest thing is other people's children a long way off. The
-change of register is so abrupt it functions as a palate cleanser with
-better views.
+change of register is so abrupt it works as a reset button with better
+views.
 
 Allow longer than you think. Everything is downhill on the way in.

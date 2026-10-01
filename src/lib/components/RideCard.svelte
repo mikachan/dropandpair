@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { bodyLabel, rideTypeLabels } from '$lib/content/labels';
+	import { intensityLabel, rideTypeLabels } from '$lib/content/labels';
 	import type { RideSummary } from '$lib/content/view';
 	import PairingBadge from './PairingBadge.svelte';
 
@@ -23,10 +23,10 @@
 		{ride.park.name} · {ride.park.country}
 	</p>
 
-	<p class="ride-card__note">{ride.tastingNote}</p>
+	<p class="ride-card__note">{ride.gist}</p>
 
 	<p class="ride-card__body">
-		<span class="muted">{bodyLabel(ride.intensity)}</span>
+		<span class="muted">{intensityLabel(ride.intensity)}</span>
 		{#if ride.pairingCount > 0}
 			<span aria-hidden="true" class="muted"> · </span>
 			<span class="muted">{ride.pairingCount} pairing{ride.pairingCount === 1 ? '' : 's'}</span>
@@ -77,7 +77,7 @@
 		font-size: var(--step--1);
 	}
 
-	/* The tasting note is the point of the card, so it gets the label voice. */
+	/* The gist is the point of the card, so it gets the display voice. */
 	.ride-card__note {
 		font-family: var(--font-display);
 		font-size: var(--step-0);

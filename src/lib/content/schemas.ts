@@ -88,12 +88,12 @@ export const rideSchema = z.strictObject({
 	 */
 	added: isoDate.optional(),
 	stats: rideStatsSchema.optional(),
-	/** Body, in wine terms. */
+	/** How hard it hits. Shown as intensity. */
 	intensity: scale,
-	/** Finish, in wine terms. */
+	/** How you feel walking off. Shown as comfort. */
 	roughness: scale,
 	vibe: z.array(nonEmpty).min(1, 'needs at least one vibe'),
-	tastingNote: nonEmpty,
+	gist: nonEmpty,
 	pairings: z.array(ridePairingRefSchema).default([]),
 	featured: z.boolean().default(false),
 	draft: z.boolean().default(false)

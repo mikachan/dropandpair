@@ -12,7 +12,7 @@
 
 <Seo
 	title="Pairings"
-	description="Everything we pair rides with, grouped by course: aperitifs, chasers, palate cleansers, nightcaps and the rest."
+	description="Everything we pair rides with, grouped by course: before, right after, wind down, later and the rest."
 	path="/pairings"
 	jsonLd={jsonld.graph(
 		jsonld.collection(

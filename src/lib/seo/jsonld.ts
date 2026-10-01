@@ -100,7 +100,7 @@ export function touristAttraction(ride: RideDetail, pairings: PairingSummary[]):
 		'@type': 'TouristAttraction',
 		'@id': absoluteUrl(`/rides/${ride.id}`),
 		name: ride.name,
-		description: ride.tastingNote,
+		description: ride.gist,
 		url: absoluteUrl(`/rides/${ride.id}`),
 		additionalType: rideTypeLabels[ride.rideType],
 		containedInPlace: {

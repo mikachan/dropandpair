@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { bodyLabel, pairingTypeLabels, rideTypeLabels } from '$lib/content/labels';
+	import { intensityLabel, pairingTypeLabels, rideTypeLabels } from '$lib/content/labels';
 	import type { PairingType, RideType } from '$lib/content/constants';
 	import { parseFilters, type Facets, type Filters } from '$lib/rides/filter';
 
@@ -93,12 +93,12 @@
 			</p>
 
 			<p class="filter-bar__field">
-				<label class="eyebrow" for="filter-body">Body</label>
-				<select id="filter-body" name="body">
-					<option value="" selected={filters.body === ''}>Any</option>
-					{#each facets.bodies as value (value)}
-						<option value={String(value)} selected={filters.body === String(value)}>
-							{bodyLabel(value)}
+				<label class="eyebrow" for="filter-intensity">Intensity</label>
+				<select id="filter-intensity" name="intensity">
+					<option value="" selected={filters.intensity === ''}>Any</option>
+					{#each facets.intensities as value (value)}
+						<option value={String(value)} selected={filters.intensity === String(value)}>
+							{intensityLabel(value)}
 						</option>
 					{/each}
 				</select>
@@ -134,7 +134,7 @@
 	<!-- Changes apply as you make them, and the count is announced. -->
 	<p class="filter-bar__count muted" aria-live="polite">
 		{#if resultCount === totalCount}
-			{totalCount} ride{totalCount === 1 ? '' : 's'} in the cellar.
+			{totalCount} ride{totalCount === 1 ? '' : 's'} on the list.
 		{:else}
 			Showing {resultCount} of {totalCount} rides.
 		{/if}

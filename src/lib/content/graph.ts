@@ -146,7 +146,7 @@ export function ridesByAdded(graph: ContentGraph): Ride[] {
 	});
 }
 
-/** A ride's pairings, resolved and ordered like a tasting flight. */
+/** A ride's pairings, resolved and in the order you would meet them. */
 export function pairingsForRide(graph: ContentGraph, ride: Ride): RidePairing[] {
 	return ride.pairings
 		.flatMap((ref) => {
@@ -176,7 +176,7 @@ export function parkForRide(graph: ContentGraph, ride: Ride): Park {
 	return park;
 }
 
-/** The distinct pairing types a ride covers, in flight order. Used by the filters. */
+/** The distinct pairing types a ride covers, in course order. Used by the filters. */
 export function pairingTypesForRide(graph: ContentGraph, ride: Ride): PairingType[] {
 	const types = new Set<PairingType>();
 	for (const ref of ride.pairings) {

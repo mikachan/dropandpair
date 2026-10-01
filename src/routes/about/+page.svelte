@@ -2,8 +2,8 @@
 	import Seo from '$lib/components/Seo.svelte';
 	import { PAIRING_TYPES } from '$lib/content/constants';
 	import {
-		bodyLabels,
-		finishLabels,
+		comfortLabels,
+		intensityLabels,
 		pairingTypeDescriptions,
 		pairingTypeLabels,
 		strengthLabels
@@ -14,7 +14,7 @@
 
 <Seo
 	title="About"
-	description="How Drop and Pair works: what the courses mean, how body, finish and vintage are judged, and where the affiliate links are."
+	description="How Drop and Pair works: what the courses mean, how intensity and comfort are judged, and where the affiliate links are."
 	path="/about"
 	jsonLd={jsonld.graph(
 		jsonld.breadcrumbs([
@@ -33,12 +33,12 @@
 
 	<div class="prose">
 		<p>
-			Wine gets pairings. Whisky gets pairings. Rides, for some reason, do not — even though a
+			Food gets pairings. Drinks get pairings. Rides, for some reason, do not — even though a
 			four-minute coaster leaves you in a very specific mood, and that mood has a right film, a
 			right record, and a right thing to eat while your hands stop shaking.
 		</p>
 		<p>
-			So: every ride here gets a tasting note and a set of pairings. Some are obvious. Some exist
+			So: every ride here gets a quick take and a set of pairings. Some are obvious. Some exist
 			because a park was in a film, or because a ride is rough enough that the honest pairing is a
 			hot bath. All of them are opinions, written by hand by one enthusiast, and none of them are
 			sponsored placements dressed up as recommendations.
@@ -46,30 +46,26 @@
 
 		<h2>How rides are described</h2>
 		<p>
-			Three borrowed words do most of the work, because they are more useful than a number on its
+			Two scales do most of the work, and a word for each step is more useful than a number on its
 			own.
 		</p>
 
 		<dl class="glossary">
 			<div>
-				<dt>Body</dt>
+				<dt>Intensity</dt>
 				<dd>
-					How hard it hits, from {bodyLabels[1].toLowerCase()} to
-					{bodyLabels[5].toLowerCase()}. A gentle dark ride is light-bodied; a launch coaster with
-					no let-up is cask strength.
+					How hard it hits, from {intensityLabels[1].toLowerCase()} to
+					{intensityLabels[5].toLowerCase()}. A slow dark ride is gentle; a launch coaster with no
+					let-up is maximum.
 				</dd>
 			</div>
 			<div>
-				<dt>Finish</dt>
+				<dt>Comfort</dt>
 				<dd>
-					How you feel walking off, from a {finishLabels[1].toLowerCase()} to an
-					{finishLabels[5].toLowerCase()}. This is about roughness, not intensity: a ride can be
+					How you feel walking off, from {comfortLabels[1].toLowerCase()} to
+					{comfortLabels[5].toLowerCase()}. This is about roughness, not intensity: a ride can be
 					enormous and still silky, or mild and still rattle your teeth.
 				</dd>
-			</div>
-			<div>
-				<dt>Vintage</dt>
-				<dd>The year it opened. Older is not worse. Sometimes it is the whole point.</dd>
 			</div>
 		</dl>
 

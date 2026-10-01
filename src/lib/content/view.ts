@@ -28,9 +28,9 @@ export interface RideSummary {
 	intensity: number;
 	roughness: number;
 	vibe: string[];
-	tastingNote: string;
+	gist: string;
 	park: ParkRef;
-	/** Distinct pairing types this ride covers, in flight order. Drives the filters. */
+	/** Distinct pairing types this ride covers, in course order. Drives the filters. */
 	pairingTypes: PairingType[];
 	pairingCount: number;
 	featured: boolean;
@@ -79,7 +79,7 @@ export function toRideSummary(graph: ContentGraph, ride: Ride): RideSummary {
 		intensity: ride.intensity,
 		roughness: ride.roughness,
 		vibe: ride.vibe,
-		tastingNote: ride.tastingNote,
+		gist: ride.gist,
 		park: toParkRef(graph, ride),
 		pairingTypes: pairingTypesForRide(graph, ride),
 		pairingCount: ride.pairings.length,

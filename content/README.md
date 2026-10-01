@@ -1,14 +1,14 @@
 # House style
 
-How Drop and Pair sounds, and how to write a tasting note. The mechanics of
+How Drop and Pair sounds, and how to write a gist. The mechanics of
 each field are in the root `README.md`; this is about the words.
 
 ## The voice
 
-Sommelier, slightly tongue-in-cheek, never winking at the camera. The joke is
-that ride pairings are treated with the seriousness of a wine list — so the
-seriousness has to be real. Describe the ride precisely and let the borrowed
-vocabulary do the comedy on its own.
+An enthusiast who knows their stuff and is having fun with it. Pairing a ride
+with a film or a plate of chips is a slightly daft idea taken seriously — so the
+seriousness has to be real. Describe the ride precisely and let the idea do the
+comedy on its own.
 
 **Do**
 
@@ -22,52 +22,54 @@ vocabulary do the comedy on its own.
 
 **Don't**
 
-- Don't pile up the wine words. One or two per paragraph, then stop. "A
-  full-bodied vintage with a long finish and notes of terroir on the nose" is
-  parody, not house style.
+- Don't borrow wine or whisky vocabulary. No "full-bodied", "cask strength",
+  "finish", "vintage" or "notes of". The site is its own thing, not a drinks
+  menu with rides on it.
 - Don't say "thrilling", "adrenaline-pumping", "must-ride" or "hidden gem".
 - Don't rank. Pairings are matches, not scores out of ten.
 - Don't explain the joke. No "pairings — get it?".
 - Don't state a fact you have not checked. See **Facts** below.
 
-## Tasting notes
+## The gist
 
-The `tastingNote` is the one line that does the most work: it appears on cards,
+The `gist` is the one line that does the most work: it appears on cards,
 in search results, in the RSS feed and as the page's meta description. Treat it
-like the back of a bottle.
+like the line on a poster.
 
 **Shape.** One or two sentences. A list of sensations, then a verdict. Around
 20–35 words.
 
-**A good pattern** — three sensations, then the body and finish:
+**A good pattern** — three sensations, then the intensity and comfort:
 
-> Notes of wet rock and rusted iron, a long hang in the trees, then four
-> seconds somewhere else entirely. Cask strength, silky finish.
+> Wet rock and rusted iron, a long hang in the trees, then four seconds
+> somewhere else entirely. Maximum intensity, and somehow still silky.
 
 > Salt air, cold steel and a lift hill long enough to have second thoughts on.
-> Full-bodied, coarse finish, unmistakably of its vintage.
+> Strong, rough, and unmistakably of its era.
 
-Naming the body and finish words in the note is optional but effective, because
-it matches what the meters on the page say. Keep them consistent: don't write
-"silky finish" on a ride with `roughness: 5`.
+Naming the intensity and comfort words in the gist is optional but effective,
+because it matches what the meters on the page say. Keep them consistent: don't
+write "silky" on a ride with `roughness: 5`.
 
 **Not this:**
 
 > An absolutely incredible ride with amazing inversions and a thrilling drop
 > that will leave you breathless! A must-ride for any enthusiast.
 
-## The borrowed vocabulary
+## The scales
 
-Three words carry the metaphor. Use them in prose sparingly; the UI already
-labels them.
+Two scales describe every ride. Use the words in prose sparingly; the UI
+already labels them.
 
-| Field           | Reads as    | Means                                              |
-| --------------- | ----------- | -------------------------------------------------- |
-| `intensity` 1–5 | **Body**    | How hard it hits. 1 light-bodied, 5 cask strength. |
-| `roughness` 1–5 | **Finish**  | How you feel walking off. 1 silky, 5 abrasive.     |
-| `opened`        | **Vintage** | The year it opened. Older is not worse.            |
+| Field           | Reads as      | Means                                        |
+| --------------- | ------------- | -------------------------------------------- |
+| `intensity` 1–5 | **Intensity** | How hard it hits. 1 gentle, 5 maximum.       |
+| `roughness` 1–5 | **Comfort**   | How you feel walking off. 1 silky, 5 brutal. |
 
-Body and finish are independent, and saying so is often the interesting part: a
+The words for each step live in `src/lib/content/labels.ts`. `opened` is shown
+plainly as the year it opened. Older is not worse.
+
+Intensity and comfort are independent, and saying so is often the interesting part: a
 ride can be enormous and still silky, or mild and still rattle your teeth.
 
 `strength` on a pairing is a _match_ rating, not a quality rating. A five means
@@ -99,21 +101,21 @@ one in the other.
 Pairings go in courses, ordered as you would meet them. Pick the one that
 answers _when_, not _what_:
 
-| Type              | When                                          |
-| ----------------- | --------------------------------------------- |
-| `aperitif`        | Before you ride.                              |
-| `chaser`          | Straight after, within minutes.               |
-| `palate-cleanser` | Something gentle, after something brutal.     |
-| `eat-and-drink`   | Once the restraints are up.                   |
-| `do-next`         | Where to walk while the adrenaline wears off. |
-| `listen`          | The queue, the car park, the drive home.      |
-| `read`            | The hotel, the flight, the closed season.     |
-| `watch`           | A film or show that belongs with the ride.    |
-| `nightcap`        | Later, or another day entirely.               |
+| Type            | When                                          |
+| --------------- | --------------------------------------------- |
+| `before`        | Before you ride.                              |
+| `right-after`   | Straight after, within minutes.               |
+| `wind-down`     | Something gentle, after something brutal.     |
+| `eat-and-drink` | Once the restraints are up.                   |
+| `do-next`       | Where to walk while the adrenaline wears off. |
+| `listen`        | The queue, the car park, the drive home.      |
+| `read`          | The hotel, the flight, the closed season.     |
+| `watch`         | A film or show that belongs with the ride.    |
+| `later`         | Later, or another day entirely.               |
 
-A film can be a `watch` or a `nightcap`, and a bar can be a `chaser` or an
+A film can be a `watch` or a `later`, and a bar can be a `right-after` or an
 `eat-and-drink`. Choose by timing. If two fit, pick the one that makes the
-flight on the ride page read better.
+ride page read better.
 
 ## Vibes
 

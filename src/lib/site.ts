@@ -4,7 +4,7 @@ export const site = {
 	url: 'https://dropandpair.com',
 	tagline: 'Rides, and what to have with them.',
 	description:
-		'Curated pairings for theme park rides: tasting notes, and the films, records, meals and detours that belong with them.',
+		'Curated pairings for theme park rides: quick takes, and the films, records, meals and detours that belong with them.',
 	locale: 'en_GB',
 	lang: 'en-GB',
 	author: 'Drop and Pair'

@@ -8,7 +8,7 @@
 
 <Seo
 	title="Parks"
-	description="Every park with a ride in the cellar."
+	description="Every park with a ride on the list."
 	path="/parks"
 	jsonLd={jsonld.graph(
 		jsonld.collection(
@@ -38,7 +38,7 @@
 						<p class="eyebrow">{park.region} · {park.country}</p>
 						<h2 class="park-card__name"><a href="/parks/{park.id}">{park.name}</a></h2>
 						<p class="muted">
-							{park.rideCount} ride{park.rideCount === 1 ? '' : 's'} in the cellar
+							{park.rideCount} ride{park.rideCount === 1 ? '' : 's'} on the list
 						</p>
 						{#if park.draft}
 							<p class="draft-flag">Draft — not yet verified</p>

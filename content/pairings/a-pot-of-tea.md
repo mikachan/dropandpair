@@ -1,7 +1,7 @@
 ---
 id: a-pot-of-tea
 title: A proper pot of tea, sitting down
-pairingType: palate-cleanser
+pairingType: wind-down
 description: >-
   A pot, not a paper cup. A chair, not a wall. Ten minutes in which nothing is
   scheduled.

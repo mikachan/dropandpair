@@ -185,7 +185,7 @@ textarea {
 	color: var(--ink-muted);
 }
 
-/* A wine-label double rule, used under section headings. */
+/* A double rule, used under section headings. */
 .rule {
 	border: 0;
 	border-top: 3px double var(--line-strong);

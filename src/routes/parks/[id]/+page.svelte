@@ -12,7 +12,7 @@
 
 <Seo
 	title="{park.name}, {park.country}"
-	description="The rides we have tasted at {park.name}, and what to have with them."
+	description="The rides we have tried at {park.name}, and what to have with them."
 	path="/parks/{park.id}"
 	jsonLd={jsonld.graph(
 		jsonld.amusementPark(park, data.rides.length),
@@ -54,7 +54,7 @@
 				{/each}
 			</ul>
 		{:else}
-			<p class="muted">Nothing tasted here yet.</p>
+			<p class="muted">Nothing tried here yet.</p>
 		{/if}
 	</section>
 

@@ -16,7 +16,7 @@
 
 	{#if isNotFound}
 		<p class="lede">
-			That page is not in the cellar. It may have been renamed, or it may never have existed.
+			That page is not on the list. It may have been renamed, or it may never have existed.
 		</p>
 	{:else}
 		<p class="lede">{message ?? 'An unexpected error occurred.'}</p>
