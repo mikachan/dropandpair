@@ -15,32 +15,31 @@ stats:
 vibe:
   - eerie
 gist: >-
-  A wooden coaster named after a werewolf, all timber and noise.
-  Moderate, bumpy, and best ridden with the moon coming up.
+  A wooden coaster named after a werewolf, all timber and noise. Best ridden as the moon comes up.
 furtherReading:
   - title: RCDB
     url: https://rcdb.com/16099.htm
 pairings:
   - pairing: the-twilight-saga
     blurb: >-
-      The name means werewolf, so this one is for Team Jacob. Watch the films
-      and decide whose side you are on before you ride.
+      The name means werewolf, so this one's for Team Jacob. Watch the films
+      and decide whose side you're on before you ride.
     strength: 3
   - pairing: a-pot-of-tea
     blurb: >-
-      A wooden coaster shakes things loose. Sit down and let them settle back
-      into place.
+      Wooden coasters always shake you about a bit, so have a sit-down and let
+      everything settle back into place.
     strength: 3
 ---
 
-Wilkołak is Polish for "werewolf". It is a wooden coaster by Great Coasters
+Wilkołak is Polish for "werewolf". It's a wooden coaster by Great Coasters
 International, designed by Skyline, and it opened at Majaland Kownaty in 2019.
 
-It is a mirror image of Heidi The Ride at Plopsaland De Panne in Belgium,
-which is itself similar to White Lightning at Fun Spot America in Florida. So
-if you have ridden either of those, you know the shape of this one, just the
-other way round.
+It's a mirror image of Heidi The Ride at Plopsaland De Panne in Belgium, which
+is itself similar to White Lightning at Fun Spot America in Florida. So if
+you've ridden either of those, you know the shape of this one, just the other
+way round.
 
-A chain lift takes you up 22 metres and the train runs at up to 71 km/h, with
-no inversions. It is the classic wooden coaster experience: loud, lively and a
-little rough round the edges.
+A chain lift takes you up 22 metres, and the train runs at up to 71 km/h with
+no inversions. It's a classic wooden coaster: loud, lively and a little rough
+round the edges.

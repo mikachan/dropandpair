@@ -14,31 +14,31 @@ vibe:
   - whimsical
   - indoor
 gist: >-
-  A steampunk laboratory, a professor who has beaten gravity, and an experiment
-  that goes wrong with you on board. Moderate, silky, and entirely indoors.
+  A steampunk professor has worked out how to beat gravity, and you're strapped in for the demonstration. It doesn't go to plan.
 furtherReading:
   - title: Dark Ride Database
     url: https://darkridedatabase.com/rides/crazy-professor/
 pairings:
   - pairing: an-ice-cream-you-have-to-eat-fast
     blurb: >-
-      Gravity is back in charge. Celebrate the return of normal physics with
-      something cold.
+      Gravity's back to normal, and that's worth celebrating with something
+      cold.
     strength: 3
   - pairing: nothing-for-ten-minutes
     blurb: >-
-      Take your time going in. The story starts before the drop, and the
-      professor is worth meeting before he loses control.
+      Take your time going in. The story starts well before the drop, and
+      it's fun to meet the professor before it all goes wrong.
     strength: 3
 ---
 
-Crazy Professor opened at Conny-Land in 2023, a one-off that the park
-developed together with Ride Engineers Switzerland. It is an indoor drop tower,
-20 metres tall, with a projection screen running the full height of the tower.
+Crazy Professor opened at Conny-Land in 2023, and it's a one-off: the park
+developed it together with Ride Engineers Switzerland. It's an indoor drop
+tower, 20 metres tall, with a projection screen running the full height of the
+tower.
 
-The story is pure steampunk. A mad professor, played by the Swiss clown Gaston
-Häni, has worked out how to defy gravity, and you are strapped in to help with
+The story's pure steampunk. A mad professor, played by the Swiss clown Gaston
+Häni, has worked out how to defy gravity, and you're strapped in to help with
 the demonstration. Naturally, something goes wrong partway through.
 
-It is short, silly and smooth, and far more theatrical than most drop towers.
-Good for anyone who wants the drop with a story attached.
+It's short and silly, and much more theatrical than most drop towers. A great
+one if you want your drop to come with a story.

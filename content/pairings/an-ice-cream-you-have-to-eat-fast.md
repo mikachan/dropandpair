@@ -3,13 +3,12 @@ id: an-ice-cream-you-have-to-eat-fast
 title: An ice cream you have to eat fast
 pairingType: right-after
 description: >-
-  Soft serve with a flake in it, collected within two minutes of the restraints
-  coming up, eaten against the clock.
+  Soft serve with a flake in it, picked up within a couple of minutes of
+  getting off, and eaten before it melts.
 ---
 
-The point is the immediacy. Your hands are still not quite steady,
-the ice cream is already losing, and you have to concentrate on something
-small and urgent — which is the fastest way back to normal after something
-that briefly was not.
+I love this one because it's so immediate. Your hands are still a bit shaky,
+the ice cream's already melting, and you have to concentrate on something small
+and urgent. It's a really good way to come back down after a big ride.
 
-Works best on a warm day, which is also when it is hardest.
+It's best on a warm day, which is also when it's hardest to keep up with.

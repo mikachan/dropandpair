@@ -16,8 +16,7 @@ vibe:
   - eerie
   - industrial
 gist: >-
-  A bunker, a siren and a coaster you cannot see in a building you cannot see
-  out of. Mild, bumpy, and the queue does most of the scaring.
+  The queue's a bunker overrun by zombies, and the coaster's hidden away in the dark. Watch a few episodes first and it all clicks.
 furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/The_Walking_Dead:_The_Ride
@@ -26,29 +25,29 @@ furtherReading:
 pairings:
   - pairing: the-walking-dead-tv
     blurb: >-
-      The ride is themed on it, so this is the obvious one. Watch a few episodes
+      The ride's themed on it, so this is the obvious one. Watch a few episodes
       first and the bunker in the queue will make a lot more sense.
     strength: 5
   - pairing: alien-1979
     blurb: >-
-      Same idea, done properly slowly: a sealed building, something in the
+      A similar idea, just much slower: a sealed building, something in the
       dark, and no clear way out. Watch it the same night.
     strength: 4
   - pairing: an-ice-cream-you-have-to-eat-fast
     blurb: >-
-      Come out blinking into daylight and do something aggressively normal
-      straight away. Cold and sugary is ideal.
+      Once you're back out in the daylight, do something really normal straight
+      away. Something cold and sugary is ideal.
     strength: 3
 ---
 
-This one has been through a few lives. It opened in 1996 as X:\ No Way Out,
-running backwards in the dark, then turned round to run forwards in 2013, and
-reopened as The Walking Dead: The Ride in 2018.
+This one's had a few lives. It opened in 1996 as X:\ No Way Out, running
+backwards in the dark, then turned round to run forwards in 2013, and reopened
+as The Walking Dead: The Ride in 2018.
 
-The coaster itself is small. All the work is done by the dark and by the build-up:
-the queue is themed as a bunker overrun by zombies, and by the time you reach a
-seat you have spent long enough in it to feel slightly under siege.
+The coaster itself is small. All the work is done by the dark and the build-up:
+the queue's themed as a bunker overrun by zombies, and by the time you get to a
+seat you've spent long enough in there to feel a bit under siege.
 
-The ride is short, mild, and a bit jolting, because you can never see the next
-corner coming. Go in expecting a scare rather than a thrill and it does exactly
-what it says.
+The ride's short, mild and a little jolting, because you can never see the next
+corner coming. Go in expecting a scare rather than a thrill, and it does
+exactly what it says.

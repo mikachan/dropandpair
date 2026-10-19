@@ -13,43 +13,44 @@ vibe:
   - industrial
   - weightless
 gist: >-
-  All wait and no ride: a long hold at the lip, one vertical drop into a hole
-  in the ground, and it is over. Short, and completely unambiguous.
+  It parks you over the edge of a hole in the ground and makes you wait. Then one vertical drop, and that's it. The wait's honestly the scariest part.
 furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/Oblivion_(roller_coaster)
 pairings:
   - pairing: nothing-for-ten-minutes
     blurb: >-
-      Watch a car hang over the edge from the ground before you ride. Either
-      this will settle you or it will settle the matter.
+      Watch a car hang over the edge from the ground before you ride. It'll
+      either calm your nerves or make you think twice!
     strength: 5
   - pairing: an-ice-cream-you-have-to-eat-fast
     blurb: >-
-      The ride lasts seconds and the adrenaline lasts twenty minutes. Give your
-      hands a small, urgent job.
+      The ride's over in seconds, but the adrenaline sticks around for a good
+      twenty minutes. An ice cream gives your hands something to do.
     strength: 4
   - pairing: the-gardens
     blurb: >-
-      Go somewhere with soft edges. You have just been dropped into a concrete
-      tunnel on purpose.
+      Somewhere green and gentle feels really nice after being dropped into a
+      concrete tunnel.
     strength: 3
   - pairing: a-pot-of-tea
-    blurb: 'Optional here, unlike elsewhere. But you will enjoy it.'
+    blurb: >-
+      You don't need this one as much as on some rides, but you'll still enjoy
+      it.
     strength: 2
 ---
 
-A ride with one idea, executed without hedging. The train climbs, turns, and
-then stops — deliberately, with the front row hanging out over the edge — for
-long enough that everybody on board has time to reconsider their choices and
-no way to act on that.
+Oblivion has one idea, and it really commits to it. The train climbs, turns,
+and then stops with the front row hanging out over the edge. It stays there
+long enough for everyone on board to have second thoughts, with no way to do
+anything about it.
 
 Then it drops straight down into a hole in the ground.
 
-That hold is the whole design. Almost every other coaster hides its worst
-moment behind speed; this one parks you in front of yours and waits. The drop
-itself is brief and honest and slightly anticlimactic, which is exactly right:
-the ride already happened, up at the top, in your head.
+I think the hold is the best bit. Most coasters hide their scariest moment
+behind speed, but this one parks you right in front of it and waits. The drop
+itself is quick and a bit of an anticlimax, but that's fine, because the scary
+part has already happened up at the top, in your head.
 
-Pairs best with anything that gives you a small task afterwards. Standing still
-and thinking about it is not recommended.
+Afterwards, give yourself a small job to do. Standing around thinking about it
+isn't recommended!

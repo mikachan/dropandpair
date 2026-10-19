@@ -6,11 +6,10 @@ region: Staffordshire, England
 website: https://www.altontowers.com
 ---
 
-A theme park built in the grounds of a ruined country house, which is a
-sentence you would not believe if it were not true. The gardens came first by a
-century and a half, and they still set the tone: everything is in a valley,
-everything is downhill on the way out, and half the rides are hidden in trees
-until you are almost on top of them.
+Alton Towers is my favourite park. It's built in the grounds of a ruined
+country house, and the gardens came about 150 years before the rides. The whole
+park sits in a valley, so a lot of the rides are hidden in the trees until
+you're right next to them.
 
-That topography is the reason the pairings here lean towards recovery. You do
-not walk out of Alton Towers so much as climb out of it.
+It also means you climb out of the park at the end of the day, which is why a
+lot of the pairings here are about having a rest.

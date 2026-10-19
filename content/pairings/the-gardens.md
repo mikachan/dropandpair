@@ -3,13 +3,13 @@ id: the-gardens
 title: The gardens, at walking pace
 pairingType: do-next
 description: >-
-  Alton Towers has formal gardens that predate the rides by well over a
-  century. Almost nobody is in them. That is the point.
+  Alton Towers has some lovely formal gardens that are much older than the
+  rides, and they're usually really quiet.
 ---
 
-Walk out of the noisiest part of the park and into a valley of planting and
-paths where the loudest thing is other people's children a long way off. The
-change of register is so abrupt it works as a reset button with better
-views.
+If you need a break from the noise, head down into the gardens. It's a
+really nice change of pace from the rest of the park, the views are lovely, and
+the loudest thing you'll hear is other people's children a long way off.
 
-Allow longer than you think. Everything is downhill on the way in.
+Give yourself longer than you think you'll need, because it's all downhill on
+the way in.

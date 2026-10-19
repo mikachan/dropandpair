@@ -27,15 +27,15 @@ export const pairingTypeLabels: Record<PairingType, string> = {
 
 /** The one-line explanation of each moment, used on browse pages. */
 export const pairingTypeDescriptions: Record<PairingType, string> = {
-	before: 'Something to do before you ride.',
-	'right-after': 'Take this one straight after.',
-	'wind-down': 'Something gentle, for after a brutal ride.',
-	'eat-and-drink': 'What to put in your hands once the restraints are up.',
-	'do-next': 'Where to walk while the adrenaline wears off.',
+	before: 'Things to do before you ride.',
+	'right-after': 'For straight after you get off.',
+	'wind-down': 'Something gentle, for after a really intense ride.',
+	'eat-and-drink': "Something to eat or drink once you're off the ride.",
+	'do-next': 'Somewhere to go while the adrenaline wears off.',
 	listen: 'For the queue, the car park, or the long drive home.',
-	read: 'For the hotel, the flight, or the winter closed season.',
-	watch: 'A film or a show that belongs with this ride.',
-	later: 'Save this one for later.'
+	read: 'For the hotel, the flight, or the long wait over the winter closed season.',
+	watch: 'A film or TV show that goes really well with the ride.',
+	later: 'One to save for later, or another day.'
 };
 
 /** Sort key giving the order you would meet them in: before, after, then later. */

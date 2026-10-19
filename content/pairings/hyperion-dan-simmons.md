@@ -7,8 +7,10 @@ description: >-
   to the planet Hyperion and the Time Tombs, where the Shrike is waiting.
 ---
 
-Built like The Canterbury Tales: on the journey, each pilgrim tells the story
-of why they came. Together the tales cover faith, war, art,
-loss and revenge, and add up to one of the great science fiction novels.
+It's structured like The Canterbury Tales: on the journey, each pilgrim tells
+the story of why they came. Between them the stories cover faith, war, art,
+loss and revenge, and together they make one of the great science fiction
+novels.
 
-The story continues in The Fall of Hyperion (1990), and you will want it ready.
+The story carries on in The Fall of Hyperion (1990), and you'll want to have
+it ready.

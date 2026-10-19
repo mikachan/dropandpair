@@ -24,7 +24,7 @@
 		</nav>
 
 		<p class="colophon__small muted">
-			Pairings are <a href="https://sekai.co.uk">opinions</a>, not advice. Written by hand · © {year}
+			Pairings are just my <a href="https://sekai.co.uk">opinions</a>. Written by hand · © {year}
 		</p>
 	</div>
 </footer>

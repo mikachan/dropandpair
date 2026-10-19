@@ -21,7 +21,8 @@
 		<p class="eyebrow">Curated pairings for theme park rides</p>
 		<h1>{site.tagline}</h1>
 		<p class="lede">
-			Rides are over in minutes, so let's make them last. For every ride there's something to read, watch or listen to before you go, and something to help you remember them by afterwards.
+			Rides are over in minutes, so let's make them last. For every ride there's something to read,
+			watch or listen to before you go, and something to help you remember them by afterwards.
 		</p>
 		<p class="hero__actions">
 			<a class="button" href="/rides">Browse the rides</a>

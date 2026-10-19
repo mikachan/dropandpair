@@ -8,10 +8,10 @@ description: >-
   Lime has died in mysterious circumstances.
 ---
 
-Post-war Vienna, all ruins and shadows, is as much a character as anyone in
-it. The film won the Palme d'Or at Cannes and an Oscar for its cinematography, and Anton Karas's zither theme became a hit all on
-its own.
+Post-war Vienna, all ruins and shadows, feels like as much of a character as
+anyone in it. The film won the Palme d'Or at Cannes and an Oscar for its
+cinematography, and Anton Karas's zither theme became a hit on its own.
 
-Its most famous scene takes place on the Wiener Riesenrad, where Harry Lime
-looks down at the people below and delivers the speech about the Borgias and
-the cuckoo clock.
+Its most famous scene is on the Wiener Riesenrad, where Harry Lime looks down
+at the people below and gives his speech about the Borgias and the cuckoo
+clock.

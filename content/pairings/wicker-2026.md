@@ -8,10 +8,10 @@ description: >-
   village, orders herself a husband made of wicker.
 ---
 
-Adapted from Ursula Wills-Jones's short story "The Wicker Husband", and
-nothing to do with the other wicker film on this site. Here the wicker man is
-the romantic lead: so devoted to his wife that the whole village is thrown
-into chaos.
+It's adapted from Ursula Wills-Jones's short story "The Wicker Husband", and
+it has nothing to do with the other wicker film on this site. This time the
+wicker man is the romantic lead, and he's so devoted to his wife that he
+throws the whole village into chaos.
 
-It premiered at Sundance in January 2026, and reaches cinemas in the US on 23
-October and in the UK on 30 October.
+It premiered at Sundance in January 2026, and comes out in cinemas in the US on
+23 October and in the UK on 30 October.

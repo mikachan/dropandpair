@@ -4,13 +4,13 @@ title: Dracula (1931)
 pairingType: watch
 description: >-
   Tod Browning's film for Universal, with Bela Lugosi as the Count. A vampire
-  leaves Transylvania for England, and very few of the people he meets there
-  survive the acquaintance.
+  leaves Transylvania for England, and not many of the people he meets there
+  make it out alive.
 ---
 
-Adapted from the 1920s stage play rather than straight from the novel, and it
-shows in the best way: it is theatrical, unhurried and built around Lugosi,
-whose Count is still the one most people picture.
+It's adapted from the 1920s stage play rather than straight from the novel,
+and you can tell. It's theatrical and slow-paced, and it's all built around
+Lugosi, whose Count is still the one most people picture.
 
-If you like it, Universal also shot a Spanish-language version at the same
-time, on the same sets, by night.
+If you enjoy it, Universal also shot a Spanish-language version at the same
+time, on the same sets, at night.

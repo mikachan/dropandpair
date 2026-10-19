@@ -15,8 +15,7 @@ stats:
 vibe:
   - whimsical
 gist: >-
-  A Wild West family coaster that switches tracks and runs some of its course
-  backwards. Mild, smooth, and never quite the same ride twice.
+  A Wild West family coaster that switches tracks and runs bits of its course backwards, so it's never quite the same ride twice.
 furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/Gold_Rush_(Drayton_Manor)
@@ -25,13 +24,13 @@ furtherReading:
 pairings:
   - pairing: the-gold-rush-1925
     blurb: >-
-      Same name, same hunt for gold, nearly a hundred years apart. Chaplin's version
-      has fewer track switches and more boot-eating.
+      Same name and the same hunt for gold, nearly a hundred years apart.
+      Chaplin's version has fewer track switches and a lot more boot-eating.
     strength: 4
   - pairing: an-ice-cream-you-have-to-eat-fast
     blurb: >-
-      A family ride wants a family reward. Get one each and eat it while
-      arguing about whether to go again.
+      A family ride deserves a family treat. Get one each and eat them while
+      you argue about whether to go again.
     strength: 4
   - pairing: nothing-for-ten-minutes
     blurb: >-
@@ -41,15 +40,14 @@ pairings:
 ---
 
 Gold Rush opened in July 2024 as the centrepiece of Frontier Falls, Drayton
-Manor's new Wild West area. It is an Intamin "Lift & Launch" family coaster,
-and it took the place of three older rides: Apocalypse, Pandemonium and the
-Big Wheel.
+Manor's new Wild West area. It's an Intamin "Lift & Launch" family coaster, and
+it replaced three older rides: Apocalypse, Pandemonium and the Big Wheel.
 
-The clever part is a track switch. Trains run forwards over part of the
-course and then backwards over it, and the switch lets the park swap that
-sequence round, so the ride has two different versions. The train covers
-around 810 metres in total on just 593 metres of track.
+The clever bit is a track switch. Trains run forwards over part of the course
+and then backwards over it, and the switch lets the park swap that order round,
+so there are two different versions of the ride. The train covers around 810
+metres in total on just 593 metres of track.
 
-No inversions and a 1-metre height limit make it a proper first big coaster
-for children, but it is fun for everyone. Look out for the nods to the old
-rides in the queue.
+With no inversions and a 1-metre height limit, it's a proper first big coaster
+for children, but it's fun for everyone. Look out for the nods to the old rides
+in the queue.

@@ -4,7 +4,7 @@ export const site = {
 	url: 'https://dropandpair.com',
 	tagline: 'Before the queue and after the drop.',
 	description:
-		'Curated pairings for theme park rides: quick takes, and the films, records, meals and detours that belong with them.',
+		'Pairings for theme park rides: what to read, watch, listen to and eat before you queue and after you get off.',
 	locale: 'en_GB',
 	lang: 'en-GB',
 	author: 'Drop and Pair'

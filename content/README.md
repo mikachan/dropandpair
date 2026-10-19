@@ -30,26 +30,59 @@ comedy on its own.
 - Don't explain the joke. No "pairings — get it?".
 - Don't state a fact you have not checked. See **Facts** below.
 
+## Sounding like Sarah
+
+The site is written by one person, in the first person, so it should sound like
+her talking about rides she loves rather than a copywriter.
+
+**Her voice**
+
+- Plain and warm. Say the thing simply instead of reaching for a clever line.
+- First person where it's natural: "one of my favourite rides", "I think".
+- Contractions everywhere: _it's_, _you'll_, _don't_.
+- Casual British words, used now and then: really, lovely, brilliant,
+  properly, massive.
+- The odd exclamation mark is fine, roughly one every few pieces, not every
+  paragraph.
+- Explain why. "Tea's perfect for this because you can't drink it in a hurry"
+  beats "Not optional."
+
+**Signs it's drifted into AI copy**
+
+- Uncontracted phrasing: "you are", "it is", "do not", "you will".
+- Punchy one-line closers: "That is the point." "That is the entire
+  mechanism." "Which is exactly why it works." "That's the whole trick."
+- "X, not Y" pairs: "A pot, not a paper cup. A chair, not a wall."
+- Fancy phrasing: "the change of register", "a sentence you would not believe
+  if it were not true", "let the reputation settle on you".
+- Clipped commands with no reason: "Not optional." "Go somewhere with soft
+  edges."
+- Em dashes used for drama.
+
+If a sentence sounds like it's trying to be quotable, rewrite it the way you'd
+say it to a friend in the queue.
+
 ## The gist
 
 The `gist` is the one line that does the most work: it appears on cards,
 in search results, in the RSS feed and as the page's meta description. Treat it
 like the line on a poster.
 
-**Shape.** One or two sentences. A list of sensations, then a verdict. Around
-20–35 words.
+**Shape.** One or two sentences, around 15–30 words, with contractions.
+Lead with the ride's world: its story, its setting, or the one thing it does
+that nothing else does. Then, if there's room, the hook for pairing it.
 
-**A good pattern** — three sensations, then the intensity and comfort:
+> You're the latest shift sent down a haunted gold mine. The train stops over
+> the shaft, the spirits start wailing, and then it lets go.
 
-> Wet rock and rusted iron, a long hang in the trees, then four seconds
-> somewhere else entirely. Maximum intensity, and somehow still silky.
+> A slow turn above Vienna on a wheel that's been going since 1897. Watch The
+> Third Man first and you'll spend the whole ride looking down.
 
-> Salt air, cold steel and a lift hill long enough to have second thoughts on.
-> Strong, rough, and unmistakably of its era.
-
-Naming the intensity and comfort words in the gist is optional but effective,
-because it matches what the meters on the page say. Keep them consistent: don't
-write "silky" on a ride with `roughness: 5`.
+**Don't repeat the meters.** The intensity and comfort words are already on
+the page, so a gist that ends "Strong, smooth, and…" is just reading them back.
+It's also the rhythm of a wine tasting note, which is exactly what this site
+isn't. If you do mention how a ride feels, keep it consistent with the meters:
+don't call a ride with `roughness: 5` silky.
 
 **Not this:**
 
@@ -86,11 +119,11 @@ question: _why this, after this?_
   finished.
 - Give the instruction if there is one: when, where, how soon.
 
-> Not optional. You will finish this ride wet through, and you are at the
-> English seaside, where the wind is a participant.
+> Bring a towel, because you'll get off this one soaked. You're also at the
+> English seaside, so it's probably windy too.
 
-> Stand on the bridge over the pit first. You will hear it before you see it,
-> which is the whole trick.
+> Stand on the bridge over the pit first. You'll hear the train before you see
+> it, and it really builds up the nerves.
 
 The pairing's own `description` is the general case — what the thing is, for
 anyone. The `blurb` is the argument for pairing it with one ride. Don't repeat
@@ -101,17 +134,17 @@ one in the other.
 Every pairing has a moment, and the moments are ordered as you would meet
 them. Pick the one that answers _when_, not _what_:
 
-| Type            | When                                          |
-| --------------- | --------------------------------------------- |
-| `before`        | Before you ride.                              |
-| `right-after`   | Straight after, within minutes.               |
-| `wind-down`     | Something gentle, after something brutal.     |
-| `eat-and-drink` | Once the restraints are up.                   |
-| `do-next`       | Where to walk while the adrenaline wears off. |
-| `listen`        | The queue, the car park, the drive home.      |
-| `read`          | The hotel, the flight, the closed season.     |
-| `watch`         | A film or show that belongs with the ride.    |
-| `later`         | Later, or another day entirely.               |
+| Type            | When                                        |
+| --------------- | ------------------------------------------- |
+| `before`        | Before you ride.                            |
+| `right-after`   | Straight after, within minutes.             |
+| `wind-down`     | Something gentle, after something brutal.   |
+| `eat-and-drink` | Once you're off the ride.                   |
+| `do-next`       | Where to go while the adrenaline wears off. |
+| `listen`        | The queue, the car park, the drive home.    |
+| `read`          | The hotel, the flight, the closed season.   |
+| `watch`         | A film or show that belongs with the ride.  |
+| `later`         | Later, or another day entirely.             |
 
 A film can be a `watch` or a `later`, and a bar can be a `right-after` or an
 `eat-and-drink`. Choose by timing. If two fit, pick the one that makes the

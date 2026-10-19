@@ -8,8 +8,9 @@ description: >-
   Washington, falls for a boy who turns out to be a vampire.
 ---
 
-Vampires, but make it romance. Where the older Dracula stories are about dread,
-these are about longing: a lot of meaningful looks across a school canteen, a
-great deal of forest, and a werewolf who would also quite like a chance.
+These are the romantic side of vampire stories. The older Dracula stories are
+all about dread, but these are much more about longing: lots of meaningful
+looks across the school canteen, lots of forest, and a werewolf who'd also
+quite like a chance.
 
-Best watched in order, ideally all in one rainy weekend.
+Watch them in order, ideally all in one rainy weekend!

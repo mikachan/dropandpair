@@ -4,12 +4,12 @@ title: Iron Maiden – "The Wicker Man"
 pairingType: listen
 description: >-
   The lead single from Brave New World (2000), and a UK top-ten hit. Big riffs,
-  a bigger chorus, and a title taken from the 1973 film.
+  an even bigger chorus, and a title taken from the 1973 film.
 ---
 
-The song that marked Bruce Dickinson and Adrian Smith's return to the band,
-and it sounds like it: a band very pleased to be back
-together. The chorus is built to be shouted by a field full of people.
+This was the song that marked Bruce Dickinson and Adrian Smith's return to
+the band, and you can hear how happy they are to be back together. The chorus
+is made for a whole field of people to shout along to.
 
-Its title comes straight from the 1973 film, which makes it the natural bridge
-between watching that and riding this.
+The title comes straight from the 1973 film, so it fits nicely between
+watching that and riding this.

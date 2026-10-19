@@ -35,9 +35,9 @@
 		<p>
 			Rides are an easy fit for this, because so many of them are already based on a film, a book or
 			a legend. I'm also a massive fan of a well-themed ride. Wicker Man at Alton Towers is a great
-			example: there's a whole pre-show before you even get on. Drop and Pair is my way of
-			trying to give every ride that feeling, with things to read, watch or listen to in
-			anticipation, and things to do afterwards. Some rides make that easier than others!
+			example: there's a whole pre-show before you even get on. Drop and Pair is my way of trying to
+			give every ride that feeling, with things to read, watch or listen to in anticipation, and
+			things to do afterwards. Some rides make that easier than others!
 		</p>
 
 		<h2>About me</h2>

@@ -8,9 +8,9 @@ description: >-
 ---
 
 It opens with a harp striking twelve for midnight. Then a solo violin, with
-its top string tuned down so that it sounds slightly wrong, starts the dance,
-and a xylophone rattles along like bones. A rooster on the oboe sends everyone
-back to their graves at the end.
+its top string tuned down so it sounds slightly off, starts the dance, and a
+xylophone rattles along like bones. At the end, a rooster on the oboe sends
+everyone back to their graves.
 
-It started life as a song setting a poem by Henri Cazalis, and it is the
+It started out as a song set to a poem by Henri Cazalis, and for me it's the
 best piece of Halloween music ever written.

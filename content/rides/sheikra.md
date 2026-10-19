@@ -17,8 +17,7 @@ vibe:
   - brutal
   - weightless
 gist: >-
-  Held face-down over the edge for four long seconds, then straight down.
-  Maximum intensity, smooth, and it finishes by throwing water at the sky.
+  It holds you face down over a vertical drop for four long seconds, then lets go, and finishes by throwing water at the sky.
 furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/SheiKra
@@ -26,23 +25,23 @@ pairings:
   - pairing: nothing-for-ten-minutes
     blurb: >-
       Stand where you can see the hold at the top. Watching a full train hang
-      there is half the experience.
+      there before it drops is honestly half the fun.
     strength: 5
   - pairing: an-ice-cream-you-have-to-eat-fast
     blurb: >-
-      It is Florida. Whatever you buy will be melting before you have paid for
-      it, which is exactly the urgency required.
+      It's Florida, so whatever you buy will be melting before you've even paid
+      for it. Eat it quickly!
     strength: 4
 ---
 
-A dive coaster, which means the whole ride is built around one question: how
-long can it hold you over a 90-degree drop before letting go? The answer here
-is about four seconds, and that is plenty.
+SheiKra is a dive coaster, which means the whole ride is built around one
+question: how long can it hold you over a 90-degree drop before letting go?
+Here the answer's about four seconds, and that's plenty.
 
-Then it does it again: there is a second vertical drop, an Immelmann loop, and
-a splashdown that sends two great sheets of water into the
-air — the first dive coaster ever to have one.
+Then it does it all again. There's a second vertical drop, an Immelmann loop,
+and a splashdown that sends two huge sheets of water into the air. It was the
+first dive coaster ever to have one.
 
 The name comes from the shikra, a hawk that dives straight down on its prey.
-The trains have been floorless since 2007, so there is nothing at all beneath
+The trains have been floorless since 2007, so there's nothing at all under
 your feet while you wait.

@@ -17,31 +17,30 @@ vibe:
   - dizzying
   - weightless
 gist: >-
-  Fifty seconds, four abreast, and three inversions packed in tight. Strong,
-  smooth, and over long before you have finished deciding how you feel.
+  Fifty seconds and three inversions, packed in so tight you'll want to go straight back round.
 furtherReading:
   - title: RCDB
     url: https://rcdb.com/19395.htm
 pairings:
   - pairing: nothing-for-ten-minutes
     blurb: >-
-      Watch a few trains go round first. It is so compact that you can follow
-      the whole ride from one spot.
+      Watch a few trains go round first. It's so compact that you can see the
+      whole ride from one spot.
     strength: 3
   - pairing: an-ice-cream-you-have-to-eat-fast
     blurb: >-
-      A fifty-second ride wants a two-minute pairing. Something cold, straight
-      away, then back in the queue.
+      It's a fifty-second ride, so it needs a quick pairing. Grab something
+      cold straight away, then get back in the queue.
     strength: 4
 ---
 
 Helios opened in April 2025, replacing the Wild Train as Fantasiana's big
-coaster. It is a Mack Rides BigDipper with Stryker Coaster trains, which means
-cars of eight sitting four across in two rows.
+coaster. It's a Mack Rides BigDipper with Stryker Coaster trains, which means
+cars of eight, sitting four across in two rows.
 
-It does not waste a second. After the chain lift there is an outward-banked
+It doesn't waste a second. After the chain lift there's an outward-banked
 airtime hill, a corkscrew, a barrel roll drop and another corkscrew, and the
 train flies through the station along the way.
 
-The whole thing lasts about fifty seconds. It is short, smooth and densely
-packed, and it is the kind of ride you queue for twice in a row.
+The whole thing's over in about fifty seconds, and it's the kind of ride you
+queue for twice in a row. It's one of my favourite rides anywhere.

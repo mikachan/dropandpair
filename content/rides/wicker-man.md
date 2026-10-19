@@ -16,8 +16,7 @@ vibe:
   - eerie
   - fiery
 gist: >-
-  Timber, smoke and a crowd that seems a little too pleased to see you. Moderate
-  and bumpy, and the only coaster here that brings its own bonfire.
+  A wooden coaster that brings its own bonfire, and a crowd that's a little too pleased to see you. Watch the 1973 film first.
 furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/Wicker_Man_(roller_coaster)
@@ -26,40 +25,42 @@ furtherReading:
 pairings:
   - pairing: the-wicker-man-1973
     blurb: >-
-      Watch it before you go. The ride shares its name and its taste for fire,
-      and the film supplies the dread to bring with you into the queue.
+      Watch it before you go. The ride shares its name and its love of fire,
+      and the film gives you plenty of dread to take into the queue with you.
     strength: 5
   - pairing: wicker-2026
     blurb: >-
-      The antidote. Same material, opposite mood: a wicker man who wants to be
-      loved rather than lit. Watch it if the ride has left you a little on edge.
+      A lovely antidote to the ride. It's another wicker man, but this one wants
+      to be loved rather than set on fire. Watch it if the ride's left you a
+      little on edge.
     strength: 3
   - pairing: iron-maiden-the-wicker-man
     blurb: >-
-      For the queue, loud. Its title comes from the same film the ride shares a
-      name with, and the chorus is exactly the right volume for what is coming.
+      Put this on in the queue, and turn it up. The song's named after the same
+      film as the ride, and the chorus is perfect for getting you in the mood.
     strength: 4
   - pairing: nothing-for-ten-minutes
     blurb: >-
-      The queue is half the ritual. Take it slowly and let the build-up do its
-      work before anyone lights anything.
+      The queue's a big part of this ride, so take your time with it and enjoy
+      the build-up before anyone lights anything.
     strength: 4
   - pairing: the-gardens
     blurb: >-
-      Something green and peaceful afterwards, to remind yourself that not every
+      Somewhere green and peaceful afterwards is a nice reminder that not every
       clearing in the woods is a trap.
     strength: 3
 ---
 
-A wooden coaster, and it rides like one: it is not about one big moment but a
-long run of small ones, the track throwing you side to side while the structure
-creaks along with it.
+Wicker Man is one of my favourite rides, and a big part of why is how much it
+does before you even get on. There's a whole pre-show, and by the time you
+reach the train you're properly in the mood.
 
-What sets it apart is the fire. A wooden coaster and open flame should not be
-in the same sentence, which is exactly why it works. The whole ride leans on
-that unease: the sense that you are the guest of honour at a ceremony nobody
-explained.
+It's a wooden coaster, and it rides like one. It isn't about one big moment
+but a long run of small ones, with the track throwing you side to side while
+the structure creaks along with it.
 
-It is moderate rather than brutal, and the bumps are part of the texture rather
-than a punishment. Ride it near the end of the day, when the fire shows up
-best.
+What sets it apart is the fire. A wooden coaster and open flames shouldn't be
+in the same sentence, and that's what makes it so good. The whole ride leans on
+that unease: the feeling that you're the guest of honour at a ceremony nobody's
+explained. The bumps are all part of it rather than a punishment. Ride it near
+the end of the day, when the fire shows up best.
