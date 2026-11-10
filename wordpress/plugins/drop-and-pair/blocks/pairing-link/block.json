@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "drop-and-pair/pairing-link",
+	"title": "Pairing link",
+	"category": "widgets",
+	"description": "The Find it link for the current pairing.",
+	"textdomain": "drop-and-pair",
+	"usesContext": [ "postId" ],
+	"supports": { "html": false, "autoRegister": true },
+	"render": "file:./render.php"
+}

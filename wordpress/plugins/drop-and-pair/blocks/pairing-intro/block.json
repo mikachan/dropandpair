@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "drop-and-pair/pairing-intro",
+	"title": "Pairing intro",
+	"category": "widgets",
+	"description": "Moment label and description for the current pairing.",
+	"textdomain": "drop-and-pair",
+	"usesContext": [ "postId" ],
+	"supports": { "html": false, "autoRegister": true },
+	"render": "file:./render.php"
+}

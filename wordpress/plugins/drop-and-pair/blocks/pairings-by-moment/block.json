@@ -1,0 +1,11 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "drop-and-pair/pairings-by-moment",
+	"title": "Pairings by moment",
+	"category": "widgets",
+	"description": "Published pairings grouped by moment.",
+	"textdomain": "drop-and-pair",
+	"supports": { "html": false, "autoRegister": true },
+	"render": "file:./render.php"
+}

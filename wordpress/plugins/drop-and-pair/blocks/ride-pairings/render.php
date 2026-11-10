@@ -8,7 +8,7 @@
  */
 
 use DropAndPair\Queries;
-use DropAndPair\Vocab;
+use DropAndPair\Tickets;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -21,26 +21,20 @@ $suggest = esc_url( add_query_arg( 'ride', $ride_id, home_url( '/suggest/' ) ) )
 	<?php if ( ! $links ) : ?>
 		<p>No pairings yet. Got one? <a href="<?php echo $suggest; // phpcs:ignore WordPress.Security.EscapeOutput ?>">Suggest a pairing.</a></p>
 	<?php else : ?>
-		<div class="dp-ride-pairings__grid">
-			<?php
-			foreach ( $links as $link ) :
-				$slug   = Queries::moment_for_pairing( (int) $link['pairing_id'] );
-				$moment = $slug ? ( Vocab::MOMENTS[ $slug ]['label'] ?? '' ) : '';
-				$style  = $slug && isset( Vocab::MOMENTS[ $slug ] ) ? sprintf( '--dp-stub: var(--wp--preset--color--stub-%s)', $slug ) : '';
-				$by     = $link['suggested_by'] ?? null;
+		<div class="dp-ticket-grid">
+			<?php foreach ( $links as $link ) : ?>
+				<?php
+				echo Tickets::render( // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in Tickets.
+					array(
+						'moment'       => Queries::moment_for_pairing( (int) $link['pairing_id'] ),
+						'title'        => get_the_title( $link['pairing'] ),
+						'url'          => get_permalink( $link['pairing'] ),
+						'blurb'        => (string) $link['blurb'],
+						'strength'     => (int) $link['strength'],
+						'suggested_by' => $link['suggested_by'] ?? null,
+					)
+				);
 				?>
-				<div class="dp-ticket"<?php echo $style ? ' style="' . esc_attr( $style ) . '"' : ''; ?>>
-					<div class="dp-ticket__main">
-						<div class="dp-ticket__admit">Admit one<?php echo $moment ? ' · ' . esc_html( $moment ) : ''; ?></div>
-						<h3 class="dp-ticket__title"><a href="<?php echo esc_url( get_permalink( $link['pairing'] ) ); ?>"><?php echo esc_html( get_the_title( $link['pairing'] ) ); ?></a></h3>
-						<p class="dp-ticket__blurb"><?php echo esc_html( $link['blurb'] ); ?></p>
-						<div class="dp-ticket__match"><?php echo esc_html( strtolower( Vocab::strength_label( (int) $link['strength'] ) ) ); ?></div>
-						<?php if ( is_string( $by ) && '' !== $by ) : ?>
-							<div class="dp-label">Suggested by <?php echo esc_html( $by ); ?></div>
-						<?php endif; ?>
-					</div>
-					<div class="dp-ticket__stub"><span><?php echo esc_html( $moment ?: 'Pairing' ); ?></span></div>
-				</div>
 			<?php endforeach; ?>
 		</div>
 		<p class="dp-ride-pairings__suggest"><a href="<?php echo $suggest; // phpcs:ignore WordPress.Security.EscapeOutput ?>">Suggest a pairing for this ride</a></p>

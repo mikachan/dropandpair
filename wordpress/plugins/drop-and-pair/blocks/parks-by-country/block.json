@@ -1,0 +1,11 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "drop-and-pair/parks-by-country",
+	"title": "Parks by country",
+	"category": "widgets",
+	"description": "Published parks grouped by country, with ride counts.",
+	"textdomain": "drop-and-pair",
+	"supports": { "html": false, "autoRegister": true },
+	"render": "file:./render.php"
+}

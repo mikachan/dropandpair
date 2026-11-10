@@ -41,13 +41,27 @@ final class Queries {
 		return $out;
 	}
 
-	/** Moment slug of a pairing (its first dp_moment term), or null when it has none. */
+	/**
+	 * Moment slug of a pairing, or null when it has none. With several terms the one
+	 * earliest in Vocab::MOMENTS wins; term order is alphabetical and means nothing.
+	 */
 	public static function moment_for_pairing( int $pairing_id ): ?string {
 		$terms = get_the_terms( $pairing_id, 'dp_moment' );
 		if ( ! is_array( $terms ) || ! $terms ) {
 			return null;
 		}
-		return $terms[0]->slug;
+		$rank = array_flip( array_keys( Vocab::MOMENTS ) );
+		$best = null;
+		foreach ( $terms as $term ) {
+			if ( ! isset( $rank[ $term->slug ] ) ) {
+				continue;
+			}
+			if ( null === $best || $rank[ $term->slug ] < $rank[ $best ] ) {
+				$best = $term->slug;
+			}
+		}
+		// Terms outside the vocabulary: fall back to the first rather than hiding the moment.
+		return $best ?? $terms[0]->slug;
 	}
 
 	/**
@@ -123,5 +137,102 @@ final class Queries {
 			}
 		}
 		return $out;
+	}
+
+	/**
+	 * Published rides at a park, by name.
+	 *
+	 * @return \WP_Post[]
+	 */
+	public static function rides_for_park( int $park_id ): array {
+		return get_posts(
+			array(
+				'post_type'      => 'dp_ride',
+				'post_status'    => 'publish',
+				'posts_per_page' => -1,
+				'orderby'        => 'title',
+				'order'          => 'ASC',
+				'no_found_rows'  => true,
+				'meta_key'       => 'dp_park_id',
+				'meta_value'     => $park_id,
+			)
+		);
+	}
+
+	/**
+	 * Published parks grouped by country (A to Z), each with its published ride count.
+	 * Parks with no country go under "Elsewhere", last.
+	 *
+	 * @return array<string, array<int, array{park:\WP_Post, rides:int}>>
+	 */
+	public static function parks_by_country(): array {
+		global $wpdb;
+		$parks  = get_posts(
+			array(
+				'post_type'      => 'dp_park',
+				'post_status'    => 'publish',
+				'posts_per_page' => -1,
+				'orderby'        => 'title',
+				'order'          => 'ASC',
+				'no_found_rows'  => true,
+			)
+		);
+		$counts = array();
+		// One grouped query rather than a ride lookup per park.
+		$rows = $wpdb->get_results(
+			"SELECT m.meta_value AS park_id, COUNT(*) AS n FROM {$wpdb->postmeta} m
+			 INNER JOIN {$wpdb->posts} p ON p.ID = m.post_id
+			 WHERE m.meta_key = 'dp_park_id' AND p.post_type = 'dp_ride' AND p.post_status = 'publish'
+			 GROUP BY m.meta_value"
+		);
+		foreach ( $rows as $row ) {
+			$counts[ (int) $row->park_id ] = (int) $row->n;
+		}
+		$groups = array();
+		foreach ( $parks as $park ) {
+			$country = trim( (string) get_post_meta( $park->ID, 'dp_country', true ) );
+			$groups[ '' === $country ? 'Elsewhere' : $country ][] = array(
+				'park'  => $park,
+				'rides' => $counts[ $park->ID ] ?? 0,
+			);
+		}
+		uksort(
+			$groups,
+			static fn( $a, $b ) => ( 'Elsewhere' === $a ) <=> ( 'Elsewhere' === $b ) ?: strcasecmp( $a, $b )
+		);
+		return $groups;
+	}
+
+	/**
+	 * Published pairings grouped by moment in Vocab order; moments with none are left out.
+	 * Pairings with no moment are left out too, since there's no section to put them in.
+	 *
+	 * @return array<string, \WP_Post[]> Moment slug => pairings, by title.
+	 */
+	public static function pairings_by_moment(): array {
+		$pairings = get_posts(
+			array(
+				'post_type'      => 'dp_pairing',
+				'post_status'    => 'publish',
+				'posts_per_page' => -1,
+				'orderby'        => 'title',
+				'order'          => 'ASC',
+				'no_found_rows'  => true,
+			)
+		);
+		$groups   = array();
+		foreach ( $pairings as $pairing ) {
+			$slug = self::moment_for_pairing( $pairing->ID );
+			if ( null !== $slug && isset( Vocab::MOMENTS[ $slug ] ) ) {
+				$groups[ $slug ][] = $pairing;
+			}
+		}
+		$ordered = array();
+		foreach ( array_keys( Vocab::MOMENTS ) as $slug ) {
+			if ( isset( $groups[ $slug ] ) ) {
+				$ordered[ $slug ] = $groups[ $slug ];
+			}
+		}
+		return $ordered;
 	}
 }
