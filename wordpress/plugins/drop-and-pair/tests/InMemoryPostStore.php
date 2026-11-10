@@ -4,7 +4,7 @@ namespace DropAndPair\Tests;
 use DropAndPair\Import\PostStore;
 
 /** Stand-in for WpPostStore so the importer runs without WordPress. */
-final class InMemoryPostStore implements PostStore {
+class InMemoryPostStore implements PostStore {
 
 	/** @var array<int, array{type:string, slug:string, postarr:array, meta:array, terms:array}> */
 	public array $posts = array();

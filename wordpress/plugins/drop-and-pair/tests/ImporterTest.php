@@ -121,4 +121,22 @@ final class ImporterTest extends TestCase {
 		$ride = $store->posts[ $store->find_by_slug( 'dp_ride', 'hyperion' ) ];
 		$this->assertSame( array(), $ride['meta']['dp_pairings'] );
 	}
+
+	public function test_failed_create_is_reported_and_the_rest_carry_on(): void {
+		$store = new class() extends InMemoryPostStore {
+			public function create( array $postarr, array $meta, array $terms ): int {
+				if ( 'a-pot-of-tea' === $postarr['post_name'] ) {
+					throw new \RuntimeException( 'boom' );
+				}
+				return parent::create( $postarr, $meta, $terms );
+			}
+		};
+		$report = ( new Importer( $store ) )->run( $this->data() );
+
+		// The pairing fails, so hyperion's link to it is dropped too, but the ride itself is created.
+		$this->assertCount( 2, $report->problems );
+		$this->assertStringContainsString( 'dp_pairing:a-pot-of-tea', $report->problems[0] );
+		$this->assertSame( array( 'dp_park:alton-towers', 'dp_ride:hyperion', 'page:about' ), $report->created );
+		$this->assertNull( $store->find_by_slug( 'dp_pairing', 'a-pot-of-tea' ) );
+	}
 }

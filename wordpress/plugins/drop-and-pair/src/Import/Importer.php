@@ -164,15 +164,21 @@ final class Importer {
 			$report->skipped[] = $label;
 			return;
 		}
-		$this->store->create(
-			$postarr + array(
-				'post_type'   => $type,
-				'post_name'   => $slug,
-				'post_status' => 'draft',
-			),
-			$meta,
-			$terms
-		);
+		// One bad item shouldn't stop the rest; the store cleans up after itself, so a re-run retries it.
+		try {
+			$this->store->create(
+				$postarr + array(
+					'post_type'   => $type,
+					'post_name'   => $slug,
+					'post_status' => 'draft',
+				),
+				$meta,
+				$terms
+			);
+		} catch ( \Throwable $e ) {
+			$report->problems[] = "$label: import failed: " . $e->getMessage();
+			return;
+		}
 		$report->created[] = $label;
 	}
 
