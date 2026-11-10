@@ -454,3 +454,105 @@ Text Domain: drop-and-pair
 		min-width: 560px;
 	}
 }
+
+/* ---------- Home, search and 404 ---------- */
+
+.dp-hero {
+	margin-block: 32px 40px;
+	padding: 40px clamp(16px, 5vw, 56px);
+	border: 3px double currentColor;
+	border-radius: 8px;
+	background: var(--wp--custom--ticket);
+	text-align: center;
+}
+
+.dp-hero__eyebrow {
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+}
+
+.dp-hero__title {
+	font-size: clamp(32px, 7vw, 56px);
+	text-transform: uppercase;
+	color: var(--wp--preset--color--accent);
+}
+
+.dp-hero__lede {
+	max-width: 40em;
+	margin-inline: auto;
+	font-size: var(--wp--preset--font-size--large);
+}
+
+.dp-site-totals {
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+}
+
+.dp-home-section {
+	margin-top: 48px;
+}
+
+.dp-home-section > h2 {
+	padding-bottom: 6px;
+	border-bottom: 1px solid var(--wp--preset--color--line);
+	margin-bottom: 16px;
+}
+
+.dp-cta {
+	padding: 24px clamp(16px, 4vw, 32px);
+}
+
+/* Buttons: solid ink, or an outline, flipping with the colour scheme. */
+.wp-block-button__link {
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--paper);
+	border: 2px solid var(--wp--preset--color--ink);
+	border-radius: 6px;
+	padding: 10px 20px;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link {
+	background: transparent;
+	color: var(--wp--preset--color--ink);
+}
+
+.wp-block-button__link:hover,
+.wp-block-button__link:focus-visible {
+	background: var(--wp--preset--color--accent);
+	border-color: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--booth);
+}
+
+/* Search results. */
+.dp-search-form {
+	margin-block: 8px 24px;
+}
+
+.dp-search-item {
+	padding-block: 12px;
+	border-top: 1px solid var(--wp--preset--color--line);
+}
+
+.dp-search-item .wp-block-post-title {
+	margin: 4px 0;
+	font-size: var(--wp--preset--font-size--large);
+}
+
+.dp-search-item .wp-block-post-title a {
+	text-decoration: none;
+}
+
+.dp-search-item .wp-block-post-title a:hover {
+	text-decoration: underline;
+}
+
+.dp-search-result__summary {
+	margin: 0;
+	color: var(--wp--preset--color--ink-muted);
+}
+
+.dp-404 {
+	padding-block: 32px;
+}

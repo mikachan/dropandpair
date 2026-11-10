@@ -235,4 +235,72 @@ final class Queries {
 		}
 		return $ordered;
 	}
+
+	/**
+	 * Which rides the home page shows, as ids. "newest" is by dp_added (undated last, ties by
+	 * title); "featured" is the flagged rides in that order, or "newest" when none are flagged.
+	 * Pure, so the ordering is unit-tested without WordPress.
+	 *
+	 * @param array<int, array{id:int, title:string, featured:bool, added:string}> $rows
+	 * @return int[]
+	 */
+	public static function pick_rides( array $rows, string $source, int $count ): array {
+		if ( $count < 1 || ! in_array( $source, array( 'featured', 'newest' ), true ) ) {
+			return array();
+		}
+		usort(
+			$rows,
+			static function ( $a, $b ) {
+				// Undated rides sort after every date.
+				return array( '' === $a['added'], $b['added'], $a['title'] ) <=> array( '' === $b['added'], $a['added'], $b['title'] ) ?: 0;
+			}
+		);
+		if ( 'featured' === $source ) {
+			$flagged = array_values( array_filter( $rows, static fn( $r ) => $r['featured'] ) );
+			$rows    = $flagged ?: $rows;
+		}
+		return array_map( 'intval', array_column( array_slice( $rows, 0, $count ), 'id' ) );
+	}
+
+	/**
+	 * Published rides for the home page.
+	 *
+	 * @return \WP_Post[]
+	 */
+	public static function home_rides( string $source, int $count ): array {
+		$posts = get_posts(
+			array(
+				'post_type'      => 'dp_ride',
+				'post_status'    => 'publish',
+				'posts_per_page' => -1,
+				'no_found_rows'  => true,
+			)
+		);
+		$rows  = array();
+		$by_id = array();
+		foreach ( $posts as $post ) {
+			$by_id[ $post->ID ] = $post;
+			$rows[]             = array(
+				'id'       => $post->ID,
+				'title'    => get_the_title( $post ),
+				'featured' => (bool) get_post_meta( $post->ID, 'dp_featured', true ),
+				'added'    => (string) get_post_meta( $post->ID, 'dp_added', true ),
+			);
+		}
+		return array_map( static fn( $id ) => $by_id[ $id ], self::pick_rides( $rows, $source, $count ) );
+	}
+
+	/**
+	 * Counts for the home page hero. Published posts only, so drafts never inflate them.
+	 *
+	 * @return array{rides:int, parks:int, pairings:int}
+	 */
+	public static function totals(): array {
+		$count = static fn( string $type ) => (int) ( wp_count_posts( $type )->publish ?? 0 );
+		return array(
+			'rides'    => $count( 'dp_ride' ),
+			'parks'    => $count( 'dp_park' ),
+			'pairings' => $count( 'dp_pairing' ),
+		);
+	}
 }

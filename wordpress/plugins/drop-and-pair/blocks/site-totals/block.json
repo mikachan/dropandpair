@@ -1,0 +1,11 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "drop-and-pair/site-totals",
+	"title": "Site totals",
+	"category": "widgets",
+	"description": "How many published rides, parks and pairings there are.",
+	"textdomain": "drop-and-pair",
+	"supports": { "html": false, "autoRegister": true },
+	"render": "file:./render.php"
+}

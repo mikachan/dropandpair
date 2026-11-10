@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "drop-and-pair/search-result-meta",
+	"title": "Search result details",
+	"category": "widgets",
+	"description": "What kind of thing a search result is, with its one-line summary.",
+	"textdomain": "drop-and-pair",
+	"usesContext": [ "postId" ],
+	"supports": { "html": false, "autoRegister": true },
+	"render": "file:./render.php"
+}

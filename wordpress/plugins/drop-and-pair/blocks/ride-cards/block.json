@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "drop-and-pair/ride-cards",
+	"title": "Ride cards",
+	"category": "widgets",
+	"description": "Small tickets for featured or newly added rides.",
+	"textdomain": "drop-and-pair",
+	"attributes": {
+		"source": { "type": "string", "enum": [ "featured", "newest" ], "default": "featured" },
+		"count": { "type": "integer", "default": 6 }
+	},
+	"supports": { "html": false, "autoRegister": true },
+	"render": "file:./render.php"
+}

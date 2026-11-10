@@ -1,0 +1,11 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "drop-and-pair/moment-index",
+	"title": "Moment index",
+	"category": "widgets",
+	"description": "A ticket stub for each moment, linking to the rides that have a pairing for it.",
+	"textdomain": "drop-and-pair",
+	"supports": { "html": false, "autoRegister": true },
+	"render": "file:./render.php"
+}
