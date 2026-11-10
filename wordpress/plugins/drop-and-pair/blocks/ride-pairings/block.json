@@ -1,0 +1,13 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "drop-and-pair/ride-pairings",
+	"title": "Ride pairings",
+	"category": "widgets",
+	"description": "Pairing tickets for the current ride.",
+	"textdomain": "drop-and-pair",
+	"usesContext": [ "postId" ],
+	"supports": { "html": false, "autoRegister": true },
+	"render": "file:./render.php",
+	"style": "file:./style.css"
+}

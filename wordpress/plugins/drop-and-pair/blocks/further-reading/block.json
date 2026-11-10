@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "drop-and-pair/further-reading",
+	"title": "Further reading",
+	"category": "widgets",
+	"description": "Links from the ride's further reading list.",
+	"textdomain": "drop-and-pair",
+	"usesContext": [ "postId" ],
+	"supports": { "html": false, "autoRegister": true },
+	"render": "file:./render.php"
+}

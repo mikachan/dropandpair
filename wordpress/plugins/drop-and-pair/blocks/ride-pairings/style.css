@@ -1,0 +1,47 @@
+/* Three tickets across, one on phones, as in mockup C3. Ticket parts live in the theme. */
+.dp-ride-pairings__grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 16px;
+}
+
+.dp-ride-pairings .dp-ticket__title {
+	font-size: var(--wp--preset--font-size--medium);
+	margin: 4px 0;
+}
+
+.dp-ride-pairings .dp-ticket__title a {
+	text-decoration: none;
+}
+
+.dp-ride-pairings .dp-ticket__title a:hover {
+	text-decoration: underline;
+}
+
+.dp-ride-pairings .dp-ticket__blurb {
+	margin: 0;
+	font-size: var(--wp--preset--font-size--small);
+	line-height: 1.45;
+	color: var(--wp--preset--color--ink-muted);
+}
+
+.dp-ride-pairings .dp-ticket__match {
+	margin-top: 8px;
+	font-family: var(--wp--preset--font-family--mono);
+	font-size: var(--wp--preset--font-size--x-small);
+}
+
+.dp-ride-pairings .dp-label {
+	margin-top: 6px;
+}
+
+.dp-ride-pairings__suggest {
+	margin-top: 16px;
+	font-size: var(--wp--preset--font-size--small);
+}
+
+@media (max-width: 760px) {
+	.dp-ride-pairings__grid {
+		grid-template-columns: 1fr;
+	}
+}

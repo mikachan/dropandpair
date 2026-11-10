@@ -25,6 +25,16 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	WP_CLI::add_command( 'dropandpair', DropAndPair\Import\Command::class );
 }
 
+/** Dynamic blocks: each folder under blocks/ has a block.json and a PHP render file. */
+add_action(
+	'init',
+	static function () {
+		foreach ( glob( DROP_AND_PAIR_DIR . 'blocks/*/block.json' ) ?: array() as $file ) {
+			register_block_type( dirname( $file ) );
+		}
+	}
+);
+
 /**
  * Editor sidebars: one plain-JS script per post type (no build step), each adding a
  * document settings panel for that type's meta. Registered always, enqueued only
