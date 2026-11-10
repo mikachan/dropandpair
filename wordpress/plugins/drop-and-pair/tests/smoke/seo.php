@@ -100,7 +100,8 @@ in_array( $draft_title, $related(), true ) || $fail( 'JSON-LD missing the publis
 
 // The real main feed: published ride in, draft ride out, title escaped, permalink guid.
 $GLOBALS['dp_smoke_title'] = get_the_title( $ids['a'] ) . ', ' . get_the_title( $ids['park'] );
-$res = wp_remote_get( home_url( '/feed/?dpnocache=' . time() ), array( 'timeout' => 30 ) );
+require_once __DIR__ . '/_gate.php';
+$res = dp_smoke_without_gate( static fn() => wp_remote_get( home_url( '/feed/?dpnocache=' . time() ), array( 'timeout' => 30 ) ) );
 is_wp_error( $res ) && $fail( 'feed fetch failed: ' . $res->get_error_message() );
 $xml = wp_remote_retrieve_body( $res );
 $feed = simplexml_load_string( $xml );
