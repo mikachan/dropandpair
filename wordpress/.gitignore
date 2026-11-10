@@ -1,2 +1,3 @@
 plugins/drop-and-pair/vendor/
 plugins/drop-and-pair/.phpunit.result.cache
+import/
