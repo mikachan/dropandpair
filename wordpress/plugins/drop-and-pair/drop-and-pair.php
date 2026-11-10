@@ -18,4 +18,5 @@ if ( file_exists( DROP_AND_PAIR_DIR . 'vendor/autoload.php' ) ) {
 }
 
 DropAndPair\ContentTypes::hooks();
+DropAndPair\RidePairings::hooks();
 register_activation_hook( __FILE__, array( DropAndPair\ContentTypes::class, 'seed_terms' ) );

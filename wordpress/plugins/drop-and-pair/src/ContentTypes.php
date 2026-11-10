@@ -158,7 +158,7 @@ final class ContentTypes {
 				),
 			)
 		);
-		// Registered now so the shape is fixed; Task 3 adds the logic around it.
+		// Shape matches RidePairings; that class scrubs emails once a link is public.
 		$reg(
 			'dp_ride',
 			'pairings',
