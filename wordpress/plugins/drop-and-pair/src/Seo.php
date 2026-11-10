@@ -67,7 +67,12 @@ final class Seo {
 		// the description only, as the old rss.xml did.
 		add_filter( 'pre_option_posts_per_rss', static fn() => self::FEED_SIZE );
 		add_filter( 'pre_option_rss_use_excerpt', static fn() => 1 );
-		add_filter( 'the_title_rss', array( self::class, 'feed_title' ), 10, 1 );
+		// Priority 1: core's strip_tags / ent2ncr / esc_html run after, so the title is escaped once.
+		add_filter( 'the_title_rss', array( self::class, 'feed_title' ), 1, 1 );
+		add_filter( 'the_guid', array( self::class, 'feed_guid' ), 10, 2 );
+		add_action( 'rss2_item', array( self::class, 'feed_category' ) );
+		// Core hardcodes isPermaLink="false"; the guid here is the permalink, as in the old rss.xml.
+		add_action( 'rss2_ns', static fn() => ob_start( static fn( $xml ) => str_replace( 'isPermaLink="false"', 'isPermaLink="true"', $xml ) ) );
 		add_filter( 'the_excerpt_rss', array( self::class, 'feed_description' ), 10, 1 );
 		add_filter( 'get_post_time', array( self::class, 'feed_post_time' ), 10, 3 );
 	}
@@ -87,6 +92,22 @@ final class Seo {
 		return $post && 'dp_ride' === $post->post_type ? self::ride_description( $post ) : $excerpt;
 	}
 
+	/** The permalink, so subscribers keep recognising items the old feed already delivered. */
+	public static function feed_guid( $guid, $id ) {
+		$post = get_post( $id );
+		return $post && 'dp_ride' === $post->post_type ? get_permalink( $post ) : $guid;
+	}
+
+	/** Ride type as the item's category, as the old feed had. */
+	public static function feed_category(): void {
+		$post  = get_post();
+		$types = $post && 'dp_ride' === $post->post_type ? get_the_terms( $post->ID, 'dp_ride_type' ) : false;
+		if ( is_array( $types ) && $types ) {
+			$label = Vocab::RIDE_TYPES[ $types[0]->slug ] ?? $types[0]->name;
+			echo '<category><![CDATA[' . str_replace( ']]>', ']]]]><![CDATA[>', $label ) . "]]></category>\n";
+		}
+	}
+
 	/** Publish date shown is the date the ride was added to the site, when it has one. */
 	public static function feed_post_time( $time, $format, $gmt ) {
 		$post  = get_post();
@@ -94,7 +115,9 @@ final class Seo {
 		if ( ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $added ) || ! is_string( $format ) ) {
 			return $time;
 		}
-		return mysql2date( $format, $added . ' 00:00:00', false );
+		// Midnight in the site's timezone; UTC when the caller asked for GMT.
+		$when = new \DateTimeImmutable( $added . ' 00:00:00', wp_timezone() );
+		return $when->setTimezone( $gmt ? new \DateTimeZone( 'UTC' ) : wp_timezone() )->format( $format );
 	}
 
 	/** Gist, then "<Type> at <Park>, <Country>.", then "N pairings." (public links only). */
