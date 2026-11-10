@@ -2,7 +2,18 @@
 // Run with: studio wp eval-file <this file>. Prints OK on success.
 // Creates its own posts (deleted at the end, even on failure) and leaves existing ones alone.
 $ids  = array();
-$fail = static function ( string $msg ) use ( &$ids ) {
+$hidden = array(); // Published pairings drafted for the empty-moment check; always put back.
+$unhide = static function () use ( &$hidden ) {
+	global $wpdb;
+	foreach ( $hidden as $id ) {
+		// Direct write: no hooks, so nothing else about the post changes.
+		$wpdb->update( $wpdb->posts, array( 'post_status' => 'publish' ), array( 'ID' => $id ) );
+		clean_post_cache( $id );
+	}
+	$hidden = array();
+};
+$fail = static function ( string $msg ) use ( &$ids, $unhide ) {
+	$unhide();
 	foreach ( $ids as $id ) {
 		wp_delete_post( $id, true );
 	}
@@ -82,23 +93,29 @@ foreach ( get_posts( array( 'post_type' => 'dp_pairing', 'post_status' => 'publi
 	$used[] = \DropAndPair\Queries::moment_for_pairing( $pid );
 }
 $expected = array_values( array_intersect( array_keys( \DropAndPair\Vocab::MOMENTS ), $used ) );
-$empty = null;
-foreach ( array_reverse( array_keys( \DropAndPair\Vocab::MOMENTS ) ) as $slug ) {
-	in_array( $slug, $expected, true ) || ( $empty = $empty ?? $slug );
+// Make the last moment empty for certain: draft whatever is published there, restored below.
+$empty = array_key_last( \DropAndPair\Vocab::MOMENTS );
+global $wpdb;
+foreach ( get_posts( array( 'post_type' => 'dp_pairing', 'post_status' => 'publish', 'posts_per_page' => -1, 'fields' => 'ids', 'no_found_rows' => true ) ) as $pid ) {
+	if ( \DropAndPair\Queries::moment_for_pairing( $pid ) === $empty ) {
+		$wpdb->update( $wpdb->posts, array( 'post_status' => 'draft' ), array( 'ID' => $pid ) );
+		clean_post_cache( $pid );
+		$hidden[] = $pid;
+	}
 }
-if ( $empty ) {
-	// A draft in an otherwise empty moment must not make a section.
-	$draft = $make( 'dp_pairing', 'draft', 'Smoke Draft Pairing' );
-	wp_set_object_terms( $draft, $empty, 'dp_moment' );
-}
+$expected = array_values( array_diff( $expected, array( $empty ) ) );
+// A draft pairing in the empty moment must not make a section either.
+$draft = $make( 'dp_pairing', 'draft', 'Smoke Draft Pairing' );
+wp_set_object_terms( $draft, $empty, 'dp_moment' );
 $html = do_blocks( '<!-- wp:drop-and-pair/pairings-by-moment /-->' );
 preg_match_all( '/<section class="dp-archive-group" id="([a-z-]+)"/', $html, $m );
 $m[1] === $expected || $fail( 'Sections ' . implode( ',', $m[1] ) . ' != expected ' . implode( ',', $expected ) );
-$empty && false !== strpos( $html, 'id="' . $empty . '"' ) && $fail( 'Empty moment shown' );
+false !== strpos( $html, 'id="' . $empty . '"' ) && $fail( 'Empty moment shown' );
 false !== strpos( $html, 'Things to do before you ride.' ) || $fail( 'Moment description missing' );
 false !== strpos( $html, 'Smoke Pairing' ) || $fail( 'Pairing ticket missing from archive' );
 false !== strpos( $html, 'Smoke Draft Pairing' ) && $fail( 'Draft pairing in archive' );
 
+$unhide();
 foreach ( $ids as $id ) {
 	wp_delete_post( $id, true );
 }
