@@ -5,6 +5,11 @@
 
 /** Runs $fn with coming soon mode off, restoring the previous value even if it throws. */
 function dp_smoke_without_gate( callable $fn ) {
+	// Never open the gate on a real site: only a local environment or a localhost host.
+	$host = (string) wp_parse_url( home_url(), PHP_URL_HOST );
+	if ( 'local' !== wp_get_environment_type() && ! in_array( $host, array( 'localhost', '127.0.0.1' ), true ) ) {
+		throw new RuntimeException( "Refusing to open coming soon mode on $host" );
+	}
 	$was = get_option( 'dp_coming_soon', false );
 	update_option( 'dp_coming_soon', '0' );
 	try {

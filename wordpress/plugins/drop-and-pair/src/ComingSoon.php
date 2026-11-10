@@ -18,15 +18,19 @@ final class ComingSoon {
 	public const RETRY_AFTER = 86400;
 
 	public static function hooks(): void {
-		// Priority 0: ahead of Seo's legacy redirects, which would otherwise answer a logged-out
-		// /rss.xml with a 301 and hint that the old URLs are live.
-		add_action( 'template_redirect', array( self::class, 'gate_front_end' ), 0 );
+		// As early as it goes: ahead of Seo's legacy redirects (which would answer a logged-out
+		// /rss.xml with a 301) and of any other plugin that might render or redirect first.
+		add_action( 'template_redirect', array( self::class, 'gate_front_end' ), PHP_INT_MIN + 1 );
 		// 101: after core's cookie check (100), which is what drops the user for a missing nonce.
 		add_filter( 'rest_authentication_errors', array( self::class, 'gate_rest' ), 101 );
 		add_action( 'admin_post_nopriv_' . Submission\Handler::ACTION, array( self::class, 'refuse_submission' ), 0 );
-		add_action( 'pre_comment_on_post', array( self::class, 'refuse_submission' ), 0 );
+		add_action( 'pre_comment_on_post', array( self::class, 'refuse_comment' ), 0 );
 		add_action( 'admin_init', array( self::class, 'gate_ajax' ), 0 );
 		add_filter( 'xmlrpc_enabled', static fn( $enabled ) => self::blocks_visitor() ? false : $enabled );
+		// xmlrpc_enabled only covers authenticated methods; pingback.ping, system.* and demo.* still answer without it.
+		add_filter( 'xmlrpc_methods', static fn( $methods ) => self::blocks_visitor() ? array() : $methods, PHP_INT_MAX );
+		// Search engines are meant to stay away while the gate is up, whatever the Reading screen says.
+		add_filter( 'pre_option_blog_public', array( self::class, 'force_private' ) );
 		add_action( 'admin_bar_menu', array( self::class, 'admin_bar_note' ), 100 );
 		add_action( 'admin_init', array( self::class, 'register_setting' ) );
 		add_action( 'add_option_' . self::OPTION, static fn( $name, $value ) => self::hide_from_search( $value ), 10, 2 );
@@ -57,14 +61,25 @@ final class ComingSoon {
 			add_option( self::OPTION, '1' );
 		}
 		if ( self::enabled() ) {
-			update_option( 'blog_public', '0' );
+			self::store_blog_public_off();
 		}
+	}
+
+	public static function force_private( $pre ) {
+		return self::enabled() ? '0' : $pre;
+	}
+
+	/** Stored value too, so it's already 0 when the gate comes down; the read filter would otherwise make the update a no-op. */
+	private static function store_blog_public_off(): void {
+		remove_filter( 'pre_option_blog_public', array( self::class, 'force_private' ) );
+		update_option( 'blog_public', '0' );
+		add_filter( 'pre_option_blog_public', array( self::class, 'force_private' ) );
 	}
 
 	/** Turning the gate on also asks search engines to stay away, in case it gets switched off later by accident. */
 	public static function hide_from_search( $value ): void {
 		if ( self::is_on( $value ) ) {
-			update_option( 'blog_public', '0' );
+			self::store_blog_public_off();
 		}
 	}
 
@@ -98,9 +113,16 @@ final class ComingSoon {
 		return $result;
 	}
 
-	/** Hooked on the logged-out admin-post action for the pairing form, and on comment posting. */
+	/** Hooked on the logged-out admin-post action for the pairing form (so only ever reached by visitors). */
 	public static function refuse_submission(): void {
 		if ( self::enabled() ) {
+			wp_die( 'This site is not open yet.', 'Coming soon', array( 'response' => 503 ) );
+		}
+	}
+
+	/** Visitors can't comment, but logged-in users (who the gate lets in) still can. */
+	public static function refuse_comment(): void {
+		if ( self::blocks_visitor() ) {
 			wp_die( 'This site is not open yet.', 'Coming soon', array( 'response' => 503 ) );
 		}
 	}
@@ -113,7 +135,7 @@ final class ComingSoon {
 	}
 
 	public static function admin_bar_note( \WP_Admin_Bar $bar ): void {
-		if ( ! self::enabled() ) {
+		if ( ! self::enabled() || ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 		$bar->add_node(
