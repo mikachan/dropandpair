@@ -8,8 +8,6 @@ defined( 'ABSPATH' ) || exit;
  */
 final class ContentTypes {
 
-	private const SEED_OPTION = 'dp_terms_seeded';
-
 	public static function hooks(): void {
 		add_action( 'init', array( self::class, 'register' ) );
 		// After register(), so the taxonomies exist when terms are inserted.
@@ -212,11 +210,8 @@ final class ContentTypes {
 		);
 	}
 
-	/** Seeds once per vocabulary version, so it also covers an already-active plugin. */
+	/** Runs on every init so deleted terms come back; there are only 14, so the checks are cheap. */
 	public static function maybe_seed_terms(): void {
-		if ( get_option( self::SEED_OPTION ) === DROP_AND_PAIR_VERSION . ':' . self::vocab_hash() ) {
-			return;
-		}
 		self::seed_terms();
 	}
 
@@ -232,7 +227,6 @@ final class ContentTypes {
 		foreach ( Vocab::MOMENTS as $slug => $moment ) {
 			self::ensure_term( 'dp_moment', $slug, $moment['label'], $moment['description'] );
 		}
-		update_option( self::SEED_OPTION, DROP_AND_PAIR_VERSION . ':' . self::vocab_hash() );
 	}
 
 	private static function ensure_term( string $taxonomy, string $slug, string $label, string $description = '' ): void {
@@ -240,9 +234,5 @@ final class ContentTypes {
 			return;
 		}
 		wp_insert_term( $label, $taxonomy, array( 'slug' => $slug, 'description' => $description ) );
-	}
-
-	private static function vocab_hash(): string {
-		return md5( wp_json_encode( array( Vocab::RIDE_TYPES, Vocab::MOMENTS ) ) );
 	}
 }
