@@ -13,13 +13,19 @@ defined( 'ABSPATH' ) || exit;
  * next to each field. admin-post.php isn't a themed page, so rather than render there
  * the values and errors go in a transient under a random token, and the visitor is
  * redirected to /suggest/?dp_form=<token>, where the block reads them back. The
- * transient only lasts long enough to fix a typo.
+ * transient only lasts long enough to fix a typo, is deleted on the next submit, and
+ * never holds the email address.
+ *
+ * Nothing is written before the rate limit, so a client can't fill wp_options by
+ * posting over and over: a rate-limited post gets a fixed ?dp_error=busy and no transient.
  */
 final class Handler {
 
-	public const ACTION      = 'dp_suggest';
-	public const NONCE_FIELD = 'dp_nonce';
-	public const PAGE_OPTION = 'dp_suggest_page_id';
+	public const ACTION       = 'dp_suggest';
+	public const NONCE_FIELD  = 'dp_nonce';
+	public const TOKEN_FIELD  = 'dp_form';
+	public const PAGE_OPTION  = 'dp_suggest_page_id';
+	public const PAGE_CHECKED = 'dp_suggest_page_checked';
 
 	/** Faster than this and it's a bot: nobody reads the form and writes a blurb in under 3 seconds. */
 	public const MIN_SECONDS = 3;
@@ -29,15 +35,30 @@ final class Handler {
 	private const FORM_ERROR  = '_form';
 	private const MAX_KEPT    = 2000;
 
-	/** Fields the form posts and the error page gives back, in form order. */
-	public const FIELDS = array( 'ride_id', 'new_ride_name', 'park_id', 'new_park_name', 'new_park_country', 'title', 'moment', 'blurb', 'link', 'name', 'email' );
+	/** Rate-limited posts come back with this code, and no stored values, so they cost nothing to repeat. */
+	public const ERROR_BUSY = 'busy';
+
+	/**
+	 * Fields the error page gives back, in form order. The email isn't one: it stays out
+	 * of storage, and the visitor is asked to type it again.
+	 */
+	public const FIELDS = array( 'ride_id', 'new_ride_name', 'park_id', 'new_park_name', 'new_park_country', 'title', 'moment', 'blurb', 'link', 'name' );
 
 	public static function hooks(): void {
 		add_action( 'admin_post_nopriv_' . self::ACTION, array( self::class, 'handle_request' ) );
 		add_action( 'admin_post_' . self::ACTION, array( self::class, 'handle_request' ) );
 		// Activation doesn't re-run for a plugin that's already active (or symlinked in),
-		// so the page is also checked for on every load. It's one cached lookup.
-		add_action( 'init', array( self::class, 'ensure_page' ), 30 );
+		// so the page is also checked for once on a normal load, then a flag skips it.
+		add_action( 'init', array( self::class, 'maybe_ensure_page' ), 30 );
+		add_action( 'template_redirect', array( self::class, 'no_cache_for_results' ) );
+	}
+
+	/** Thank-you and error pages are per visitor, so they mustn't be cached and served to anyone else. */
+	public static function no_cache_for_results(): void {
+		$keys = array( 'thanks', self::TOKEN_FIELD, 'dp_error' );
+		if ( array_intersect( $keys, array_keys( $_GET ) ) && is_page( (int) get_option( self::PAGE_OPTION ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			nocache_headers();
+		}
 	}
 
 	public static function handle_request(): void {
@@ -58,9 +79,10 @@ final class Handler {
 	 * @return string Where to send the visitor next.
 	 */
 	public static function process( array $post, string $ip, int $now ): string {
-		$nonce = isset( $post[ self::NONCE_FIELD ] ) && is_string( $post[ self::NONCE_FIELD ] ) ? $post[ self::NONCE_FIELD ] : '';
-		if ( ! wp_verify_nonce( $nonce, self::ACTION ) ) {
-			return self::back( $post, array( self::FORM_ERROR => "Sorry, that form had been open a while and I couldn't take it. Could you press send again?" ) );
+		// A re-shown form carries the token of its saved values; they've done their job now.
+		$old = $post[ self::TOKEN_FIELD ] ?? '';
+		if ( is_string( $old ) && self::is_token( $old ) ) {
+			delete_transient( self::FORM_PREFIX . $old );
 		}
 
 		// Bots get the thank-you too, so there's nothing to learn from trying again.
@@ -73,7 +95,12 @@ final class Handler {
 
 		$limiter = new RateLimiter( 'get_transient', 'set_transient', wp_salt( 'nonce' ) );
 		if ( ! $limiter->allow( $ip, $now ) ) {
-			return self::back( $post, array( self::FORM_ERROR => "That's a lot of suggestions in one go. Have a breather and try again in a bit." ) );
+			return add_query_arg( 'dp_error', self::ERROR_BUSY, self::page_url() );
+		}
+
+		$nonce = isset( $post[ self::NONCE_FIELD ] ) && is_string( $post[ self::NONCE_FIELD ] ) ? $post[ self::NONCE_FIELD ] : '';
+		if ( ! wp_verify_nonce( $nonce, self::ACTION ) ) {
+			return self::back( $post, array( self::FORM_ERROR => "Sorry, that form had been open a while and I couldn't take it. Could you press send again?" ) );
 		}
 
 		$result = Validator::validate( $post, array( self::class, 'is_published_ride' ), array( self::class, 'is_published_park' ) );
@@ -215,7 +242,7 @@ final class Handler {
 		}
 		$token = wp_generate_password( 20, false );
 		set_transient( self::FORM_PREFIX . $token, array( 'values' => $values, 'errors' => $errors ), self::FORM_TTL );
-		return add_query_arg( 'dp_form', $token, self::page_url() );
+		return add_query_arg( self::TOKEN_FIELD, $token, self::page_url() );
 	}
 
 	/**
@@ -224,7 +251,7 @@ final class Handler {
 	 * @return array{values:array<string,string>, errors:array<string,string>, form_error:?string}|null
 	 */
 	public static function saved_form( string $token ): ?array {
-		if ( ! preg_match( '/^[A-Za-z0-9]{20}$/', $token ) ) {
+		if ( ! self::is_token( $token ) ) {
 			return null;
 		}
 		$saved = get_transient( self::FORM_PREFIX . $token );
@@ -241,6 +268,15 @@ final class Handler {
 		);
 	}
 
+	/** Message for a fixed ?dp_error= code, or null for an unknown one. */
+	public static function error_message( string $code ): ?string {
+		return self::ERROR_BUSY === $code ? "That's a lot of suggestions in one go. Have a breather and try again in a bit." : null;
+	}
+
+	private static function is_token( string $token ): bool {
+		return 1 === preg_match( '/^[A-Za-z0-9]{20}$/', $token );
+	}
+
 	public static function page_url(): string {
 		$id  = (int) get_option( self::PAGE_OPTION );
 		$url = $id ? get_permalink( $id ) : false;
@@ -251,6 +287,19 @@ final class Handler {
 		return add_query_arg( 'thanks', '1', self::page_url() );
 	}
 
+	/** Runs ensure_page() until it has worked once; after that it's a single autoloaded option read. */
+	public static function maybe_ensure_page(): void {
+		if ( ! get_option( self::PAGE_CHECKED ) ) {
+			self::ensure_page();
+		}
+	}
+
+	/** Activation clears the flag so a page deleted since then comes back. */
+	public static function activate(): void {
+		delete_option( self::PAGE_CHECKED );
+		self::ensure_page();
+	}
+
 	/**
 	 * Makes sure the /suggest/ page exists, holding the form block. Idempotent: an existing
 	 * page (even a trashed one, so a deliberate trashing sticks) is adopted rather than
@@ -259,6 +308,7 @@ final class Handler {
 	public static function ensure_page(): void {
 		$id = (int) get_option( self::PAGE_OPTION );
 		if ( $id && get_post( $id ) instanceof \WP_Post ) {
+			update_option( self::PAGE_CHECKED, 1 );
 			return;
 		}
 		$page = get_page_by_path( 'suggest', OBJECT, 'page' );
@@ -281,5 +331,6 @@ final class Handler {
 			}
 		}
 		update_option( self::PAGE_OPTION, (int) $id );
+		update_option( self::PAGE_CHECKED, 1 );
 	}
 }

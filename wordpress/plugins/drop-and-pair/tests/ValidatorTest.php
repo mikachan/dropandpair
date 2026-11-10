@@ -115,7 +115,7 @@ final class ValidatorTest extends TestCase {
 		$result = $this->validate( $this->existing_ride( array( 'blurb' => 'Hot <script>alert(1)</script>chips <b>after</b> the splash.' ) ) );
 		$this->assertTrue( $result['ok'] );
 		$this->assertStringNotContainsString( '<', $result['data']['blurb'] );
-		$this->assertSame( 'Hot alert(1)chips after the splash.', $result['data']['blurb'] );
+		$this->assertSame( 'Hot chips after the splash.', $result['data']['blurb'], 'script contents go too' );
 
 		$result = $this->validate( $this->existing_ride( array( 'name' => str_repeat( 'a', 81 ) ) ) );
 		$this->assertFalse( $result['ok'] );
@@ -135,6 +135,27 @@ final class ValidatorTest extends TestCase {
 		$result = $this->validate( $this->existing_ride( array( 'ride_id' => '0', 'new_ride_name' => 'Big One', 'park_id' => '0', 'new_park_name' => str_repeat( 'a', 121 ), 'new_park_country' => str_repeat( 'a', 61 ) ) ) );
 		$this->assertArrayHasKey( 'new_park_name', $result['errors'] );
 		$this->assertArrayHasKey( 'new_park_country', $result['errors'] );
+	}
+
+	public function test_keeps_angle_brackets_that_are_not_tags(): void {
+		$keep = array(
+			'I <3 this',
+			'<£5 at the kiosk',
+			'Kids <3 it, honestly',
+			'Queue < 10 minutes, then > 1 hour',
+		);
+		foreach ( $keep as $text ) {
+			$this->assertSame( $text, $this->validate( $this->existing_ride( array( 'title' => $text ) ) )['data']['title'], $text );
+		}
+		$strip = array(
+			'<script>x</script>'            => null,
+			'<b>hi</b>'                     => 'hi',
+			'Tea <!-- sneaky --> and cake'  => 'Tea and cake',
+			'<a href="http://x">Chips</a>!' => 'Chips!',
+		);
+		foreach ( $strip as $text => $expected ) {
+			$this->assertSame( $expected, $this->validate( $this->existing_ride( array( 'title' => $text ) ) )['data']['title'], $text );
+		}
 	}
 
 	public function test_requires_title_name_and_a_real_blurb(): void {
@@ -173,6 +194,12 @@ final class ValidatorTest extends TestCase {
 			$this->assertArrayHasKey( 'link', $this->validate( $this->existing_ride( array( 'link' => $link ) ) )['errors'], $link );
 		}
 		$this->assertTrue( $this->validate( $this->existing_ride( array( 'link' => 'http://example.com' ) ) )['ok'] );
+
+		$base = 'https://example.com/';
+		$this->assertTrue( $this->validate( $this->existing_ride( array( 'link' => $base . str_repeat( 'a', 2000 - strlen( $base ) ) ) ) )['ok'], '2000 is fine' );
+		$long = $this->validate( $this->existing_ride( array( 'link' => $base . str_repeat( 'a', 2001 - strlen( $base ) ) ) ) );
+		$this->assertArrayHasKey( 'link', $long['errors'] );
+		$this->assertStringContainsString( 'long', $long['errors']['link'] );
 	}
 
 	public function test_non_string_input_is_treated_as_empty(): void {

@@ -11,6 +11,12 @@
 	margin: 0 0 20px;
 }
 
+/* A suggestion isn't any one moment, so its stub is plain ink, like the home page's ride cards. */
+.dp-suggest .dp-ticket__stub {
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--paper);
+}
+
 .dp-suggest .dp-ticket__main {
 	padding: 18px clamp(14px, 4vw, 28px) 24px;
 }

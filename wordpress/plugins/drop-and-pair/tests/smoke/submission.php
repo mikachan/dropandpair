@@ -9,9 +9,14 @@ $before   = $all_ids();
 $tokens   = array();
 $ips      = array( '192.0.2.10', '192.0.2.11', '192.0.2.12' );
 $page_opt = get_option( Handler::PAGE_OPTION );
+$checked  = get_option( Handler::PAGE_CHECKED );
 $mail     = array();
+$stored   = static function () {
+	global $wpdb;
+	return (int) $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->options WHERE option_name LIKE '\\_transient\\_dp\\_form\\_%'" );
+};
 
-$cleanup = static function () use ( $all_ids, $before, &$tokens, $ips, $page_opt ) {
+$cleanup = static function () use ( $all_ids, $before, &$tokens, $ips, $page_opt, $checked ) {
 	foreach ( array_diff( $all_ids(), $before ) as $id ) {
 		wp_delete_post( $id, true );
 	}
@@ -22,7 +27,8 @@ $cleanup = static function () use ( $all_ids, $before, &$tokens, $ips, $page_opt
 		delete_transient( 'dp_rl_' . substr( hash_hmac( 'sha256', $ip, wp_salt( 'nonce' ) ), 0, 20 ) );
 	}
 	update_option( Handler::PAGE_OPTION, $page_opt );
-	unset( $_GET['ride'], $_GET['dp_form'], $_GET['thanks'] );
+	false === $checked ? delete_option( Handler::PAGE_CHECKED ) : update_option( Handler::PAGE_CHECKED, $checked );
+	unset( $_GET['ride'], $_GET['dp_form'], $_GET['thanks'], $_GET['dp_error'] );
 };
 $fail = static function ( string $msg ) use ( $cleanup ) {
 	$cleanup();
@@ -130,27 +136,41 @@ $saved && str_contains( (string) $saved['form_error'], 'open a while' ) || $fail
 $url   = Handler::process( $payload( array( 'title' => '<script>alert(1)</script>', 'moment' => 'snack', 'email' => 'nope' ) ), $ips[1], time() );
 $token = $token_of( $url );
 $saved = Handler::saved_form( (string) $token );
-// The title's tags would be stripped on save, so only moment and email are wrong.
-$saved && array( 'moment', 'email' ) === array_keys( $saved['errors'] ) || $fail( 'Expected moment and email errors' );
+// Stripped, the title is empty, so it's wrong as well as the moment and email.
+$saved && array( 'title', 'moment', 'email' ) === array_keys( $saved['errors'] ) || $fail( 'Expected title, moment and email errors' );
+! isset( $saved['values']['email'] ) || $fail( 'The email was stored with the form' );
 $_GET['dp_form'] = $token;
 $html            = do_blocks( '<!-- wp:drop-and-pair/suggest-form /-->' );
 unset( $_GET['dp_form'] );
 str_contains( $html, '<script>alert' ) && $fail( 'Raw input echoed into the form' );
 str_contains( $html, '&lt;script&gt;alert(1)&lt;/script&gt;' ) || $fail( 'Title value not re-shown' );
 str_contains( $html, 'Pick a moment, so I know when it goes.' ) || $fail( 'Moment error not shown' );
-str_contains( $html, 'value="nope"' ) || $fail( 'Email value not re-shown' );
+str_contains( $html, 'value="nope"' ) && $fail( 'Email re-shown; it should never be stored' );
+str_contains( $html, "pop it in again if you" ) || $fail( 'No note asking for the email again' );
+str_contains( $html, 'name="dp_form" value="' . $token . '"' ) || $fail( 'Re-shown form does not carry its token' );
 $all_ids() === $snapshot || $fail( 'A failed submission created posts' );
 
-// 5. Rate limit: five an hour per address, then a polite no (with the values kept).
+// The token is single use: sending the re-shown form deletes the saved values.
+$token_of( Handler::process( $payload( array( 'dp_form' => $token, 'moment' => 'snack' ) ), $ips[1], time() ) );
+null === Handler::saved_form( (string) $token ) || $fail( 'Saved values survived the next submit' );
+
+// 5. Rate limit: five an hour per address, then a polite no. Over the limit nothing is
+// stored at all, not even for a bad nonce, so repeating it can't fill wp_options.
 $third = $ips[2];
 for ( $i = 0; $i < 5; $i++ ) {
 	$token_of( Handler::process( $payload( array( 'moment' => 'snack' ) ), $third, time() ) );
 }
-$url   = Handler::process( $payload(), $third, time() );
-$saved = Handler::saved_form( (string) $token_of( $url ) );
-$saved && "That's a lot of suggestions in one go. Have a breather and try again in a bit." === $saved['form_error'] || $fail( 'Sixth try was not rate limited' );
-'Smoke chips' === $saved['values']['title'] || $fail( 'Rate-limited values not kept' );
+$count_before = $stored();
+foreach ( array( $payload(), $payload( array( Handler::NONCE_FIELD => 'nope' ) ) ) as $over ) {
+	$url = Handler::process( $over, $third, time() );
+	add_query_arg( 'dp_error', 'busy', Handler::page_url() ) === $url || $fail( "Over the limit, expected ?dp_error=busy, got $url" );
+	$token_of( $url );
+}
+$count_before === $stored() || $fail( 'A rate-limited post stored a transient' );
 $all_ids() === $snapshot || $fail( 'A rate-limited submission created posts' );
+$_GET['dp_error'] = 'busy';
+str_contains( do_blocks( '<!-- wp:drop-and-pair/suggest-form /-->' ), 'Have a breather and try again in a bit.' ) || $fail( 'Busy message not shown' );
+unset( $_GET['dp_error'] );
 
 // 6. ?ride= pre-selects a published ride only; ?thanks shows the thank-you.
 $_GET['ride'] = (string) $ride;
@@ -168,6 +188,14 @@ delete_option( Handler::PAGE_OPTION );
 Handler::ensure_page();
 $page_id === (int) get_option( Handler::PAGE_OPTION ) || $fail( 'ensure_page made a second page' );
 1 === count( get_posts( array( 'post_type' => 'page', 'name' => 'suggest', 'post_status' => 'any', 'fields' => 'ids' ) ) ) || $fail( 'More than one suggest page' );
+'1' === (string) get_option( Handler::PAGE_CHECKED ) || $fail( 'ensure_page did not set its flag' );
+
+// Once the flag is set, the per-request check does nothing; activation clears it.
+delete_option( Handler::PAGE_OPTION );
+Handler::maybe_ensure_page();
+false === get_option( Handler::PAGE_OPTION ) || $fail( 'maybe_ensure_page ran despite the flag' );
+Handler::activate();
+$page_id === (int) get_option( Handler::PAGE_OPTION ) || $fail( 'activate() did not find the page again' );
 
 $cleanup();
 $all_ids() === $before || WP_CLI::error( 'Smoke left posts behind' );

@@ -9,8 +9,9 @@ defined( 'ABSPATH' ) || exit;
  * Checks a "suggest a pairing" form post and turns it into clean data or per-field errors.
  *
  * Pure (no WordPress calls) so PHPUnit can run it: the caller says what counts as a
- * published ride or park. Every text field has its tags stripped and its whitespace
- * collapsed, so a newline can't sneak into an email subject. Escaping still happens
+ * published ride or park. Every text field has anything that looks like a tag stripped
+ * (but not a stray "<", so "I <3 this" survives) and its whitespace collapsed, so a
+ * newline can't sneak into an email subject. Escaping still happens
  * on output; this is about storing what the visitor meant, not making it HTML-safe.
  */
 final class Validator {
@@ -21,6 +22,7 @@ final class Validator {
 	public const MAX_BLURB   = 600;
 	public const MAX_PLACE   = 120;
 	public const MAX_COUNTRY = 60;
+	public const MAX_LINK    = 2000;
 
 	/**
 	 * @param array    $input             Unslashed form fields.
@@ -88,7 +90,9 @@ final class Validator {
 		$data['blurb'] = '' === $blurb ? null : $blurb;
 
 		$link = self::text( $input['link'] ?? null );
-		if ( '' !== $link && ! self::is_http_url( $link ) ) {
+		if ( mb_strlen( $link ) > self::MAX_LINK ) {
+			$errors['link'] = sprintf( "That link's really long. Could you find a shorter one? Up to %d characters is fine.", self::MAX_LINK );
+		} elseif ( '' !== $link && ! self::is_http_url( $link ) ) {
 			$errors['link'] = "That link doesn't look right. It needs to start with http:// or https://.";
 		}
 		$data['link'] = '' === $link ? null : $link;
@@ -124,8 +128,18 @@ final class Validator {
 		if ( ! is_string( $value ) && ! is_int( $value ) ) {
 			return '';
 		}
-		$value = strip_tags( (string) $value );
-		return trim( (string) preg_replace( '/\s+/u', ' ', $value ) );
+		return trim( (string) preg_replace( '/\s+/u', ' ', self::strip_tags( (string) $value ) ) );
+	}
+
+	/**
+	 * Removes what looks like markup. strip_tags() treats any "<" as the start of a tag,
+	 * so "Kids <3 it" became "Kids ". Here a tag has to start with a letter, "/" or "!".
+	 * Script and style blocks go with their contents, as wp_strip_all_tags() does.
+	 */
+	private static function strip_tags( string $value ): string {
+		$value = (string) preg_replace( '@<(script|style)\b[^>]*>.*?</\1\s*>@is', '', $value );
+		$value = (string) preg_replace( '@<!--.*?-->@s', '', $value );
+		return (string) preg_replace( '@<[a-z/!][^>]*>@i', '', $value );
 	}
 
 	/** A non-negative whole number, or null. 0 means "it's not on here yet". */

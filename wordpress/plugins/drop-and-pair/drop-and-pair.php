@@ -22,7 +22,7 @@ DropAndPair\RidePairings::hooks();
 DropAndPair\Search::hooks();
 DropAndPair\Submission\Handler::hooks();
 register_activation_hook( __FILE__, array( DropAndPair\ContentTypes::class, 'seed_terms' ) );
-register_activation_hook( __FILE__, array( DropAndPair\Submission\Handler::class, 'ensure_page' ) );
+register_activation_hook( __FILE__, array( DropAndPair\Submission\Handler::class, 'activate' ) );
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	WP_CLI::add_command( 'dropandpair', DropAndPair\Import\Command::class );

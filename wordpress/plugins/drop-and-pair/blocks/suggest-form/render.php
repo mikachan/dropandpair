@@ -34,10 +34,15 @@ if ( isset( $_GET['thanks'] ) ) : ?>
 	return;
 endif;
 
-$saved  = isset( $_GET['dp_form'] ) && is_string( $_GET['dp_form'] ) ? Handler::saved_form( sanitize_text_field( wp_unslash( $_GET['dp_form'] ) ) ) : null;
+$token  = isset( $_GET['dp_form'] ) && is_string( $_GET['dp_form'] ) ? sanitize_text_field( wp_unslash( $_GET['dp_form'] ) ) : '';
+$saved  = '' !== $token ? Handler::saved_form( $token ) : null;
 $values = $saved['values'] ?? array();
 $errors = $saved['errors'] ?? array();
 $notice = $saved['form_error'] ?? null;
+// Rate-limited posts come back with a fixed code and nothing stored.
+if ( ! $notice && isset( $_GET['dp_error'] ) && is_string( $_GET['dp_error'] ) ) {
+	$notice = Handler::error_message( sanitize_key( $_GET['dp_error'] ) );
+}
 if ( ! $notice && $errors ) {
 	$notice = "A couple of things need sorting before I can take this. They're marked below.";
 }
@@ -126,6 +131,10 @@ $text_field = static function ( string $field, string $label, int $max, string $
 			<div class="dp-ticket__admit">Admit one · Suggestion</div>
 			<input type="hidden" name="action" value="<?php echo esc_attr( Handler::ACTION ); ?>">
 			<input type="hidden" name="started_at" value="<?php echo esc_attr( (string) time() ); ?>">
+			<?php if ( $saved ) : ?>
+				<?php // So the saved values can be deleted as soon as this form is sent again. ?>
+				<input type="hidden" name="<?php echo esc_attr( Handler::TOKEN_FIELD ); ?>" value="<?php echo esc_attr( $token ); ?>">
+			<?php endif; ?>
 			<?php wp_nonce_field( Handler::ACTION, Handler::NONCE_FIELD, false ); ?>
 
 			<fieldset class="dp-suggest__section">
@@ -190,13 +199,20 @@ $text_field = static function ( string $field, string $label, int $max, string $
 					<?php echo $help( 'blurb', $blurb_help ) . $error( 'blurb' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				</div>
 
-				<?php echo $text_field( 'link', 'A link (optional)', 2000, "If there's somewhere to find it, like a trailer or the café's website.", 'url', 'url' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				<?php echo $text_field( 'link', 'A link (optional)', Validator::MAX_LINK, "If there's somewhere to find it, like a trailer or the café's website.", 'url', 'url' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 			</fieldset>
 
 			<fieldset class="dp-suggest__section">
 				<legend><span class="dp-suggest__step">3</span> You</legend>
 				<?php echo $text_field( 'name', 'Your name', Validator::MAX_NAME, "This goes next to the pairing once it's up.", 'text', 'name' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-				<?php echo $text_field( 'email', 'Your email (optional)', 254, "Only I'll see your email, in case I want to ask you something. I delete it once your suggestion is up.", 'email', 'email' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				<?php
+				// The email is never kept while the form's being fixed, so a re-shown form asks again.
+				$email_help = "Only I'll see your email, in case I want to ask you something. I delete it once your suggestion is up.";
+				if ( $saved ) {
+					$email_help .= " I didn't hang on to it while you sorted the form out, so pop it in again if you'd like.";
+				}
+				echo $text_field( 'email', 'Your email (optional)', 254, $email_help, 'email', 'email' ); // phpcs:ignore WordPress.Security.EscapeOutput
+				?>
 			</fieldset>
 
 			<?php // Hidden from people (and screen readers); bots that fill every field get a fake thank-you. ?>
