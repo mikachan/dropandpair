@@ -20,6 +20,7 @@ if ( file_exists( DROP_AND_PAIR_DIR . 'vendor/autoload.php' ) ) {
 DropAndPair\ContentTypes::hooks();
 DropAndPair\RidePairings::hooks();
 DropAndPair\Search::hooks();
+DropAndPair\Seo::hooks();
 DropAndPair\Submission\Handler::hooks();
 register_activation_hook( __FILE__, array( DropAndPair\ContentTypes::class, 'seed_terms' ) );
 register_activation_hook( __FILE__, array( DropAndPair\Submission\Handler::class, 'activate' ) );
