@@ -77,6 +77,9 @@ foreach ( DropAndPair\Vocab::MOMENTS as $slug => $m ) {
 $has( 'Admit one · Coaster' ) || $fail( 'Ride type missing from ride ticket' );
 $has( get_the_title( $posts['energylandia'] ) ) || $fail( 'Park missing from ride ticket' );
 
+$has( '1 pairing<' ) || $has( '0 pairings<' ) || $has( ' pairings<' ) || $fail( 'Moment pairing counts missing' );
+$has( '1 pairings' ) && $fail( 'Count not pluralised' );
+
 // --- Search ---
 $search = static function ( string $term, bool $main = true ) {
 	$q = new WP_Query();

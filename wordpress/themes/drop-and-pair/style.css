@@ -459,33 +459,27 @@ Text Domain: drop-and-pair
 
 .dp-hero {
 	margin-block: 32px 40px;
-	padding: 40px clamp(16px, 5vw, 56px);
-	border: 3px double currentColor;
-	border-radius: 8px;
-	background: var(--wp--custom--ticket);
-	text-align: center;
-}
-
-.dp-hero__eyebrow {
-	text-transform: uppercase;
-	letter-spacing: 0.1em;
+	padding-bottom: 28px;
+	border-bottom: 4px double currentColor;
 }
 
 .dp-hero__title {
-	font-size: clamp(32px, 7vw, 56px);
-	text-transform: uppercase;
-	color: var(--wp--preset--color--accent);
+	margin-block: 4px 12px;
 }
 
 .dp-hero__lede {
 	max-width: 40em;
-	margin-inline: auto;
 	font-size: var(--wp--preset--font-size--large);
 }
 
 .dp-site-totals {
-	text-transform: uppercase;
-	letter-spacing: 0.06em;
+	margin-top: 16px;
+}
+
+/* Ride cards aren't a moment, so their stub is plain ink rather than any moment's colour. */
+.dp-ride-cards .dp-ticket__stub {
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--paper);
 }
 
 .dp-home-section {

@@ -7,10 +7,14 @@
  * @var WP_Block $block      Block instance.
  */
 
+use DropAndPair\Queries;
 use DropAndPair\Tickets;
 use DropAndPair\Vocab;
 
 defined( 'ABSPATH' ) || exit;
+
+// Same published-only grouping as /pairings/, so the counts match what that page lists.
+$counts = array_map( 'count', Queries::pairings_by_moment() );
 ?>
 <div <?php echo get_block_wrapper_attributes( array( 'class' => 'dp-moment-index dp-ticket-grid' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>>
 	<?php
@@ -20,6 +24,7 @@ defined( 'ABSPATH' ) || exit;
 				'moment'       => $slug,
 				'title'        => $moment['label'],
 				'url'          => home_url( '/rides/?pairing=' . rawurlencode( $slug ) ),
+				'meta'         => ( $counts[ $slug ] ?? 0 ) . ( 1 === ( $counts[ $slug ] ?? 0 ) ? ' pairing' : ' pairings' ),
 				'blurb'        => $moment['description'],
 				'strength'     => null,
 				'suggested_by' => null,
