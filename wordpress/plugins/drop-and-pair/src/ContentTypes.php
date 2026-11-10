@@ -159,12 +159,15 @@ final class ContentTypes {
 			)
 		);
 		// Shape matches RidePairings; that class scrubs emails once a link is public.
+		// Every write (editor, REST, importer, form) goes through normalise, so the stored
+		// shape never depends on which client sent it.
 		$reg(
 			'dp_ride',
 			'pairings',
 			array(
-				'type'         => 'array',
-				'show_in_rest' => array(
+				'type'              => 'array',
+				'sanitize_callback' => array( self::class, 'sanitize_pairings' ),
+				'show_in_rest'      => array(
 					'schema'           => array(
 						'type'  => 'array',
 						'items' => array(
@@ -188,26 +191,32 @@ final class ContentTypes {
 		}
 	}
 
+	/** @param mixed $value Incoming meta value, already unslashed. */
+	public static function sanitize_pairings( $value ): array {
+		return is_array( $value ) ? RidePairings::normalise( $value ) : array();
+	}
+
 	/**
-	 * Visitors suggest pairings with an email address; it must never be public.
-	 * Anyone who can't edit posts gets the links without `submitter_email`.
+	 * Unreviewed suggestions (draft or trashed pairings, links with no strength yet) and
+	 * submitter emails are for Sarah, not the public. Anyone who can't edit this ride gets
+	 * only the links a visitor would see on the page, without emails.
+	 *
+	 * The REST meta API doesn't pass the post to this callback, but the posts controller
+	 * sets up the global post before it reads meta. With no ride to check, the answer is
+	 * the public view, so a surprise caller can only see less.
 	 *
 	 * @param mixed $value Stored meta value.
 	 * @return mixed
 	 */
 	public static function prepare_pairings_for_rest( $value ) {
-		if ( ! is_array( $value ) || current_user_can( 'edit_posts' ) ) {
+		if ( ! is_array( $value ) ) {
 			return $value;
 		}
-		return array_map(
-			static function ( $link ) {
-				if ( is_array( $link ) ) {
-					unset( $link['submitter_email'] );
-				}
-				return $link;
-			},
-			$value
-		);
+		$ride = get_post();
+		if ( $ride instanceof \WP_Post && 'dp_ride' === $ride->post_type && current_user_can( 'edit_post', $ride->ID ) ) {
+			return $value;
+		}
+		return RidePairings::public_links( $value, array( RidePairings::class, 'pairing_status' ) );
 	}
 
 	/** Runs on every init so deleted terms come back; there are only 14, so the checks are cheap. */
