@@ -62,10 +62,17 @@ final class RidePairings {
 	}
 
 	/**
-	 * Once a link is public the submitter's email has done its job, so drop it.
-	 * Links still waiting on review keep theirs so Sarah can reply.
+	 * Once a link is actually showing, the submitter's email has done its job, so drop it.
+	 * Showing means the link is public and the ride itself is published too: a link on a
+	 * draft ride isn't on any page yet. Links still waiting on review keep theirs so Sarah
+	 * can reply.
+	 *
+	 * @param string $ride_status Post status of the ride the links belong to.
 	 */
-	public static function scrub_published_emails( array $links, callable $status_of ): array {
+	public static function scrub_published_emails( array $links, callable $status_of, string $ride_status ): array {
+		if ( 'publish' !== $ride_status ) {
+			return $links;
+		}
 		foreach ( $links as $i => $link ) {
 			if ( self::is_public( $link, $status_of ) ) {
 				$links[ $i ]['submitter_email'] = null;
@@ -102,6 +109,14 @@ final class RidePairings {
 		add_action( 'added_post_meta', array( self::class, 'on_meta_change' ), 10, 3 );
 		add_action( 'updated_post_meta', array( self::class, 'on_meta_change' ), 10, 3 );
 		add_action( 'transition_post_status', array( self::class, 'on_pairing_transition' ), 10, 3 );
+		add_action( 'transition_post_status', array( self::class, 'on_ride_transition' ), 10, 3 );
+	}
+
+	/** Publishing a ride puts its live links on a page, so their emails can go. */
+	public static function on_ride_transition( $new_status, $old_status, $post ): void {
+		if ( 'publish' === $new_status && 'publish' !== $old_status && 'dp_ride' === $post->post_type ) {
+			self::scrub_ride( (int) $post->ID );
+		}
 	}
 
 	public static function on_save_ride( int $ride_id ): void {
@@ -161,7 +176,7 @@ final class RidePairings {
 		if ( ! is_array( $links ) || ! $links ) {
 			return;
 		}
-		$scrubbed = self::scrub_published_emails( $links, array( self::class, 'pairing_status' ) );
+		$scrubbed = self::scrub_published_emails( $links, array( self::class, 'pairing_status' ), (string) get_post_status( $ride_id ) );
 		if ( $scrubbed === $links ) {
 			return;
 		}

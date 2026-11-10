@@ -33,6 +33,16 @@ $after = $emails();
 null === $after[ $pairing_a ] || $fail( 'Email not scrubbed after pairing published' );
 'sam@example.com' === $after[ $pairing_b ] || $fail( 'Draft pairing link lost its email' );
 
+// On a draft ride nothing is showing yet, so even a live link keeps its email until the ride is published.
+$draft_ride = $make( 'dp_ride', 'draft', 'Smoke draft ride' );
+update_post_meta( $draft_ride, 'dp_pairings', array( $link( $pairing_a ) ) );
+$draft_email = static fn() => get_post_meta( $draft_ride, 'dp_pairings', true )[0]['submitter_email'];
+'sam@example.com' === $draft_email() || $fail( 'Email scrubbed on a draft ride' );
+wp_update_post( array( 'ID' => $draft_ride, 'post_title' => 'Smoke draft ride, edited' ) );
+'sam@example.com' === $draft_email() || $fail( 'Email scrubbed when a draft ride was saved' );
+wp_publish_post( $draft_ride );
+null === $draft_email() || $fail( 'Email not scrubbed when the ride was published' );
+
 // A published post that isn't a dp_pairing is not a live pairing: its link keeps the email.
 $page = $make( 'page', 'publish', 'Smoke page' );
 update_post_meta( $ride, 'dp_pairings', array( $link( $page ) ) );

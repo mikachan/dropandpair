@@ -77,11 +77,21 @@ final class RidePairingsTest extends TestCase {
 	public function test_scrub_published_emails_keeps_email_on_pending_links(): void {
 		$statuses = array( 1 => 'publish', 2 => 'draft', 3 => 'publish' );
 		$links    = array( $this->link( 1 ), $this->link( 2 ), $this->link( 3, null ) );
-		$out      = RidePairings::scrub_published_emails( $links, static fn( int $id ) => $statuses[ $id ] );
+		$out      = RidePairings::scrub_published_emails( $links, static fn( int $id ) => $statuses[ $id ], 'publish' );
 		$this->assertNull( $out[0]['submitter_email'] );
 		$this->assertSame( 'sam@example.com', $out[1]['submitter_email'] );
 		// Published but unrated: not public yet, so the email stays.
 		$this->assertSame( 'sam@example.com', $out[2]['submitter_email'] );
 		$this->assertSame( array( 1, 2, 3 ), array_column( $out, 'pairing_id' ) );
+	}
+
+	public function test_scrub_keeps_every_email_while_the_ride_is_unpublished(): void {
+		$links = array( $this->link( 1 ), $this->link( 2, 5 ) );
+		foreach ( array( 'draft', 'pending', 'future', 'private', 'trash', '' ) as $ride_status ) {
+			$out = RidePairings::scrub_published_emails( $links, static fn() => 'publish', $ride_status );
+			$this->assertSame( $links, $out, $ride_status );
+		}
+		$out = RidePairings::scrub_published_emails( $links, static fn() => 'publish', 'publish' );
+		$this->assertSame( array( null, null ), array_column( $out, 'submitter_email' ) );
 	}
 }
