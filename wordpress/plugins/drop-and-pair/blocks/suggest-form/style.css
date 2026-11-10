@@ -1,0 +1,242 @@
+/*
+ * The suggestion form is one big ticket (the theme's .dp-ticket), so filling it in
+ * feels like writing on one. Fields are ruled lines rather than boxes.
+ */
+.dp-suggest {
+	max-width: 760px;
+}
+
+.dp-suggest__intro {
+	max-width: 40em;
+	margin: 0 0 20px;
+}
+
+.dp-suggest .dp-ticket__main {
+	padding: 18px clamp(14px, 4vw, 28px) 24px;
+}
+
+.dp-suggest [hidden] {
+	display: none !important;
+}
+
+.dp-suggest__section {
+	border: 0;
+	border-top: 2px dashed var(--wp--preset--color--line);
+	padding: 16px 0 4px;
+	margin: 16px 0 0;
+	min-width: 0;
+}
+
+.dp-suggest__section > legend {
+	padding: 0 8px 0 0;
+	font-weight: 800;
+	font-size: var(--wp--preset--font-size--large);
+}
+
+.dp-suggest__step {
+	display: inline-grid;
+	place-items: center;
+	width: 1.6em;
+	height: 1.6em;
+	margin-right: 6px;
+	border: 1.5px solid currentColor;
+	border-radius: 50%;
+	font-family: var(--wp--preset--font-family--mono);
+	font-size: var(--wp--preset--font-size--small);
+	vertical-align: 2px;
+}
+
+.dp-suggest__field {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	margin: 0 0 16px;
+}
+
+.dp-suggest input[type="text"],
+.dp-suggest input[type="email"],
+.dp-suggest input[type="url"],
+.dp-suggest textarea,
+.dp-suggest select {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 6px 2px;
+	border: 0;
+	border-bottom: 1.5px solid currentColor;
+	border-radius: 0;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+}
+
+.dp-suggest select {
+	padding: 6px 4px;
+	border: 1.5px solid currentColor;
+	border-radius: 4px;
+	background: var(--wp--preset--color--paper);
+}
+
+.dp-suggest textarea {
+	resize: vertical;
+	line-height: 1.5;
+	background-image: repeating-linear-gradient(transparent 0 calc(1.5em - 1px), var(--wp--preset--color--line) calc(1.5em - 1px) 1.5em);
+	background-position: 0 6px;
+	border: 0;
+	border-bottom: 1.5px solid currentColor;
+}
+
+.dp-suggest input:focus-visible,
+.dp-suggest textarea:focus-visible,
+.dp-suggest select:focus-visible,
+.dp-suggest__send:focus-visible,
+.dp-suggest__notice:focus-visible {
+	outline: 3px solid var(--wp--preset--color--accent);
+	outline-offset: 2px;
+}
+
+.dp-suggest [aria-invalid="true"] {
+	border-color: var(--wp--preset--color--accent);
+}
+
+.dp-suggest__help {
+	margin: 0;
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--ink-muted);
+}
+
+/* Text stays ink: track red on paper is too faint for small text, so only the mark is red. */
+.dp-suggest__error {
+	margin: 0;
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 600;
+}
+
+.dp-suggest__error::before {
+	content: "✕ ";
+	color: var(--wp--preset--color--accent);
+}
+
+/* The new ride and new park extras, set in from the field above them. */
+.dp-suggest__group {
+	padding-left: 14px;
+	border-left: 2px dashed var(--wp--preset--color--line);
+	margin-bottom: 16px;
+}
+
+.dp-suggest__group .dp-suggest__help {
+	margin-bottom: 8px;
+}
+
+.dp-suggest--js .dp-suggest__nojs {
+	display: none;
+}
+
+/* Moments: nine little stubs to choose from, each in its own colour. */
+.dp-suggest__moments {
+	border: 0;
+	padding: 0;
+	margin: 0 0 16px;
+	min-width: 0;
+}
+
+.dp-suggest__moments > legend {
+	padding: 0;
+	margin-bottom: 6px;
+}
+
+.dp-suggest__moment-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
+	gap: 8px;
+}
+
+.dp-suggest__moment {
+	position: relative;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 2px 8px;
+	align-items: start;
+	padding: 8px 10px 8px 16px;
+	border: 1.5px solid var(--wp--preset--color--line);
+	border-radius: 6px;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+/* The stub colour as a strip down the left edge. */
+.dp-suggest__moment::before {
+	content: "";
+	position: absolute;
+	inset: 0 auto 0 0;
+	width: 6px;
+	background: var(--dp-stub);
+}
+
+.dp-suggest__moment input {
+	grid-row: span 2;
+	margin: 3px 0 0;
+	accent-color: var(--wp--preset--color--accent);
+}
+
+.dp-suggest__moment-name {
+	font-weight: 700;
+}
+
+.dp-suggest__moment-desc {
+	font-size: var(--wp--preset--font-size--x-small);
+	line-height: 1.4;
+	color: var(--wp--preset--color--ink-muted);
+}
+
+.dp-suggest__moment:has(input:checked) {
+	border-color: currentColor;
+	background: color-mix(in srgb, var(--dp-stub) 22%, transparent);
+}
+
+.dp-suggest__moment:has(input:focus-visible) {
+	outline: 3px solid var(--wp--preset--color--accent);
+	outline-offset: 2px;
+}
+
+.dp-suggest__notice {
+	padding: 10px 14px;
+	margin: 0 0 16px;
+	border: 2px solid var(--wp--preset--color--accent);
+	border-radius: 6px;
+	font-weight: 600;
+}
+
+/* The honeypot: off screen rather than display:none, which some bots check for. */
+.dp-suggest__trap {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+.dp-suggest__actions {
+	margin: 20px 0 0;
+}
+
+.dp-suggest__send {
+	padding: 10px 20px;
+	border: 2px solid var(--wp--preset--color--ink);
+	border-radius: 6px;
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--paper);
+	font: inherit;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.dp-suggest__send:hover {
+	background: var(--wp--preset--color--accent);
+	border-color: var(--wp--preset--color--accent);
+	color: var(--wp--preset--color--booth);
+}
+
+.dp-suggest__thanks-text {
+	font-size: var(--wp--preset--font-size--large);
+	margin: 8px 0 12px;
+}

@@ -1,0 +1,13 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "drop-and-pair/suggest-form",
+	"title": "Suggest a pairing form",
+	"category": "widgets",
+	"description": "The visitor suggestion form, styled as a ticket. Everything it creates is a draft.",
+	"textdomain": "drop-and-pair",
+	"supports": { "html": false, "multiple": false, "autoRegister": true },
+	"render": "file:./render.php",
+	"style": "file:./style.css",
+	"viewScript": "file:./view.js"
+}
