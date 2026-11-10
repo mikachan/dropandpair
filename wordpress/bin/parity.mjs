@@ -48,19 +48,59 @@ const text = (html) =>
 	decode(String(html ?? '').replace(/<!--[\s\S]*?-->/g, '').replace(/<[^>]*>/g, ''))
 		.replace(/\s+/g, ' ')
 		.trim();
+/** What the plain text can't show: links, images, headings and list items, in order. */
+function structure(html) {
+	const src = String(html ?? '').replace(/<!--[\s\S]*?-->/g, '');
+	const attr = (name) => [...src.matchAll(new RegExp(`<[a-z0-9]+\\b[^>]*?\\s${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)')`, 'gi'))].map((m) => decode(m[1] ?? m[2]));
+	const count = (re) => (src.match(re) || []).length;
+	return {
+		hrefs: attr('href'),
+		srcs: attr('src'),
+		headings: [1, 2, 3, 4, 5, 6].map((n) => count(new RegExp(`<h${n}\\b`, 'gi'))),
+		listItems: count(/<li\b/gi)
+	};
+}
 const slugify = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
 const mismatches = [];
 const miss = (label, field, want, got) =>
 	mismatches.push(`${label}: ${field}: expected ${JSON.stringify(want)}, got ${JSON.stringify(got)}`);
-/** An unset optional value comes back from REST as 0, "", false or null. */
-const blank = (v) => v === undefined || v === null || v === '' || v === 0 || v === false;
+/**
+ * REST returns 0 for unset numeric meta and "" for unset string meta, so "unset"
+ * and "stored as 0" look the same. Strings are compared strictly (content strings
+ * are never empty); a stored 0 can't be verified, so main() refuses to run on one.
+ */
 function eq(label, field, want, got) {
-	const same = blank(want) && blank(got) ? true : typeof want === 'number' ? Number(got) === want : want === got;
+	const unset = got === undefined || got === null || got === '' || got === 0 || got === false;
+	let same;
+	if (want === undefined || want === null) same = unset;
+	else if (typeof want === 'number') same = Number(got) === want;
+	else if (typeof want === 'string') same = got === want;
+	else same = want === got;
 	if (!same) miss(label, field, want, got);
 }
 
+class Unverifiable extends Error {}
+/** A 0 in content.json can't be told from "unset" through REST, so fail loudly rather than pass silently. */
+function assertVerifiable(content) {
+	const bad = [];
+	for (const r of content.rides) {
+		for (const [k, v] of Object.entries(r.stats || {})) if (v === 0) bad.push(`dp_ride:${r.id}: stats.${k} is 0`);
+		for (const k of ['opened', 'intensity', 'roughness']) if (r[k] === 0) bad.push(`dp_ride:${r.id}: ${k} is 0`);
+	}
+	for (const kind of ['parks', 'rides', 'pairings'])
+		for (const e of content[kind])
+			for (const [k, v] of Object.entries(e)) if (v === '' && k !== 'body') bad.push(`${kind}:${e.id}: ${k} is an empty string`);
+	if (bad.length)
+		throw new Unverifiable(
+			'content.json has values REST cannot tell apart from unset, so parity cannot verify them:\n  ' +
+				bad.join('\n  ') + '\nCheck these with `wp post meta get` instead.'
+		);
+}
+
+async function main() {
 const content = JSON.parse(readFileSync(contentFile, 'utf8'));
+assertVerifiable(content);
 
 const [parks, rides, pairings, pages, rideTypes, vibes, moments] = await Promise.all([
 	fetchAll('dp_park', 'context=edit&status=any'),
@@ -88,11 +128,18 @@ function both(kind, expected, actual) {
 	return have;
 }
 
-function common(label, e, p, title) {
-	eq(label, 'title', title, decode(p.title.raw));
-	const wantBody = text(e.body ?? e.html);
-	const gotBody = text(p.content.raw);
+function bodyMatches(label, wantHtml, gotHtml) {
+	const wantBody = text(wantHtml);
+	const gotBody = text(gotHtml);
 	if (wantBody !== gotBody) miss(label, 'body text', wantBody.slice(0, 120), gotBody.slice(0, 120));
+	const w = structure(wantHtml);
+	const g = structure(gotHtml);
+	for (const k of Object.keys(w)) if (JSON.stringify(w[k]) !== JSON.stringify(g[k])) miss(label, 'body ' + k, w[k], g[k]);
+}
+
+function common(label, e, p, title) {
+	eq(label, 'title', title, p.title.raw);
+	bodyMatches(label, e.body ?? e.html, p.content.raw);
 }
 
 const parkHave = both('dp_park', content.parks, parks);
@@ -141,11 +188,13 @@ for (const e of content.rides) {
 	const types = (p.dp_ride_type || []).map((id) => typeById.get(id)?.slug);
 	if (types.length !== 1 || types[0] !== e.rideType) miss(label, 'ride type', [e.rideType], types);
 
-	// Free-form tags: WordPress slugifies the name, so accept either form.
+	// Free-form tags: compare the slug (WordPress slugifies) and the name as written.
 	const gotVibes = (p.dp_vibe || []).map((id) => vibeById.get(id));
 	const wantVibes = e.vibe.map(slugify).sort();
 	const gotSlugs = gotVibes.map((t) => t?.slug).sort();
-	if (JSON.stringify(wantVibes) !== JSON.stringify(gotSlugs)) miss(label, 'vibes', e.vibe, gotVibes.map((t) => t?.name));
+	const gotNames = gotVibes.map((t) => t?.name).sort();
+	if (JSON.stringify(wantVibes) !== JSON.stringify(gotSlugs) || JSON.stringify([...e.vibe].sort()) !== JSON.stringify(gotNames))
+		miss(label, 'vibes', e.vibe, gotNames);
 
 	const wantFR = (e.furtherReading || []).map((r) => ({ title: r.title, url: r.url }));
 	const gotFR = (m.dp_further_reading || []).map((r) => ({ title: r.title, url: r.url }));
@@ -165,10 +214,8 @@ if (content.pages?.about) {
 	const about = pages.find((p) => p.slug === 'about');
 	if (!about) mismatches.push('page:about: missing in WordPress');
 	else {
-		eq('page:about', 'title', content.pages.about.title, decode(about.title.raw));
-		const want = text(content.pages.about.html);
-		const got = text(about.content.raw);
-		if (want !== got) miss('page:about', 'body text', want.slice(0, 120), got.slice(0, 120));
+		eq('page:about', 'title', content.pages.about.title, about.title.raw);
+		bodyMatches('page:about', content.pages.about.html, about.content.raw);
 	}
 }
 
@@ -176,3 +223,11 @@ const checked = content.parks.length + content.pairings.length + content.rides.l
 for (const line of mismatches) console.log(line);
 console.log(`${mismatches.length} mismatches (${checked} items checked against ${base})`);
 process.exit(mismatches.length ? 1 : 0);
+}
+
+try {
+	await main();
+} catch (e) {
+	console.error(`parity script failed (not a content mismatch): ${e.message}`);
+	process.exit(2);
+}
