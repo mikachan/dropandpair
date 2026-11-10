@@ -133,18 +133,34 @@ final class Handler {
 	private static function create( array $data ): ?array {
 		$made   = array();
 		$insert = static function ( string $type, string $title, array $meta = array() ) use ( &$made ): int {
-			$id = wp_insert_post(
-				wp_slash(
-					array(
-						'post_type'      => $type,
-						'post_status'    => 'draft',
-						'post_title'     => $title,
-						'comment_status' => 'closed',
-						'meta_input'     => $meta,
-					)
-				),
-				true
-			);
+			// For a logged-out visitor core runs titles through kses, which stores
+			// "Fish & Chips" as "Fish &amp; Chips", and that's what Sarah would then see in
+			// the editor. The Validator has already stripped anything tag-like, so kses is
+			// skipped for this insert, and the one character that could still open markup
+			// in a title (a stray "<", as in "Kids <3 it") is encoded instead. Titles are
+			// still escaped wherever they're printed.
+			$kses = has_filter( 'title_save_pre', 'wp_filter_kses' );
+			if ( false !== $kses ) {
+				remove_filter( 'title_save_pre', 'wp_filter_kses', $kses );
+			}
+			try {
+				$id = wp_insert_post(
+					wp_slash(
+						array(
+							'post_type'      => $type,
+							'post_status'    => 'draft',
+							'post_title'     => str_replace( '<', '&lt;', $title ),
+							'comment_status' => 'closed',
+							'meta_input'     => $meta,
+						)
+					),
+					true
+				);
+			} finally {
+				if ( false !== $kses ) {
+					add_filter( 'title_save_pre', 'wp_filter_kses', $kses );
+				}
+			}
 			if ( is_wp_error( $id ) || ! $id ) {
 				throw new \RuntimeException( "Could not create $type" );
 			}

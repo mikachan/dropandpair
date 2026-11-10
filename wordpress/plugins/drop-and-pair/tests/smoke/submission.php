@@ -7,7 +7,7 @@ $types    = array( 'dp_ride', 'dp_park', 'dp_pairing' );
 $all_ids  = static fn() => get_posts( array( 'post_type' => $types, 'post_status' => 'any', 'posts_per_page' => -1, 'fields' => 'ids' ) );
 $before   = $all_ids();
 $tokens   = array();
-$ips      = array( '192.0.2.10', '192.0.2.11', '192.0.2.12' );
+$ips      = array( '192.0.2.10', '192.0.2.11', '192.0.2.12', '192.0.2.13' );
 $page_opt = get_option( Handler::PAGE_OPTION );
 $checked  = get_option( Handler::PAGE_CHECKED );
 $mail     = array();
@@ -126,6 +126,35 @@ $new_park === (int) get_post_meta( $newer, 'dp_park_id', true ) || $fail( 'Newer
 3 === count( $mail ) || $fail( 'Expected three emails by now' );
 str_contains( $mail[2]['message'], 'post.php?post=' . $new_park . '&action=edit' ) || $fail( 'Email has no park edit link' );
 array( 'Reply-To: sam@example.com' ) === $mail[2]['headers'] || $fail( 'Reply-To not set' );
+
+// 3b. A visitor's titles are stored as typed, not as kses would have them ("Fish &amp; Chips"),
+// and still print escaped. A stray "<" is the one thing encoded, so it can't open markup.
+// WP-CLI turns kses off; a logged-out web request has it on, so put it back for this part.
+0 === get_current_user_id() && ! current_user_can( 'unfiltered_html' ) || $fail( 'Titles must be checked as a logged-out visitor' );
+$had_kses = has_filter( 'title_save_pre', 'wp_filter_kses' );
+kses_init_filters();
+$titled = static function ( string $type, string $title ) {
+	return get_posts( array( 'post_type' => $type, 'post_status' => 'draft', 'title' => $title, 'fields' => 'ids' ) )[0] ?? 0;
+};
+Handler::process( $payload( array( 'ride_id' => '0', 'new_ride_name' => "Rock 'n' Roll Coaster", 'park_id' => '0', 'new_park_name' => 'Fish & Chips Land', 'new_park_country' => 'Smokeland', 'title' => 'Fish & Chips' ) ), $ips[3], time() );
+Handler::process( $payload( array( 'title' => "Rock 'n' Roll" ) ), $ips[3], time() );
+Handler::process( $payload( array( 'title' => 'Kids <3 it <img src=x onerror=alert(1)//' ) ), $ips[3], time() );
+$fish = $titled( 'dp_pairing', 'Fish & Chips' );
+$fish || $fail( '"Fish & Chips" not stored as typed' );
+$titled( 'dp_park', 'Fish & Chips Land' ) || $fail( 'Park title not stored as typed' );
+$rock_ride = $titled( 'dp_ride', "Rock 'n' Roll Coaster" );
+$rock_ride || $fail( 'Ride title not stored as typed' );
+$rock = $titled( 'dp_pairing', "Rock 'n' Roll" );
+$rock || $fail( "\"Rock 'n' Roll\" not stored as typed" );
+$kids = $titled( 'dp_pairing', 'Kids &lt;3 it &lt;img src=x onerror=alert(1)//' );
+$kids || $fail( 'A stray "<" in a title was not encoded' );
+has_filter( 'title_save_pre', 'wp_filter_kses' ) || $fail( 'kses title filter was not put back' );
+false === $had_kses && kses_remove_filters();
+// Printed as the blocks print them: the & and < come out as entities, never raw markup.
+'Fish &amp; Chips' === esc_html( get_post_field( 'post_title', $fish, 'raw' ) ) || $fail( 'Title not escaped once on output' );
+'Kids &lt;3 it &lt;img src=x onerror=alert(1)//' === esc_html( get_post_field( 'post_title', $kids, 'raw' ) ) || $fail( 'Encoded title double-escaped or unescaped' );
+str_contains( get_the_title( $kids ), '<img' ) && $fail( 'get_the_title gives raw markup' );
+str_contains( end( $mail )['subject'], 'Kids <3 it' ) || $fail( 'Email subject should carry the title as typed' );
 
 // 4. Errors come back with the values, escaped, and per-field messages.
 $snapshot = $all_ids();
