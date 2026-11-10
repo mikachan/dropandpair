@@ -30,10 +30,12 @@ get_term_by( 'slug', 'later', 'dp_moment' ) || $fail( 'Deleted moment term was n
 // Email privacy: logged-out REST reads omit submitter_email, editors still see it.
 $ride = wp_insert_post( array( 'post_type' => 'dp_ride', 'post_status' => 'publish', 'post_title' => 'Smoke ride' ) );
 $ride && ! is_wp_error( $ride ) || $fail( 'Could not create test ride' );
+$pairing = wp_insert_post( array( 'post_type' => 'dp_pairing', 'post_status' => 'draft', 'post_title' => 'Smoke pairing' ) );
+$pairing && ! is_wp_error( $pairing ) || $fail( 'Could not create test pairing' );
 update_post_meta(
 	$ride,
 	'dp_pairings',
-	array( array( 'pairing_id' => 1, 'blurb' => 'x', 'strength' => 3, 'suggested_by' => 'Sam', 'submitter_email' => 'sam@example.com' ) )
+	array( array( 'pairing_id' => $pairing, 'blurb' => 'x', 'strength' => 3, 'suggested_by' => 'Sam', 'submitter_email' => 'sam@example.com' ) )
 );
 $read = static function () use ( $ride ) {
 	return rest_do_request( new WP_REST_Request( 'GET', "/wp/v2/dp_ride/$ride" ) )->get_data();
@@ -51,6 +53,7 @@ try {
 } finally {
 	wp_set_current_user( 0 );
 	wp_delete_post( $ride, true );
+	wp_delete_post( $pairing, true );
 }
 
 echo "OK\n";

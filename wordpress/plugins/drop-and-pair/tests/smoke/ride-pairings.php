@@ -33,6 +33,11 @@ $after = $emails();
 null === $after[ $pairing_a ] || $fail( 'Email not scrubbed after pairing published' );
 'sam@example.com' === $after[ $pairing_b ] || $fail( 'Draft pairing link lost its email' );
 
+// A published post that isn't a dp_pairing is not a live pairing: its link keeps the email.
+$page = $make( 'page', 'publish', 'Smoke page' );
+update_post_meta( $ride, 'dp_pairings', array( $link( $page ) ) );
+'sam@example.com' === ( $emails()[ $page ] ?? null ) || $fail( 'Link to a non-pairing post lost its email' );
+
 foreach ( $ids as $id ) {
 	wp_delete_post( $id, true );
 }

@@ -141,6 +141,18 @@ final class RidePairings {
 		}
 	}
 
+	/**
+	 * Status of a pairing post, or null when the ID is missing or isn't a `dp_pairing`.
+	 * A link to some other published post (a page, say) must not count as live.
+	 */
+	public static function pairing_status( int $id ): ?string {
+		if ( 'dp_pairing' !== get_post_type( $id ) ) {
+			return null;
+		}
+		$status = get_post_status( $id );
+		return false === $status ? null : $status;
+	}
+
 	private static function scrub_ride( int $ride_id ): void {
 		if ( self::$busy || wp_is_post_revision( $ride_id ) ) {
 			return;
@@ -149,8 +161,7 @@ final class RidePairings {
 		if ( ! is_array( $links ) || ! $links ) {
 			return;
 		}
-		$scrubbed = self::scrub_published_emails( $links, 'get_post_status' );
-		// get_post_status() returns false for missing posts; treat as null.
+		$scrubbed = self::scrub_published_emails( $links, array( self::class, 'pairing_status' ) );
 		if ( $scrubbed === $links ) {
 			return;
 		}

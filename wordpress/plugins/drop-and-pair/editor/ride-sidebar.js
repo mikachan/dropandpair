@@ -13,6 +13,7 @@
 	var vocab = window.dropAndPair || {};
 	var TYPE = 'dp_ride';
 	var NONE = '';
+	var EMPTY = [];
 
 	function scale( labels ) {
 		var opts = [ { label: __( 'Not set', 'drop-and-pair' ), value: NONE } ];
@@ -135,7 +136,7 @@
 				return {
 					linked: ids.length
 						? core.getEntityRecords( 'postType', 'dp_pairing', { include: ids, per_page: 100, status: 'any', context: 'edit' } )
-						: [],
+						: EMPTY,
 					found: core.getEntityRecords( 'postType', 'dp_pairing', { per_page: 20, status: 'any', search: search, orderby: 'title', order: 'asc', context: 'edit' } ),
 				};
 			},
