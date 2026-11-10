@@ -4,7 +4,7 @@ $fail = static function ( string $msg ) {
 	WP_CLI::error( $msg );
 };
 
-$need  = array( 'wp-plugins', 'wp-editor', 'wp-components', 'wp-core-data' );
+$need  = array( 'wp-api-fetch', 'wp-plugins', 'wp-editor', 'wp-components', 'wp-core-data' );
 $files = array(
 	'dp-ride-sidebar'    => 'editor/ride-sidebar.js',
 	'dp-park-sidebar'    => 'editor/park-sidebar.js',

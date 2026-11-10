@@ -49,7 +49,7 @@ add_action(
 add_action(
 	'init',
 	static function () {
-		$deps = array( 'wp-plugins', 'wp-editor', 'wp-components', 'wp-core-data', 'wp-data', 'wp-element', 'wp-i18n' );
+		$deps = array( 'wp-api-fetch', 'wp-plugins', 'wp-editor', 'wp-components', 'wp-core-data', 'wp-data', 'wp-element', 'wp-i18n' );
 		foreach ( array( 'ride', 'park', 'pairing' ) as $name ) {
 			wp_register_script( "dp-$name-sidebar", DROP_AND_PAIR_URL . "editor/$name-sidebar.js", $deps, DROP_AND_PAIR_VERSION, true );
 		}

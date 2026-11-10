@@ -225,10 +225,11 @@
 		var _m = useEntityProp( 'postType', TYPE, 'meta' );
 		var meta = _m[ 0 ] || {};
 		var setMeta = _m[ 1 ];
+		// Only the changed key: core-data merges meta edits into what it already has.
 		function set( key, value ) {
 			var patch = {};
 			patch[ key ] = value;
-			setMeta( Object.assign( {}, meta, patch ) );
+			setMeta( patch );
 		}
 		function text( key, label, extra ) {
 			return el( c.TextControl, Object.assign( { label: label, value: meta[ key ] || '', onChange: function ( v ) { set( key, v ); } }, extra || {} ) );
@@ -273,6 +274,35 @@
 			el( PairingsEditor, { links: meta.dp_pairings, onChange: function ( v ) { set( 'dp_pairings', v ); } } )
 		);
 	}
+
+	/*
+	 * A visitor's suggestion is added to dp_pairings on the server, maybe while Sarah has
+	 * the ride open. Core-data merges meta edits, but what it saves is the whole merged
+	 * meta object, so a gist edit (or an autosave) would resend the links as the editor
+	 * loaded them and quietly drop that suggestion. So: unless the links were changed
+	 * here, leave them out of the request and the server keeps what it has. Editing the
+	 * links themselves still sends the full list, so a suggestion that lands between
+	 * opening the ride and saving a pairings edit loses its link. Its pairing draft and
+	 * the notification email are still there, so it can be added back by hand.
+	 */
+	var SAVE_PATH = new RegExp( '^/wp/v2/' + TYPE + '/(\\d+)(/autosaves)?(\\?|$)' );
+	function samePairings( a, b ) {
+		return a === b || JSON.stringify( a || [] ) === JSON.stringify( b || [] );
+	}
+	wp.apiFetch.use( function ( options, next ) {
+		var match = typeof options.path === 'string' && options.path.match( SAVE_PATH );
+		var data = options.data;
+		if ( ! match || ! data || ! data.meta || ! Object.prototype.hasOwnProperty.call( data.meta, 'dp_pairings' ) ) {
+			return next( options );
+		}
+		var saved = wp.data.select( 'core' ).getRawEntityRecord( 'postType', TYPE, Number( match[ 1 ] ) );
+		if ( ! saved || ! saved.meta || ! samePairings( saved.meta.dp_pairings, data.meta.dp_pairings ) ) {
+			return next( options );
+		}
+		var meta = Object.assign( {}, data.meta );
+		delete meta.dp_pairings;
+		return next( Object.assign( {}, options, { data: Object.assign( {}, data, { meta: meta } ) } ) );
+	} );
 
 	wp.plugins.registerPlugin( 'dp-ride-sidebar', {
 		render: function () {

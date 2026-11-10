@@ -17,7 +17,7 @@
 				onChange: function ( v ) {
 					var patch = {};
 					patch[ key ] = v;
-					setMeta( Object.assign( {}, meta, patch ) );
+					setMeta( patch );
 				},
 			}, extra || {} ) );
 		}
