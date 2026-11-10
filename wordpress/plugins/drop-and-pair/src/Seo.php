@@ -15,6 +15,7 @@ final class Seo {
 
 	public static function hooks(): void {
 		add_action( 'pre_get_posts', array( self::class, 'feed_query' ) );
+		add_action( 'pre_get_posts', array( self::class, 'rides_archive_query' ) );
 		add_filter( 'posts_clauses', array( self::class, 'order_clauses' ), 10, 2 );
 		add_action( 'template_redirect', array( self::class, 'maybe_redirect' ), 1 );
 		add_filter( 'wp_sitemaps_add_provider', array( self::class, 'sitemap_provider' ), 10, 2 );
@@ -162,22 +163,63 @@ final class Seo {
 		return $types;
 	}
 
-	/** Ride types and vibes are thin listing pages; only moments get a sitemap. */
+	/**
+	 * None of the taxonomies has term pages (they redirect to the ride browser), so none
+	 * gets a sitemap. Core already skips taxonomies that aren't publicly queryable; this
+	 * keeps it that way if that ever changes.
+	 */
 	public static function sitemap_taxonomies( array $taxonomies ): array {
-		unset( $taxonomies['dp_ride_type'], $taxonomies['dp_vibe'] );
+		unset( $taxonomies['dp_ride_type'], $taxonomies['dp_vibe'], $taxonomies['dp_moment'] );
 		return $taxonomies;
+	}
+
+	/* -------------------------------------------------------- Rides archive */
+
+	/**
+	 * /rides/ is the ride-browser block, which runs its own unpaged query, so the main
+	 * query is never shown. Without this it paginated, and /rides/page/2/ repeated the
+	 * whole browser. One row and no count is all it needs; /rides/page/N/ redirects.
+	 */
+	public static function rides_archive_query( \WP_Query $query ): void {
+		if ( is_admin() || ! $query->is_main_query() || $query->is_feed() || ! $query->is_post_type_archive( 'dp_ride' ) ) {
+			return;
+		}
+		$query->set( 'posts_per_page', 1 );
+		$query->set( 'no_found_rows', true );
 	}
 
 	/* ----------------------------------------------------------- Redirects */
 
 	/**
 	 * Where a legacy URL should go, as a site-relative path, or null to leave it alone.
-	 * Only ever returns fixed paths plus an encoded search term, so it can't be steered
-	 * to another host.
+	 * Only ever returns fixed paths plus an encoded term, so it can't be steered to
+	 * another host.
+	 *
+	 * Term archives (/moment/<slug>/, /ride-type/<slug>/, /vibe/<slug>/, plus anything
+	 * after the slug) go to the ride browser with that filter set; an unknown moment or
+	 * ride type is left to 404. The browser filters vibes by name, so $vibe_name maps a
+	 * slug to its name, or null when there's no such vibe; without it the slug is used.
+	 *
+	 * @param callable|null $vibe_name fn( string $slug ): ?string
 	 */
-	public static function redirect_target( string $request_uri ): ?string {
+	public static function redirect_target( string $request_uri, ?callable $vibe_name = null ): ?string {
 		$parts = explode( '?', $request_uri, 2 );
 		$path  = '/' . trim( strtolower( $parts[0] ), '/' );
+		if ( preg_match( '#^/rides/page/\d+$#', $path ) ) {
+			return '/rides/';
+		}
+		if ( preg_match( '#^/(moment|ride-type|vibe)/([^/]+)#', $path, $m ) ) {
+			$slug = urldecode( $m[2] );
+			if ( 'vibe' === $m[1] ) {
+				$name = $vibe_name ? $vibe_name( $slug ) : $slug;
+				return null === $name ? null : '/rides/?vibe=' . rawurlencode( $name );
+			}
+			$known = 'moment' === $m[1] ? Vocab::MOMENTS : Vocab::RIDE_TYPES;
+			if ( ! isset( $known[ $slug ] ) ) {
+				return null;
+			}
+			return '/rides/?' . ( 'moment' === $m[1] ? 'pairing' : 'type' ) . '=' . rawurlencode( $slug );
+		}
 		if ( '/rss.xml' === $path ) {
 			return '/feed/';
 		}
@@ -199,7 +241,11 @@ final class Seo {
 		if ( '' !== $base && 0 === strpos( $uri, $base . '/' ) ) {
 			$uri = substr( $uri, strlen( $base ) );
 		}
-		$target = self::redirect_target( (string) $uri );
+		$vibe   = static function ( string $slug ): ?string {
+			$term = get_term_by( 'slug', $slug, 'dp_vibe' );
+			return $term instanceof \WP_Term ? $term->name : null;
+		};
+		$target = self::redirect_target( (string) $uri, $vibe );
 		if ( null !== $target ) {
 			wp_safe_redirect( home_url( $target ), 301 );
 			exit;

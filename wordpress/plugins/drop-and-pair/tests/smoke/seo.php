@@ -121,6 +121,52 @@ Seo::redirect_target( '//evil.com/rss.xml' ) === null || $fail( 'protocol-relati
 Seo::redirect_target( '/search/?q[]=x' ) === '/?s=' || $fail( 'array q' );
 Seo::redirect_target( '/rides/hyperion' ) === null || $fail( 'unrelated path redirected' );
 
+// No term archives: no taxonomy sitemaps, and the old term URLs and /rides/page/N/ 301 to the
+// ride browser. Fetched for real (gate opened for the fetch only), redirects not followed.
+// Coming soon mode turns sitemaps off, so the providers are built directly; they apply the same filters.
+$tax = new WP_Sitemaps_Taxonomies();
+array() !== array_intersect( array( 'dp_moment', 'dp_vibe', 'dp_ride_type' ), array_keys( $tax->get_object_subtypes() ) ) && $fail( 'a taxonomy is in the sitemap' );
+$posts_provider = new WP_Sitemaps_Posts();
+array( 'dp_ride', 'dp_park', 'dp_pairing' ) === array_values( array_intersect( array( 'dp_ride', 'dp_park', 'dp_pairing' ), array_keys( $posts_provider->get_object_subtypes() ) ) ) || $fail( 'a post type is missing from the sitemap' );
+foreach ( array( 'dp_moment', 'dp_vibe', 'dp_ride_type' ) as $taxonomy ) {
+	is_taxonomy_viewable( $taxonomy ) && $fail( "$taxonomy is still publicly queryable" );
+}
+$vibe = get_terms( array( 'taxonomy' => 'dp_vibe', 'hide_empty' => false, 'number' => 1 ) );
+$vibe = $vibe && ! is_wp_error( $vibe ) ? $vibe[0] : null;
+$expect = array(
+	'/moment/later/'      => '/rides/?pairing=later',
+	'/ride-type/coaster/' => '/rides/?type=coaster',
+	'/rides/page/2/'      => '/rides/',
+);
+if ( $vibe ) {
+	$expect[ '/vibe/' . $vibe->slug . '/' ] = '/rides/?vibe=' . rawurlencode( $vibe->name );
+}
+$fetched = dp_smoke_without_gate(
+	static function () use ( $expect ) {
+		$out = array();
+		foreach ( array_merge( array_keys( $expect ), array( '/rides/', '/moment/nonsense/' ) ) as $path ) {
+			$out[ $path ] = wp_remote_get( home_url( $path ), array( 'timeout' => 30, 'redirection' => 0 ) );
+		}
+		return $out;
+	}
+);
+foreach ( $expect as $from => $to ) {
+	$res = $fetched[ $from ];
+	is_wp_error( $res ) && $fail( "$from fetch failed: " . $res->get_error_message() );
+	301 === wp_remote_retrieve_response_code( $res ) && home_url( $to ) === wp_remote_retrieve_header( $res, 'location' ) || $fail( "$from: expected 301 to $to, got " . wp_remote_retrieve_response_code( $res ) . ' ' . wp_remote_retrieve_header( $res, 'location' ) );
+}
+200 === wp_remote_retrieve_response_code( $fetched['/rides/'] ) || $fail( '/rides/ is not a 200' );
+str_contains( wp_remote_retrieve_body( $fetched['/rides/'] ), 'dp-ride-browser' ) || $fail( '/rides/ has no ride browser' );
+404 === wp_remote_retrieve_response_code( $fetched['/moment/nonsense/'] ) || $fail( 'unknown moment is not a 404' );
+
+// The rides archive's main query doesn't paginate.
+$was_main = $GLOBALS['wp_the_query'];
+$main     = new WP_Query();
+$GLOBALS['wp_the_query'] = $main;
+$main->query( array( 'post_type' => 'dp_ride' ) );
+$GLOBALS['wp_the_query'] = $was_main;
+1 === (int) $main->get( 'posts_per_page' ) && 0 === (int) $main->max_num_pages || $fail( 'rides archive main query still paginates' );
+
 $json = wp_json_encode( Seo::ride_node( get_post( $ids['a'] ) ) );
 json_decode( $json ) !== null || $fail( 'ride node not valid JSON' );
 Seo::describe( 'Gist.', 'Coaster', 'P', 'C', 1 ) === 'Gist. Coaster at P, C. 1 pairing.' || $fail( 'describe format' );

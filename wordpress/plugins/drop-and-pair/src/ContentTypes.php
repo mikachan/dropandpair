@@ -55,7 +55,14 @@ final class ContentTypes {
 			'delete_terms' => 'do_not_allow',
 			'assign_terms' => 'edit_posts',
 		);
-		$fixed      = array(
+		// No term archives for any of the three: the theme has no taxonomy template, so
+		// /moment/<slug>/ and the like rendered an empty page. Filtering lives in the
+		// ride browser instead, and Seo redirects the old term URLs there.
+		$no_archive = array(
+			'publicly_queryable' => false,
+			'rewrite'            => false,
+		);
+		$fixed      = $no_archive + array(
 			'public'            => true,
 			'show_in_rest'      => true,
 			'show_in_menu'      => false,
@@ -68,29 +75,27 @@ final class ContentTypes {
 			'dp_ride_type',
 			'dp_ride',
 			$fixed + array(
-				'labels'  => array(
+				'labels' => array(
 					'name'          => 'Ride types',
 					'singular_name' => 'Ride type',
 				),
-				'rewrite' => array( 'slug' => 'ride-type' ),
 			)
 		);
 		register_taxonomy(
 			'dp_moment',
 			'dp_pairing',
 			$fixed + array(
-				'labels'  => array(
+				'labels' => array(
 					'name'          => 'Moments',
 					'singular_name' => 'Moment',
 				),
-				'rewrite' => array( 'slug' => 'moment' ),
 			)
 		);
 		// Vibes are free-form tags, so they stay fully editable.
 		register_taxonomy(
 			'dp_vibe',
 			'dp_ride',
-			array(
+			$no_archive + array(
 				'labels'            => array(
 					'name'          => 'Vibes',
 					'singular_name' => 'Vibe',
@@ -99,7 +104,6 @@ final class ContentTypes {
 				'hierarchical'      => false,
 				'show_in_rest'      => true,
 				'show_admin_column' => true,
-				'rewrite'           => array( 'slug' => 'vibe' ),
 			)
 		);
 	}
