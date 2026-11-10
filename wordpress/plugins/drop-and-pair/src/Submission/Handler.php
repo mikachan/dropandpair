@@ -50,6 +50,10 @@ final class Handler {
 		// Activation doesn't re-run for a plugin that's already active (or symlinked in),
 		// so the page is also checked for once on a normal load, then a flag skips it.
 		add_action( 'init', array( self::class, 'maybe_ensure_page' ), 30 );
+		// After that, a page deleted for good is noticed in the two places it matters
+		// without a lookup on every front-end request: the admin, and a 404 on its URL.
+		add_action( 'admin_init', array( self::class, 'recheck_page' ) );
+		add_action( 'template_redirect', array( self::class, 'restore_page_on_404' ) );
 		add_action( 'template_redirect', array( self::class, 'no_cache_for_results' ) );
 	}
 
@@ -307,6 +311,32 @@ final class Handler {
 	public static function maybe_ensure_page(): void {
 		if ( ! get_option( self::PAGE_CHECKED ) ) {
 			self::ensure_page();
+		}
+	}
+
+	/**
+	 * Brings the page back if the stored ID no longer resolves to a page. That's one
+	 * cached get_post, so it's cheap on admin_init. A page that exists but is trashed or
+	 * unpublished is left alone: that's a deliberate choice, and ensure_page() would only
+	 * adopt it again, rewriting the same options on every admin load.
+	 */
+	public static function recheck_page(): void {
+		$page = get_post( (int) get_option( self::PAGE_OPTION ) );
+		if ( ! ( $page instanceof \WP_Post && 'page' === $page->post_type ) ) {
+			delete_option( self::PAGE_CHECKED );
+			self::ensure_page();
+		}
+	}
+
+	/** A visitor who hits a 404 at /suggest/ gets the page back, then is sent to it. */
+	public static function restore_page_on_404(): void {
+		if ( ! is_404() || 'suggest' !== trim( (string) ( $GLOBALS['wp']->request ?? '' ), '/' ) ) {
+			return;
+		}
+		self::recheck_page();
+		// Only once it's really published, so a trashed page can't cause a redirect loop.
+		if ( 'publish' === get_post_status( (int) get_option( self::PAGE_OPTION ) ) && wp_safe_redirect( self::page_url(), 302 ) ) {
+			exit;
 		}
 	}
 

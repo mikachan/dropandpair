@@ -226,6 +226,65 @@ false === get_option( Handler::PAGE_OPTION ) || $fail( 'maybe_ensure_page ran de
 Handler::activate();
 $page_id === (int) get_option( Handler::PAGE_OPTION ) || $fail( 'activate() did not find the page again' );
 
+// 8. A page deleted for good comes back on the next admin load or a 404 at /suggest/,
+// not only on reactivation. A missing ID is found again by slug; with no page at the
+// slug either, a fresh one is made. The real page is put back as it was afterwards.
+$gone = wp_insert_post( array( 'post_type' => 'page', 'post_status' => 'draft', 'post_title' => 'Smoke gone' ) );
+wp_delete_post( $gone, true );
+update_option( Handler::PAGE_OPTION, $gone );
+update_option( Handler::PAGE_CHECKED, 1 );
+Handler::recheck_page();
+$page_id === (int) get_option( Handler::PAGE_OPTION ) || $fail( 'recheck_page did not find the page again' );
+$writes = 0;
+$count_writes = static function ( $option ) use ( &$writes ) {
+	in_array( $option, array( Handler::PAGE_OPTION, Handler::PAGE_CHECKED ), true ) && $writes++;
+};
+add_action( 'update_option', $count_writes );
+add_action( 'delete_option', $count_writes );
+Handler::recheck_page();
+remove_action( 'update_option', $count_writes );
+remove_action( 'delete_option', $count_writes );
+0 === $writes || $fail( 'recheck_page wrote options while the page was there' );
+
+global $wpdb, $wp, $wp_query;
+$real_name = get_post_field( 'post_name', $page_id );
+$wpdb->update( $wpdb->posts, array( 'post_name' => 'smoke-held-suggest' ), array( 'ID' => $page_id ) );
+clean_post_cache( $page_id );
+update_option( Handler::PAGE_OPTION, $gone );
+$went      = null;
+$catch     = static function ( $location ) use ( &$went ) {
+	$went = $location;
+	return false;
+};
+$fresh     = 0;
+$was_req   = $wp->request;
+try {
+	add_filter( 'wp_redirect', $catch );
+	$wp->request = 'suggest';
+	$wp_query->set_404();
+	Handler::restore_page_on_404();
+	$fresh = (int) get_option( Handler::PAGE_OPTION );
+	$fresh && $fresh !== $page_id || throw new RuntimeException( 'The 404 path did not make a new page' );
+	'publish' === get_post_status( $fresh ) && 'suggest' === get_post_field( 'post_name', $fresh ) || throw new RuntimeException( 'New page is not published at /suggest/' );
+	str_contains( get_post_field( 'post_content', $fresh ), 'drop-and-pair/suggest-form' ) || throw new RuntimeException( 'New page has no form' );
+	get_permalink( $fresh ) === $went || throw new RuntimeException( "The 404 path redirected to $went" );
+	// Not a 404, or some other URL: nothing happens.
+	$went = null;
+	$wp->request = 'elsewhere';
+	Handler::restore_page_on_404();
+	null === $went || throw new RuntimeException( 'Redirected from an unrelated 404' );
+} catch ( RuntimeException $e ) {
+	$error = $e->getMessage();
+} finally {
+	remove_filter( 'wp_redirect', $catch );
+	$wp->request = $was_req;
+	$wp_query->init();
+	$fresh && $fresh !== $page_id && wp_delete_post( $fresh, true );
+	$wpdb->update( $wpdb->posts, array( 'post_name' => $real_name ), array( 'ID' => $page_id ) );
+	clean_post_cache( $page_id );
+}
+isset( $error ) && $fail( $error );
+
 $cleanup();
 $all_ids() === $before || WP_CLI::error( 'Smoke left posts behind' );
 WP_CLI::success( 'OK' );
