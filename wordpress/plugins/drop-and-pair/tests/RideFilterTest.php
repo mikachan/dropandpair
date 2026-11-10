@@ -161,4 +161,22 @@ final class RideFilterTest extends TestCase {
 
 		$this->assertSame( array(), RideFilter::facets( $rides )['countries'] );
 	}
+
+	public function test_parse_ignores_unknown_keys_such_as_types(): void {
+		$this->assertSame( array(), RideFilter::parse( 'types=x' )['types'] );
+		$this->assertSame( self::EMPTY, RideFilter::parse( 'types=x&foo=bar' ) );
+	}
+
+	public function test_treats_zero_as_a_real_value(): void {
+		$filters = RideFilter::parse( 'intensity=0' );
+
+		$this->assertSame( 'intensity=0', RideFilter::to_query( $filters ) );
+		$this->assertTrue( RideFilter::is_filtered( $filters ) );
+		$rides = array( $this->ride( array( 'id' => 'unrated', 'intensity' => 0 ) ), $this->ride() );
+		$this->assertSame( array( 'unrated' ), $this->ids( RideFilter::apply( $rides, $filters ) ) );
+	}
+
+	public function test_leaves_rides_with_no_type_out_of_the_type_facet(): void {
+		$this->assertSame( array(), RideFilter::facets( array( $this->ride( array( 'ride_type' => '' ) ) ) )['ride_types'] );
+	}
 }

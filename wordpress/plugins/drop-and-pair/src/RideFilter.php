@@ -39,7 +39,7 @@ final class RideFilter {
 				if ( '' !== $value ) {
 					$filters['types'][] = $value;
 				}
-			} elseif ( isset( $filters[ $key ] ) && ! isset( $seen[ $key ] ) ) {
+			} elseif ( in_array( $key, array( 'pairing', 'vibe', 'country', 'intensity' ), true ) && ! isset( $seen[ $key ] ) ) {
 				// First one wins, like URLSearchParams.get.
 				$seen[ $key ]     = true;
 				$filters[ $key ] = $value;
@@ -55,7 +55,7 @@ final class RideFilter {
 			$parts[] = 'type=' . urlencode( (string) $type );
 		}
 		foreach ( array( 'pairing', 'vibe', 'country', 'intensity' ) as $key ) {
-			if ( ! empty( $filters[ $key ] ) ) {
+			if ( '' !== (string) ( $filters[ $key ] ?? '' ) ) {
 				$parts[] = $key . '=' . urlencode( (string) $filters[ $key ] );
 			}
 		}
@@ -80,13 +80,13 @@ final class RideFilter {
 				if ( $types && ! in_array( $ride['ride_type'], $types, true ) ) {
 					return false;
 				}
-				if ( ! empty( $filters['pairing'] ) && ! in_array( $filters['pairing'], $ride['moments'], true ) ) {
+				if ( '' !== (string) ( $filters['pairing'] ?? '' ) && ! in_array( $filters['pairing'], $ride['moments'], true ) ) {
 					return false;
 				}
-				if ( ! empty( $filters['vibe'] ) && ! in_array( $filters['vibe'], $ride['vibes'], true ) ) {
+				if ( '' !== (string) ( $filters['vibe'] ?? '' ) && ! in_array( $filters['vibe'], $ride['vibes'], true ) ) {
 					return false;
 				}
-				if ( ! empty( $filters['country'] ) && $ride['country'] !== $filters['country'] ) {
+				if ( '' !== (string) ( $filters['country'] ?? '' ) && $ride['country'] !== $filters['country'] ) {
 					return false;
 				}
 				// Like Number(): a non-number never matches.
@@ -109,7 +109,9 @@ final class RideFilter {
 	public static function facets( array $rides ): array {
 		$types = $moments = $vibes = $countries = $intensities = array();
 		foreach ( $rides as $ride ) {
-			$types[ $ride['ride_type'] ] = true;
+			if ( '' !== $ride['ride_type'] ) {
+				$types[ $ride['ride_type'] ] = true;
+			}
 			$intensities[ (int) $ride['intensity'] ] = true;
 			if ( '' !== $ride['country'] ) {
 				$countries[ $ride['country'] ] = true;
