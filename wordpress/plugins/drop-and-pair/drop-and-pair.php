@@ -16,3 +16,6 @@ define( 'DROP_AND_PAIR_URL', plugin_dir_url( __FILE__ ) );
 if ( file_exists( DROP_AND_PAIR_DIR . 'vendor/autoload.php' ) ) {
 	require_once DROP_AND_PAIR_DIR . 'vendor/autoload.php';
 }
+
+DropAndPair\ContentTypes::hooks();
+register_activation_hook( __FILE__, array( DropAndPair\ContentTypes::class, 'seed_terms' ) );
