@@ -1,0 +1,11 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "drop-and-pair/ride-browser",
+	"title": "Ride browser",
+	"category": "widgets",
+	"description": "Filter bar and table of every published ride. Filters live in the URL.",
+	"textdomain": "drop-and-pair",
+	"supports": { "html": false, "autoRegister": true },
+	"render": "file:./render.php"
+}

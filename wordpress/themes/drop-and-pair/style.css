@@ -334,3 +334,123 @@ Text Domain: drop-and-pair
 		min-width: 460px;
 	}
 }
+
+/* Rides archive: filter form above the table. Works without JS; with it, the button hides. */
+.dp-filters {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	padding: 16px;
+	margin-top: 24px;
+}
+
+.dp-filters__group {
+	border: 0;
+	padding: 0;
+	margin: 0;
+}
+
+.dp-filters__group legend {
+	padding: 0;
+	margin-bottom: 6px;
+}
+
+.dp-filters__pills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.dp-filters__pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 3px 12px;
+	border: 1px solid currentColor;
+	border-radius: 999px;
+	font-size: var(--wp--preset--font-size--small);
+	cursor: pointer;
+}
+
+.dp-filters__pill:has(input:checked) {
+	background: var(--wp--preset--color--accent);
+	border-color: var(--wp--preset--color--accent);
+	color: #1a1a1a;
+	font-weight: 600;
+}
+
+.dp-filters__pill:has(input:focus-visible),
+.dp-filters select:focus-visible {
+	outline: 3px solid var(--wp--preset--color--accent);
+	outline-offset: 2px;
+}
+
+.dp-filters__pill input {
+	accent-color: var(--wp--preset--color--accent);
+	margin: 0;
+}
+
+.dp-filters__selects {
+	display: grid;
+	gap: 12px;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+}
+
+.dp-filters__field {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	margin: 0;
+}
+
+.dp-filters select {
+	padding: 6px 8px;
+	border: 1px solid currentColor;
+	border-radius: 4px;
+	background: var(--wp--preset--color--paper);
+	color: inherit;
+	font: inherit;
+	font-size: var(--wp--preset--font-size--small);
+}
+
+.dp-filters__actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 16px;
+	margin: 0;
+}
+
+.dp-filters__apply {
+	padding: 6px 16px;
+	border: 1.5px solid currentColor;
+	border-radius: 4px;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.dp-filters--auto .dp-filters__apply {
+	display: none;
+}
+
+.dp-ride-browser__count {
+	margin: 16px 0 8px;
+}
+
+.dp-ride-browser__table th[scope="col"] {
+	width: auto;
+	font-weight: 600;
+}
+
+@media (max-width: 600px) {
+	.dp-ride-browser__scroll {
+		overflow-x: auto;
+	}
+
+	.dp-ride-browser__table {
+		min-width: 560px;
+	}
+}
