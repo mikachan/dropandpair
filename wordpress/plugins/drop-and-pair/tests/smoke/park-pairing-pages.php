@@ -86,6 +86,31 @@ $has( 'stub-before' ) || $fail( 'Stub colour missing' );
 delete_post_meta( $pairing, 'dp_url' );
 false !== strpos( $render( $pairing, 'single-dp_pairing.html' ), 'Find it' ) && $fail( 'Find it shown with no url' );
 
+// --- Ride browser: unrated intensity isn't offered, but a typed ?intensity=0 still filters ---
+$was_qs = $_SERVER['QUERY_STRING'] ?? null;
+$_SERVER['QUERY_STRING'] = '';
+$html = do_blocks( '<!-- wp:drop-and-pair/ride-browser /-->' );
+preg_match( '/<select id="dp-filter-intensity".*?<\/select>/s', $html, $select );
+$select || $fail( 'Intensity select missing' );
+str_contains( $select[0], 'value="4"' ) || $fail( 'Intensity 4 not offered' );
+( str_contains( $select[0], 'value="0"' ) || str_contains( $select[0], 'Unrated' ) ) && $fail( 'Unrated intensity offered as a filter' );
+$_SERVER['QUERY_STRING'] = 'intensity=0';
+$html = do_blocks( '<!-- wp:drop-and-pair/ride-browser /-->' );
+if ( null === $was_qs ) {
+	unset( $_SERVER['QUERY_STRING'] );
+} else {
+	$_SERVER['QUERY_STRING'] = $was_qs;
+}
+$has( 'Smoke Ride Beta' ) && ! $has( 'Smoke Ride Alpha' ) || $fail( '?intensity=0 did not filter to unrated rides' );
+
+// --- Ride pairings: the suggest link follows the suggest page, wherever it lives ---
+$suggest_id = (int) get_option( \DropAndPair\Submission\Handler::PAGE_OPTION );
+$moved      = static fn( $link, $id ) => $id === $suggest_id ? home_url( '/moved-suggest/' ) : $link;
+add_filter( 'page_link', $moved, 10, 2 );
+$html = $render( $ride_c, 'single-dp_ride.html' );
+remove_filter( 'page_link', $moved, 10 );
+$has( esc_url( add_query_arg( 'ride', $ride_c, home_url( '/moved-suggest/' ) ) ) ) || $fail( 'Ride page suggest link ignores the suggest page' );
+
 // --- Pairing archive ---
 // A pairing sits under one moment (its lowest Vocab rank), so "eat-and-drink" is not expected from the two-term pairing above.
 $used = array();

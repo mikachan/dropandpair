@@ -179,4 +179,11 @@ final class RideFilterTest extends TestCase {
 	public function test_leaves_rides_with_no_type_out_of_the_type_facet(): void {
 		$this->assertSame( array(), RideFilter::facets( array( $this->ride( array( 'ride_type' => '' ) ) ) )['ride_types'] );
 	}
+
+	public function test_does_not_offer_unrated_intensity_but_still_filters_by_it(): void {
+		$rides = array( $this->ride( array( 'id' => 'unrated', 'intensity' => 0 ) ), $this->ride( array( 'intensity' => 2 ) ) );
+
+		$this->assertSame( array( 2 ), RideFilter::facets( $rides )['intensities'] );
+		$this->assertSame( array( 'unrated' ), $this->ids( RideFilter::apply( $rides, RideFilter::parse( 'intensity=0' ) ) ) );
+	}
 }

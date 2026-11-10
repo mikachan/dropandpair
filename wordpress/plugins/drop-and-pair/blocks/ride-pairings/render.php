@@ -8,13 +8,14 @@
  */
 
 use DropAndPair\Queries;
+use DropAndPair\Submission\Handler;
 use DropAndPair\Tickets;
 
 defined( 'ABSPATH' ) || exit;
 
 $ride_id = (int) ( $block->context['postId'] ?? get_the_ID() );
 $links   = Queries::order_by_moment( Queries::public_links_for_ride( $ride_id ) );
-$suggest = esc_url( add_query_arg( 'ride', $ride_id, home_url( '/suggest/' ) ) );
+$suggest = esc_url( add_query_arg( 'ride', $ride_id, Handler::page_url() ) );
 ?>
 <section <?php echo get_block_wrapper_attributes( array( 'class' => 'dp-ride-pairings' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>>
 	<h2>pairings</h2>

@@ -102,7 +102,8 @@ final class RideFilter {
 	/**
 	 * Facets come from the rides that exist, so no filter can return nothing on its own.
 	 * Controlled vocabularies keep their canonical order; free text goes A to Z.
-	 * Rides with no country (park missing or unpublished) add nothing to the country facet.
+	 * Rides with no country (park missing or unpublished) add nothing to the country facet,
+	 * and unrated rides add nothing to the intensity facet.
 	 *
 	 * @return array{ride_types:string[],moments:string[],vibes:string[],countries:string[],intensities:int[]}
 	 */
@@ -112,7 +113,12 @@ final class RideFilter {
 			if ( '' !== $ride['ride_type'] ) {
 				$types[ $ride['ride_type'] ] = true;
 			}
-			$intensities[ (int) $ride['intensity'] ] = true;
+			// Unrated (0) isn't offered: "Unrated intensity" isn't something to pick. A typed
+			// ?intensity=0 still filters, as apply() treats it like any other number.
+			$n = (int) $ride['intensity'];
+			if ( $n >= 1 && $n <= 5 ) {
+				$intensities[ $n ] = true;
+			}
 			if ( '' !== $ride['country'] ) {
 				$countries[ $ride['country'] ] = true;
 			}
