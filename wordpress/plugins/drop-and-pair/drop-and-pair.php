@@ -13,8 +13,23 @@ define( 'DROP_AND_PAIR_VERSION', '0.1.0' );
 define( 'DROP_AND_PAIR_DIR', plugin_dir_path( __FILE__ ) );
 define( 'DROP_AND_PAIR_URL', plugin_dir_url( __FILE__ ) );
 
+// Composer is for development (PHPUnit). The deployed plugin has no vendor/, so it
+// falls back to this PSR-4 loader: DropAndPair\Foo\Bar is src/Foo/Bar.php.
 if ( file_exists( DROP_AND_PAIR_DIR . 'vendor/autoload.php' ) ) {
 	require_once DROP_AND_PAIR_DIR . 'vendor/autoload.php';
+} else {
+	spl_autoload_register(
+		static function ( string $class ): void {
+			$prefix = 'DropAndPair\\';
+			if ( 0 !== strncmp( $class, $prefix, strlen( $prefix ) ) ) {
+				return;
+			}
+			$file = DROP_AND_PAIR_DIR . 'src/' . str_replace( '\\', '/', substr( $class, strlen( $prefix ) ) ) . '.php';
+			if ( is_file( $file ) ) {
+				require_once $file;
+			}
+		}
+	);
 }
 
 DropAndPair\ComingSoon::hooks();
