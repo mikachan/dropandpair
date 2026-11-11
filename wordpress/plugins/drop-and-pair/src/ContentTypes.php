@@ -8,10 +8,83 @@ defined( 'ABSPATH' ) || exit;
  */
 final class ContentTypes {
 
+	/** Ride meta registered as integer or number; see null_unset_numbers. */
+	const RIDE_NUMBERS = array( 'dp_park_id', 'dp_opened', 'dp_inversions', 'dp_height', 'dp_speed', 'dp_length', 'dp_intensity', 'dp_roughness' );
+
 	public static function hooks(): void {
 		add_action( 'init', array( self::class, 'register' ) );
 		// After register(), so the taxonomies exist when terms are inserted.
 		add_action( 'init', array( self::class, 'maybe_seed_terms' ), 20 );
+		add_filter( 'rest_prepare_dp_ride', array( self::class, 'rest_unset_numbers_as_null' ), 10, 2 );
+		add_filter( 'rest_pre_insert_dp_ride', array( self::class, 'rest_skip_clearing_unset_meta' ), 10, 2 );
+	}
+
+	/*
+	 * Unset ride numbers over REST. WordPress reads an unset key as '', which isn't a valid
+	 * integer or number, so REST reports it as 0, or as null for the 1-5 ratings. The editor
+	 * sends the whole meta object back with any meta edit, so that made-up 0 got stored
+	 * ("opened 0" on the page), and the null failed with rest_invalid_stored_value, because
+	 * core validates the stored '' before deleting. Core skips meta whose schema type allows
+	 * null, and a null default doesn't validate against an integer type, so both are handled
+	 * here: unset numbers read as null, and a null for a key with nothing stored is dropped.
+	 */
+
+	/**
+	 * Unset number keys as null; stored values, a real 0 included, are left alone.
+	 *
+	 * @param callable $is_stored fn( string $meta_key ): bool.
+	 */
+	public static function null_unset_numbers( array $meta, callable $is_stored ): array {
+		foreach ( self::RIDE_NUMBERS as $key ) {
+			if ( array_key_exists( $key, $meta ) && ! $is_stored( $key ) ) {
+				$meta[ $key ] = null;
+			}
+		}
+		return $meta;
+	}
+
+	/**
+	 * Incoming meta without the nulls that would clear a key that has nothing stored.
+	 *
+	 * @param callable $is_stored fn( string $meta_key ): bool.
+	 */
+	public static function without_null_for_unset( array $meta, callable $is_stored ): array {
+		foreach ( $meta as $key => $value ) {
+			if ( null === $value && ! $is_stored( (string) $key ) ) {
+				unset( $meta[ $key ] );
+			}
+		}
+		return $meta;
+	}
+
+	/**
+	 * @param \WP_REST_Response $response
+	 * @param \WP_Post          $post
+	 * @return \WP_REST_Response
+	 */
+	public static function rest_unset_numbers_as_null( $response, $post ) {
+		$data = $response->get_data();
+		if ( isset( $data['meta'] ) && is_array( $data['meta'] ) ) {
+			$data['meta'] = self::null_unset_numbers( $data['meta'], static fn( string $key ) => metadata_exists( 'post', $post->ID, $key ) );
+			$response->set_data( $data );
+		}
+		return $response;
+	}
+
+	/**
+	 * Runs before the posts controller writes meta, so the request change applies to it.
+	 *
+	 * @param \stdClass        $prepared_post
+	 * @param \WP_REST_Request $request
+	 * @return \stdClass
+	 */
+	public static function rest_skip_clearing_unset_meta( $prepared_post, $request ) {
+		$meta = $request->get_param( 'meta' );
+		$id   = (int) ( $prepared_post->ID ?? 0 );
+		if ( is_array( $meta ) && $id ) {
+			$request->set_param( 'meta', self::without_null_for_unset( $meta, static fn( string $key ) => metadata_exists( 'post', $id, $key ) ) );
+		}
+		return $prepared_post;
 	}
 
 	public static function register(): void {
