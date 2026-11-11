@@ -133,7 +133,7 @@ $word = static function ( int $n, callable $label ): string {
 
 	<?php if ( $shown ) : ?>
 		<div class="dp-ride-browser__scroll">
-			<table class="dp-table dp-ride-browser__table">
+			<table class="dp-table dp-table--stack dp-ride-browser__table">
 				<thead>
 					<tr><th scope="col">Ride</th><th scope="col">Park</th><th scope="col">Country</th><th scope="col">Type</th><th scope="col">Intensity</th><th scope="col">Comfort</th></tr>
 				</thead>
@@ -141,11 +141,11 @@ $word = static function ( int $n, callable $label ): string {
 					<?php foreach ( $shown as $ride ) : ?>
 						<tr>
 							<td><a href="<?php echo esc_url( get_permalink( $ride['post'] ) ); ?>"><?php echo esc_html( get_the_title( $ride['post'] ) ); ?></a></td>
-							<td><?php echo $ride['park'] ? '<a href="' . esc_url( get_permalink( $ride['park'] ) ) . '">' . esc_html( get_the_title( $ride['park'] ) ) . '</a>' : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?></td>
-							<td><?php echo esc_html( $ride['country'] ); ?></td>
-							<td><?php echo esc_html( Vocab::RIDE_TYPES[ $ride['ride_type'] ] ?? $ride['ride_type'] ); ?></td>
-							<td><?php echo esc_html( $word( $ride['intensity'], array( Vocab::class, 'intensity_label' ) ) ); ?></td>
-							<td><?php echo esc_html( $word( $ride['roughness'], array( Vocab::class, 'comfort_label' ) ) ); ?></td>
+							<td data-label="Park"><?php echo $ride['park'] ? '<a href="' . esc_url( get_permalink( $ride['park'] ) ) . '">' . esc_html( get_the_title( $ride['park'] ) ) . '</a>' : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?></td>
+							<td data-label="Country"><?php echo esc_html( $ride['country'] ); ?></td>
+							<td data-label="Type"><?php echo esc_html( Vocab::RIDE_TYPES[ $ride['ride_type'] ] ?? $ride['ride_type'] ); ?></td>
+							<td data-label="Intensity"><?php echo esc_html( $word( $ride['intensity'], array( Vocab::class, 'intensity_label' ) ) ); ?></td>
+							<td data-label="Comfort"><?php echo esc_html( $word( $ride['roughness'], array( Vocab::class, 'comfort_label' ) ) ); ?></td>
 						</tr>
 					<?php endforeach; ?>
 				</tbody>

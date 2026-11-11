@@ -25,8 +25,8 @@ $word = static function ( $value, callable $label ): string {
 	<?php if ( ! $rides ) : ?>
 		<p>No rides here yet.</p>
 	<?php else : ?>
-		<?php // Each cell names its column so the row can stack on a phone; see style.css. ?>
-		<table class="dp-table dp-park-rides__table">
+		<?php // Each cell names its column so the row can stack on a phone; see .dp-table--stack. ?>
+		<table class="dp-table dp-table--stack dp-park-rides__table">
 			<thead>
 				<tr><th scope="col">Ride</th><th scope="col">Type</th><th scope="col">Opened</th><th scope="col">Intensity</th><th scope="col">Comfort</th></tr>
 			</thead>
