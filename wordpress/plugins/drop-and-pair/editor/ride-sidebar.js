@@ -6,6 +6,7 @@
 	var el = wp.element.createElement;
 	var Fragment = wp.element.Fragment;
 	var useState = wp.element.useState;
+	var useEffect = wp.element.useEffect;
 	var useSelect = wp.data.useSelect;
 	var useEntityProp = wp.coreData.useEntityProp;
 	var c = wp.components;
@@ -14,6 +15,18 @@
 	var TYPE = 'dp_ride';
 	var NONE = '';
 	var EMPTY = [];
+	// Ride ID => { pairing ID: true } for every link the sidebar has shown; see SAVE_PATH.
+	var shown = {};
+
+	function remember( rideId, links ) {
+		if ( ! rideId ) {
+			return;
+		}
+		shown[ rideId ] = shown[ rideId ] || {};
+		( links || [] ).forEach( function ( l ) {
+			shown[ rideId ][ l.pairing_id ] = true;
+		} );
+	}
 
 	function scale( labels ) {
 		var opts = [ { label: __( 'Not set', 'drop-and-pair' ), value: NONE } ];
@@ -225,6 +238,8 @@
 		var _m = useEntityProp( 'postType', TYPE, 'meta' );
 		var meta = _m[ 0 ] || {};
 		var setMeta = _m[ 1 ];
+		var rideId = useSelect( function ( select ) { return select( 'core/editor' ).getCurrentPostId(); }, [] );
+		useEffect( function () { remember( rideId, meta.dp_pairings ); }, [ rideId, meta.dp_pairings ] );
 		// Only the changed key: core-data merges meta edits into what it already has.
 		function set( key, value ) {
 			var patch = {};
@@ -277,12 +292,18 @@
 	/*
 	 * A visitor's suggestion is added to dp_pairings on the server, maybe while Sarah has
 	 * the ride open. Core-data merges meta edits, but what it saves is the whole merged
-	 * meta object, so any other meta edit (or an autosave) would resend the links as the editor
-	 * loaded them and quietly drop that suggestion. So: unless the links were changed
-	 * here, leave them out of the request and the server keeps what it has. Editing the
-	 * links themselves still sends the full list, so a suggestion that lands between
-	 * opening the ride and saving a pairings edit loses its link. Its pairing draft and
-	 * the notification email are still there, so it can be added back by hand.
+	 * meta object, so any other meta edit (or an autosave) would resend the links as the
+	 * editor loaded them. So: unless the links differ from the saved record, leave them
+	 * out of the request and the server keeps what it has.
+	 *
+	 * When the links are sent (they were edited here, or an author-draft autosave refreshed
+	 * the saved record under a pending meta edit, so the edit now carries a stale list),
+	 * the request also carries dp_pairings_base: every pairing ID the sidebar has shown for
+	 * this ride. The server (RidePairings::keep_arrivals_in_rest_save) adds back any stored
+	 * link that's in neither list, since it arrived after the editor loaded, and drops only
+	 * links in the base that the editor no longer sends, which were removed here on purpose.
+	 * The base is what was shown, not the latest saved record, so a refreshed record can't
+	 * make a suggestion Sarah never saw look like one she removed.
 	 */
 	var SAVE_PATH = new RegExp( '^/wp/v2/' + TYPE + '/(\\d+)(/autosaves)?(\\?|$)' );
 	function samePairings( a, b ) {
@@ -294,9 +315,15 @@
 		if ( ! match || ! data || ! data.meta || ! Object.prototype.hasOwnProperty.call( data.meta, 'dp_pairings' ) ) {
 			return next( options );
 		}
-		var saved = wp.data.select( 'core' ).getRawEntityRecord( 'postType', TYPE, Number( match[ 1 ] ) );
+		var id = Number( match[ 1 ] );
+		var saved = wp.data.select( 'core' ).getRawEntityRecord( 'postType', TYPE, id );
 		if ( ! saved || ! saved.meta || ! samePairings( saved.meta.dp_pairings, data.meta.dp_pairings ) ) {
-			return next( options );
+			// Nothing shown yet means no base, and the server takes the list as sent.
+			if ( ! shown[ id ] ) {
+				return next( options );
+			}
+			var base = Object.keys( shown[ id ] ).map( Number );
+			return next( Object.assign( {}, options, { data: Object.assign( {}, data, { dp_pairings_base: base } ) } ) );
 		}
 		var meta = Object.assign( {}, data.meta );
 		delete meta.dp_pairings;

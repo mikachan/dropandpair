@@ -81,6 +81,36 @@ final class RidePairings {
 		return $links;
 	}
 
+	/**
+	 * A save from the editor sends the whole list as the editor knew it, so a visitor's
+	 * suggestion stored since then would be lost. Stored links whose pairing is in neither
+	 * the incoming list nor the editor's base (every ID it has shown) arrived after the
+	 * editor loaded, so they go after the incoming links, as stored, email and all. A link
+	 * in the base but missing from the incoming list was removed on purpose and stays gone.
+	 *
+	 * @param array $incoming The links in the save request, not yet normalised.
+	 * @param array $stored   The ride's current `dp_pairings` meta.
+	 * @param array $base_ids Pairing IDs the editor has shown for this ride.
+	 */
+	public static function keep_new_arrivals( array $incoming, array $stored, array $base_ids ): array {
+		$known = array();
+		foreach ( $base_ids as $id ) {
+			$known[ (int) $id ] = true;
+		}
+		foreach ( $incoming as $link ) {
+			if ( is_array( $link ) ) {
+				$known[ (int) ( $link['pairing_id'] ?? 0 ) ] = true;
+			}
+		}
+		$out = $incoming;
+		foreach ( $stored as $link ) {
+			if ( is_array( $link ) && ! isset( $known[ (int) ( $link['pairing_id'] ?? 0 ) ] ) ) {
+				$out[] = $link;
+			}
+		}
+		return $out;
+	}
+
 	private static function is_public( array $link, callable $status_of ): bool {
 		$strength = $link['strength'] ?? null;
 		return is_int( $strength )
@@ -110,6 +140,38 @@ final class RidePairings {
 		add_action( 'updated_post_meta', array( self::class, 'on_meta_change' ), 10, 3 );
 		add_action( 'transition_post_status', array( self::class, 'on_pairing_transition' ), 10, 3 );
 		add_action( 'transition_post_status', array( self::class, 'on_ride_transition' ), 10, 3 );
+		add_filter( 'rest_request_before_callbacks', array( self::class, 'keep_arrivals_in_rest_save' ), 10, 3 );
+	}
+
+	/**
+	 * The editor's ride saves carry `dp_pairings_base`, the pairing IDs it has shown (see
+	 * the save middleware in editor/ride-sidebar.js). With it, links stored since then are
+	 * added back to the incoming `dp_pairings` before the controller writes it. Requests
+	 * without a base (other API users, an older editor script) are left as they are.
+	 * Runs before the callbacks so the posts and autosaves controllers both see the merge.
+	 *
+	 * @param mixed            $response Passed through untouched.
+	 * @param array            $handler  Route handler, unused.
+	 * @param \WP_REST_Request $request  The request; its meta param is rewritten in place.
+	 * @return mixed
+	 */
+	public static function keep_arrivals_in_rest_save( $response, $handler, $request ) {
+		if ( ! $request instanceof \WP_REST_Request || 'GET' === $request->get_method()
+			|| ! preg_match( '#^/wp/v2/dp_ride/(\d+)(?:/autosaves)?$#', $request->get_route(), $m ) ) {
+			return $response;
+		}
+		$base = $request->get_param( 'dp_pairings_base' );
+		$meta = $request->get_param( 'meta' );
+		if ( ! is_array( $base ) || ! is_array( $meta ) || ! isset( $meta['dp_pairings'] ) || ! is_array( $meta['dp_pairings'] ) ) {
+			return $response;
+		}
+		$stored = get_post_meta( (int) $m[1], 'dp_pairings', true );
+		if ( ! is_array( $stored ) || ! $stored ) {
+			return $response;
+		}
+		$meta['dp_pairings'] = self::keep_new_arrivals( $meta['dp_pairings'], $stored, $base );
+		$request->set_param( 'meta', $meta );
+		return $response;
 	}
 
 	/** Publishing a ride puts its live links on a page, so their emails can go. */

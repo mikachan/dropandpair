@@ -2,7 +2,8 @@
 // Run with: studio wp eval-file <this file>. Prints OK on success.
 // A published ride read over REST: logged out it shows only the public links, never an
 // email; someone who can edit the ride sees every link with its email. Writes from any
-// client are normalised. Every post it makes is deleted at the end.
+// client are normalised. A suggestion stored while the editor has the ride open survives
+// the editor's next save. Every post it makes is deleted at the end.
 // rest_do_request dispatches without the authentication step, so coming soon mode
 // (which refuses anonymous REST there) doesn't get in the way and stays on.
 $ids  = array();
@@ -95,6 +96,56 @@ $expect === $stored || $fail( 'REST write was not normalised: ' . wp_json_encode
 
 update_post_meta( $ride, 'dp_pairings', array( array( 'pairing_id' => (string) $live, 'blurb' => ' b ', 'strength' => '3' ), 'junk' ) );
 array( array( 'pairing_id' => $live, 'blurb' => 'b', 'strength' => 3, 'suggested_by' => null, 'submitter_email' => null ) ) === get_post_meta( $ride, 'dp_pairings', true ) || $fail( 'update_post_meta was not normalised' );
+
+// A suggestion lands while the editor has the ride open. The editor's base is what it
+// loaded; its save resends that list (one blurb edited) and must not drop the suggestion.
+$open    = $make( 'dp_ride', 'draft', 'Smoke open-in-editor ride' );
+$first   = $make( 'dp_pairing', 'draft', 'Smoke first pairing' );
+$second  = $make( 'dp_pairing', 'draft', 'Smoke second pairing' );
+$arrival = $make( 'dp_pairing', 'draft', 'Smoke arriving suggestion' );
+update_post_meta( $open, 'dp_pairings', array( $link( $first, 3 ), $link( $second, 2 ) ) );
+$loaded = ( static function () use ( $open, $fail ) {
+	$req = new WP_REST_Request( 'GET', "/wp/v2/dp_ride/$open" );
+	$req->set_param( 'context', 'edit' );
+	$res = rest_do_request( $req );
+	200 === $res->get_status() || $fail( 'GET open ride failed' );
+	return $res->get_data()['meta']['dp_pairings'];
+} )();
+$base = array_column( $loaded, 'pairing_id' );
+
+// As Handler::create stores a suggestion.
+$links   = get_post_meta( $open, 'dp_pairings', true );
+$links[] = array( 'pairing_id' => $arrival, 'blurb' => 'Just in', 'strength' => null, 'suggested_by' => 'Vis', 'submitter_email' => 'vis@example.com' );
+update_post_meta( $open, 'dp_pairings', wp_slash( $links ) );
+
+$save = static function ( array $pairings, ?array $base ) use ( $open, $fail ) {
+	$body = array( 'meta' => array( 'dp_pairings' => $pairings ) );
+	if ( null !== $base ) {
+		$body['dp_pairings_base'] = $base;
+	}
+	$req = new WP_REST_Request( 'POST', "/wp/v2/dp_ride/$open" );
+	$req->set_header( 'content-type', 'application/json' );
+	$req->set_body( wp_json_encode( $body ) );
+	$res = rest_do_request( $req );
+	200 === $res->get_status() || $fail( 'Open ride POST failed: ' . wp_json_encode( $res->get_data() ) );
+	return get_post_meta( $open, 'dp_pairings', true );
+};
+
+$edited             = $loaded;
+$edited[0]['blurb'] = 'Edited in the sidebar';
+$after              = $save( $edited, $base );
+array( $first, $second, $arrival ) === array_column( $after, 'pairing_id' ) || $fail( 'Arrival was dropped: ' . wp_json_encode( $after ) );
+'Edited in the sidebar' === $after[0]['blurb'] || $fail( 'The editor\'s edit did not win' );
+'vis@example.com' === $after[2]['submitter_email'] || $fail( 'Arrival lost its email' );
+'sam@example.com' === $after[1]['submitter_email'] || $fail( 'A resent link lost its email' );
+
+// Now the editor has shown all three and deliberately removes the second.
+$after = $save( array( $after[0], $after[2] ), array( $first, $second, $arrival ) );
+array( $first, $arrival ) === array_column( $after, 'pairing_id' ) || $fail( 'Deliberate removal was undone: ' . wp_json_encode( $after ) );
+
+// Without a base the list is taken as sent, as before.
+$after = $save( array( $after[0] ), null );
+array( $first ) === array_column( $after, 'pairing_id' ) || $fail( 'A save without a base was merged' );
 
 $done();
 WP_CLI::success( 'OK' );
