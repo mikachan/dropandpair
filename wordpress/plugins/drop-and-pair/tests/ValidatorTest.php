@@ -4,22 +4,30 @@ use PHPUnit\Framework\TestCase;
 
 final class ValidatorTest extends TestCase {
 
-	/** Published rides are 10 and 11; 12 is a draft ride; 20 is a published park. */
+	/**
+	 * Fake finders standing in for Handler's: published rides are Hyperion (10) and
+	 * Zadra (11), both at Energylandia (20), which is the only published park.
+	 */
 	private function validate( array $input ): array {
-		$rides = static fn( int $id ): bool => in_array( $id, array( 10, 11 ), true );
-		$parks = static fn( int $id ): bool => 20 === $id;
+		$rides = static fn( string $t ): ?int => array(
+			'hyperion'                => 10,
+			'hyperion (energylandia)' => 10,
+			'zadra'                   => 11,
+			'zadra (energylandia)'    => 11,
+		)[ strtolower( $t ) ] ?? null;
+		$parks = static fn( string $t ): ?int => array( 'energylandia' => 20 )[ strtolower( $t ) ] ?? null;
 		return Validator::validate( $input, $rides, $parks );
 	}
 
 	private function existing_ride( array $overrides = array() ): array {
 		return $overrides + array(
-			'ride_id' => '10',
-			'title'   => 'Fish and chips',
-			'moment'  => 'eat-and-drink',
-			'blurb'   => 'You come off soaked, so you want something hot.',
-			'link'    => '',
-			'name'    => 'Sam',
-			'email'   => '',
+			'ride'   => 'Hyperion (Energylandia)',
+			'title'  => 'Fish and chips',
+			'moment' => 'eat-and-drink',
+			'blurb'  => 'You come off soaked, so you want something hot.',
+			'link'   => '',
+			'name'   => 'Sam',
+			'email'  => '',
 		);
 	}
 
@@ -46,29 +54,46 @@ final class ValidatorTest extends TestCase {
 		);
 	}
 
-	public function test_existing_ride_ignores_new_ride_fields(): void {
-		// With JS off every field is visible, so stray new-ride values must not leak through.
-		$result = $this->validate( $this->existing_ride( array( 'new_ride_name' => 'Stray', 'park_id' => '0', 'new_park_name' => 'Stray park' ) ) );
+	public function test_known_ride_by_bare_title(): void {
+		$result = $this->validate( $this->existing_ride( array( 'ride' => '  Zadra ' ) ) );
 
 		$this->assertTrue( $result['ok'] );
+		$this->assertSame( 11, $result['data']['ride_id'] );
+		$this->assertNull( $result['data']['new_ride_name'] );
+	}
+
+	public function test_known_ride_ignores_park_and_country(): void {
+		// With JS off the park and country fields are visible, so stray values must not leak through.
+		$result = $this->validate( $this->existing_ride( array( 'park' => 'Stray park', 'new_park_country' => 'Strayland' ) ) );
+
+		$this->assertTrue( $result['ok'] );
+		$this->assertSame( 10, $result['data']['ride_id'] );
 		$this->assertNull( $result['data']['new_ride_name'] );
 		$this->assertNull( $result['data']['park_id'] );
 		$this->assertNull( $result['data']['new_park_name'] );
+		$this->assertNull( $result['data']['new_park_country'] );
 	}
 
-	public function test_valid_new_ride_and_new_park_submission(): void {
-		$result = $this->validate(
-			$this->existing_ride(
-				array(
-					'ride_id'          => '0',
-					'new_ride_name'    => '  Big One ',
-					'park_id'          => '0',
-					'new_park_name'    => 'Pleasure Beach',
-					'new_park_country' => 'United Kingdom',
-				)
-			)
-		);
+	public function test_new_ride_at_known_park(): void {
+		$result = $this->validate( $this->existing_ride( array( 'ride' => '  Big One ', 'park' => 'Energylandia', 'new_park_country' => 'Stray' ) ) );
 
+		$this->assertTrue( $result['ok'], print_r( $result['errors'], true ) );
+		$this->assertSame( 0, $result['data']['ride_id'] );
+		$this->assertSame( 'Big One', $result['data']['new_ride_name'] );
+		$this->assertSame( 20, $result['data']['park_id'] );
+		$this->assertNull( $result['data']['new_park_name'] );
+		$this->assertNull( $result['data']['new_park_country'] );
+	}
+
+	public function test_new_ride_at_new_park_needs_a_country(): void {
+		$input  = $this->existing_ride( array( 'ride' => 'Big One', 'park' => ' Pleasure  Beach ' ) );
+		$result = $this->validate( $input );
+
+		$this->assertFalse( $result['ok'] );
+		$this->assertSame( array( 'new_park_country' ), array_keys( $result['errors'] ) );
+		$this->assertSame( 'Which country is the park in?', $result['errors']['new_park_country'] );
+
+		$result = $this->validate( array( 'new_park_country' => 'United Kingdom' ) + $input );
 		$this->assertTrue( $result['ok'], print_r( $result['errors'], true ) );
 		$this->assertSame( 0, $result['data']['ride_id'] );
 		$this->assertSame( 'Big One', $result['data']['new_ride_name'] );
@@ -77,38 +102,36 @@ final class ValidatorTest extends TestCase {
 		$this->assertSame( 'United Kingdom', $result['data']['new_park_country'] );
 	}
 
-	public function test_new_ride_at_existing_park(): void {
-		$result = $this->validate( $this->existing_ride( array( 'ride_id' => '0', 'new_ride_name' => 'Big One', 'park_id' => '20', 'new_park_name' => 'Stray' ) ) );
-
-		$this->assertTrue( $result['ok'] );
-		$this->assertSame( 20, $result['data']['park_id'] );
-		$this->assertNull( $result['data']['new_park_name'] );
-	}
-
-	public function test_new_ride_needs_a_name_and_a_park(): void {
-		$result = $this->validate( $this->existing_ride( array( 'ride_id' => '0' ) ) );
-
-		$this->assertFalse( $result['ok'] );
-		$this->assertArrayHasKey( 'new_ride_name', $result['errors'] );
-		$this->assertArrayHasKey( 'park_id', $result['errors'] );
-
-		$result = $this->validate( $this->existing_ride( array( 'ride_id' => '0', 'new_ride_name' => 'Big One', 'park_id' => '0' ) ) );
-		$this->assertArrayHasKey( 'new_park_name', $result['errors'] );
-		$this->assertArrayHasKey( 'new_park_country', $result['errors'] );
-
-		$result = $this->validate( $this->existing_ride( array( 'ride_id' => '0', 'new_ride_name' => 'Big One', 'park_id' => '10' ) ) );
-		$this->assertArrayHasKey( 'park_id', $result['errors'], 'a ride ID is not a park' );
-	}
-
-	public function test_rejects_ride_id_that_is_not_a_published_ride(): void {
-		foreach ( array( '12', '20', '999', 'abc', '', '-1' ) as $id ) {
-			$result = $this->validate( $this->existing_ride( array( 'ride_id' => $id ) ) );
-			$this->assertFalse( $result['ok'], "ride_id $id" );
-			$this->assertArrayHasKey( 'ride_id', $result['errors'], "ride_id $id" );
+	public function test_empty_ride(): void {
+		foreach ( array( '', '   ', '<b></b>' ) as $ride ) {
+			$result = $this->validate( $this->existing_ride( array( 'ride' => $ride ) ) );
+			$this->assertFalse( $result['ok'], "ride '$ride'" );
+			$this->assertSame( 'Tell me which ride this goes with.', $result['errors']['ride'], "ride '$ride'" );
+			$this->assertArrayNotHasKey( 'park', $result['errors'], 'no park question until we know the ride is new' );
 		}
 		$missing = $this->existing_ride();
-		unset( $missing['ride_id'] );
-		$this->assertSame( 'Tell me which ride this goes with.', $this->validate( $missing )['errors']['ride_id'] );
+		unset( $missing['ride'] );
+		$this->assertSame( 'Tell me which ride this goes with.', $this->validate( $missing )['errors']['ride'] );
+	}
+
+	public function test_new_ride_needs_a_park(): void {
+		$result = $this->validate( $this->existing_ride( array( 'ride' => 'Big One', 'park' => ' ' ) ) );
+
+		$this->assertFalse( $result['ok'] );
+		$this->assertSame( array( 'park' ), array_keys( $result['errors'] ) );
+		$this->assertSame( 'Which park is it at?', $result['errors']['park'] );
+	}
+
+	public function test_overlong_new_ride_and_park_names(): void {
+		$result = $this->validate( $this->existing_ride( array( 'ride' => str_repeat( 'a', 121 ), 'park' => 'Energylandia' ) ) );
+		$this->assertFalse( $result['ok'] );
+		$this->assertSame( "That's a bit long. Could you keep it under 120 characters?", $result['errors']['ride'] );
+
+		$this->assertTrue( $this->validate( $this->existing_ride( array( 'ride' => str_repeat( 'é', 120 ), 'park' => 'Energylandia' ) ) )['ok'], '120 multibyte chars is fine' );
+
+		$result = $this->validate( $this->existing_ride( array( 'ride' => 'Big One', 'park' => str_repeat( 'a', 121 ), 'new_park_country' => str_repeat( 'a', 61 ) ) ) );
+		$this->assertArrayHasKey( 'park', $result['errors'] );
+		$this->assertArrayHasKey( 'new_park_country', $result['errors'] );
 	}
 
 	public function test_strips_tags_and_rejects_overlong_fields(): void {
@@ -122,19 +145,10 @@ final class ValidatorTest extends TestCase {
 		$this->assertArrayHasKey( 'name', $result['errors'] );
 		$this->assertTrue( $this->validate( $this->existing_ride( array( 'name' => str_repeat( 'é', 80 ) ) ) )['ok'], '80 multibyte chars is fine' );
 
-		$long = array(
-			'title'         => 121,
-			'blurb'         => 601,
-			'new_ride_name' => 121,
-		);
-		foreach ( $long as $field => $length ) {
-			$input  = $this->existing_ride( array( 'ride_id' => '0', 'park_id' => '20', 'new_ride_name' => 'Big One', $field => str_repeat( 'a', $length ) ) );
-			$result = $this->validate( $input );
+		foreach ( array( 'title' => 121, 'blurb' => 601 ) as $field => $length ) {
+			$result = $this->validate( $this->existing_ride( array( $field => str_repeat( 'a', $length ) ) ) );
 			$this->assertArrayHasKey( $field, $result['errors'], $field );
 		}
-		$result = $this->validate( $this->existing_ride( array( 'ride_id' => '0', 'new_ride_name' => 'Big One', 'park_id' => '0', 'new_park_name' => str_repeat( 'a', 121 ), 'new_park_country' => str_repeat( 'a', 61 ) ) ) );
-		$this->assertArrayHasKey( 'new_park_name', $result['errors'] );
-		$this->assertArrayHasKey( 'new_park_country', $result['errors'] );
 	}
 
 	public function test_keeps_angle_brackets_that_are_not_tags(): void {
@@ -203,9 +217,9 @@ final class ValidatorTest extends TestCase {
 	}
 
 	public function test_non_string_input_is_treated_as_empty(): void {
-		$result = $this->validate( $this->existing_ride( array( 'title' => array( 'x' ), 'ride_id' => array( 10 ) ) ) );
+		$result = $this->validate( $this->existing_ride( array( 'title' => array( 'x' ), 'ride' => array( 'Hyperion' ) ) ) );
 
 		$this->assertArrayHasKey( 'title', $result['errors'] );
-		$this->assertArrayHasKey( 'ride_id', $result['errors'] );
+		$this->assertArrayHasKey( 'ride', $result['errors'] );
 	}
 }

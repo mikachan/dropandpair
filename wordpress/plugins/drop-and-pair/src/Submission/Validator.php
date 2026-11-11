@@ -8,8 +8,8 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Checks a "suggest a pairing" form post and turns it into clean data or per-field errors.
  *
- * Pure (no WordPress calls) so PHPUnit can run it: the caller says what counts as a
- * published ride or park. Every text field has anything that looks like a tag stripped
+ * Pure (no WordPress calls) so PHPUnit can run it: the caller says which published
+ * ride or park, if any, the visitor's text names. Every text field has anything that looks like a tag stripped
  * (but not a stray "<", so "I <3 this" survives) and its whitespace collapsed, so a
  * newline can't sneak into an email subject. Escaping still happens
  * on output; this is about storing what the visitor meant, not making it HTML-safe.
@@ -25,12 +25,12 @@ final class Validator {
 	public const MAX_LINK    = 2000;
 
 	/**
-	 * @param array    $input             Unslashed form fields.
-	 * @param callable $is_published_ride fn( int $id ): bool
-	 * @param callable $is_published_park fn( int $id ): bool
+	 * @param array    $input     Unslashed form fields.
+	 * @param callable $find_ride fn( string $typed ): ?int, the published ride it names.
+	 * @param callable $find_park fn( string $typed ): ?int, the published park it names.
 	 * @return array{ok:bool, data:array, errors:array<string,string>}
 	 */
-	public static function validate( array $input, callable $is_published_ride, callable $is_published_park ): array {
+	public static function validate( array $input, callable $find_ride, callable $find_park ): array {
 		$errors = array();
 		$data   = array(
 			'ride_id'          => null,
@@ -40,34 +40,35 @@ final class Validator {
 			'new_park_country' => null,
 		);
 
-		$ride_raw = self::text( $input['ride_id'] ?? null );
-		$ride_id  = self::id( $ride_raw );
-		if ( '' === $ride_raw ) {
-			$errors['ride_id'] = 'Tell me which ride this goes with.';
-		} elseif ( null === $ride_id || ( 0 !== $ride_id && ! $is_published_ride( $ride_id ) ) ) {
-			$errors['ride_id'] = "I can't find that ride. Pick one from the list, or choose \"It's not on here yet\".";
+		// A ride that's already on the site is linked to; anything else is a new one.
+		$ride = self::text( $input['ride'] ?? null );
+		if ( '' === $ride ) {
+			$errors['ride'] = 'Tell me which ride this goes with.';
 		} else {
-			$data['ride_id'] = $ride_id;
+			$ride_id = $find_ride( $ride );
+			if ( is_int( $ride_id ) && $ride_id > 0 ) {
+				$data['ride_id'] = $ride_id;
+			} else {
+				$data['ride_id']       = 0;
+				$data['new_ride_name'] = self::place( $ride, 'ride', $errors );
+			}
 		}
 
-		// The ride and park extras only count when the visitor said the ride isn't listed.
-		// With JS off they're always on screen, so anything typed there otherwise is ignored.
-		if ( 0 === $ride_id ) {
-			$data['new_ride_name'] = self::required( $input, 'new_ride_name', self::MAX_PLACE, "What's the ride called?", $errors );
-
-			$park_raw = self::text( $input['park_id'] ?? null );
-			$park_id  = self::id( $park_raw );
-			if ( '' === $park_raw ) {
-				$errors['park_id'] = 'Which park is it at?';
-			} elseif ( null === $park_id || ( 0 !== $park_id && ! $is_published_park( $park_id ) ) ) {
-				$errors['park_id'] = "I can't find that park. Pick one from the list, or choose \"It's a new park\".";
+		// The park and country only count for a new ride. With JS off they're always
+		// on screen, so anything typed there for a known ride is ignored.
+		if ( 0 === $data['ride_id'] ) {
+			$park = self::text( $input['park'] ?? null );
+			if ( '' === $park ) {
+				$errors['park'] = 'Which park is it at?';
 			} else {
-				$data['park_id'] = $park_id;
-			}
-
-			if ( 0 === $park_id ) {
-				$data['new_park_name']    = self::required( $input, 'new_park_name', self::MAX_PLACE, "What's the park called?", $errors );
-				$data['new_park_country'] = self::required( $input, 'new_park_country', self::MAX_COUNTRY, 'Which country is the park in?', $errors );
+				$park_id = $find_park( $park );
+				if ( is_int( $park_id ) && $park_id > 0 ) {
+					$data['park_id'] = $park_id;
+				} else {
+					$data['park_id']          = 0;
+					$data['new_park_name']    = self::place( $park, 'park', $errors );
+					$data['new_park_country'] = self::required( $input, 'new_park_country', self::MAX_COUNTRY, 'Which country is the park in?', $errors );
+				}
 			}
 		}
 
@@ -123,6 +124,14 @@ final class Validator {
 		return '' === $value ? null : $value;
 	}
 
+	/** A new ride or park name, already cleaned and known not to be empty, with an error if it's too long. */
+	private static function place( string $name, string $field, array &$errors ): string {
+		if ( mb_strlen( $name ) > self::MAX_PLACE ) {
+			$errors[ $field ] = sprintf( "That's a bit long. Could you keep it under %d characters?", self::MAX_PLACE );
+		}
+		return $name;
+	}
+
 	/** Tags stripped, whitespace collapsed; anything that isn't a string or number is empty. */
 	private static function text( $value ): string {
 		if ( ! is_string( $value ) && ! is_int( $value ) ) {
@@ -140,12 +149,6 @@ final class Validator {
 		$value = (string) preg_replace( '@<(script|style)\b[^>]*>.*?</\1\s*>@is', '', $value );
 		$value = (string) preg_replace( '@<!--.*?-->@s', '', $value );
 		return (string) preg_replace( '@<[a-z/!][^>]*>@i', '', $value );
-	}
-
-	/** A non-negative whole number, or null. 0 means "it's not on here yet". */
-	private static function id( string $value ): ?int {
-		$n = filter_var( $value, FILTER_VALIDATE_INT );
-		return ( false !== $n && $n >= 0 ) ? $n : null;
 	}
 
 	private static function is_http_url( string $value ): bool {

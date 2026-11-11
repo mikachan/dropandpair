@@ -1,15 +1,15 @@
 <?php
 /**
  * The suggestion form, laid out as a ticket to fill in. Posts to admin-post.php; see
- * Submission\Handler. With JS off every field shows and the validator ignores the
- * new-ride and new-park ones unless "It's not on here yet" was picked.
+ * Submission\Handler. The ride and park are typed, with the ones already on the site
+ * suggested. With JS off every field shows and the validator ignores the park and
+ * country unless the ride turns out to be new.
  *
  * @var array    $attributes Block attributes.
  * @var string   $content    Inner content.
  * @var WP_Block $block      Block instance.
  */
 
-use DropAndPair\Queries;
 use DropAndPair\Submission\Handler;
 use DropAndPair\Submission\Validator;
 use DropAndPair\Vocab;
@@ -47,35 +47,19 @@ if ( ! $notice && $errors ) {
 	$notice = "A couple of things need sorting before I can take this. They're marked below.";
 }
 
-// Coming from a ride page: pre-select that ride, but only if it's one the list offers.
-if ( ! isset( $values['ride_id'] ) && isset( $_GET['ride'] ) && is_string( $_GET['ride'] ) ) {
+$rides = Handler::ride_options();
+$parks = Handler::park_options();
+
+// Coming from a ride page: fill in that ride, but only if it's one the form suggests.
+if ( ! isset( $values['ride'] ) && isset( $_GET['ride'] ) && is_string( $_GET['ride'] ) ) {
 	$from = absint( $_GET['ride'] );
-	if ( $from && Handler::is_published_ride( $from ) ) {
-		$values['ride_id'] = (string) $from;
+	foreach ( $rides as $ride ) {
+		if ( $from === $ride['id'] ) {
+			$values['ride'] = $ride['label'];
+		}
 	}
 }
 // phpcs:enable
-
-$rides = get_posts(
-	array(
-		'post_type'      => 'dp_ride',
-		'post_status'    => 'publish',
-		'posts_per_page' => -1,
-		'orderby'        => 'title',
-		'order'          => 'ASC',
-		'no_found_rows'  => true,
-	)
-);
-$parks = get_posts(
-	array(
-		'post_type'      => 'dp_park',
-		'post_status'    => 'publish',
-		'posts_per_page' => -1,
-		'orderby'        => 'title',
-		'order'          => 'ASC',
-		'no_found_rows'  => true,
-	)
-);
 
 $value = static fn( string $field ): string => (string) ( $values[ $field ] ?? '' );
 $id    = static fn( string $field ): string => 'dp-suggest-' . str_replace( '_', '-', $field );
@@ -101,17 +85,18 @@ $help = static function ( string $field, string $text ) use ( $id ): string {
 	return '<p class="dp-suggest__help" id="' . esc_attr( $id( $field ) . '-help' ) . '">' . esc_html( $text ) . '</p>';
 };
 /** A one-line text input with its label, help and error. */
-$text_field = static function ( string $field, string $label, int $max, string $help_text = '', string $type = 'text', string $autocomplete = 'off' ) use ( $id, $value, $invalid, $error, $help ): string {
+$text_field = static function ( string $field, string $label, int $max, string $help_text = '', string $type = 'text', string $autocomplete = 'off', string $list = '' ) use ( $id, $value, $invalid, $error, $help ): string {
 	$html  = '<div class="dp-suggest__field">';
 	$html .= '<label class="dp-label" for="' . esc_attr( $id( $field ) ) . '">' . esc_html( $label ) . '</label>';
 	$html .= sprintf(
-		'<input type="%1$s" id="%2$s" name="%3$s" value="%4$s" maxlength="%5$d" autocomplete="%6$s"%7$s>',
+		'<input type="%1$s" id="%2$s" name="%3$s" value="%4$s" maxlength="%5$d" autocomplete="%6$s"%7$s%8$s>',
 		esc_attr( $type ),
 		esc_attr( $id( $field ) ),
 		esc_attr( $field ),
 		esc_attr( $value( $field ) ),
 		$max,
 		esc_attr( $autocomplete ),
+		'' !== $list ? ' list="' . esc_attr( $list ) . '"' : '',
 		$invalid( $field, $help_text )
 	);
 	$html .= '' !== $help_text ? $help( $field, $help_text ) : '';
@@ -139,36 +124,27 @@ $text_field = static function ( string $field, string $label, int $max, string $
 
 			<fieldset class="dp-suggest__section">
 				<legend><span class="dp-suggest__step">1</span> The ride</legend>
-				<div class="dp-suggest__field">
-					<label class="dp-label" for="<?php echo esc_attr( $id( 'ride_id' ) ); ?>">Which ride is it for?</label>
-					<select id="<?php echo esc_attr( $id( 'ride_id' ) ); ?>" name="ride_id"<?php echo $invalid( 'ride_id' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>>
-						<option value="">Choose a ride</option>
-						<?php foreach ( $rides as $ride ) : ?>
-							<?php $park = Queries::park_for_ride( $ride->ID ); ?>
-							<option value="<?php echo esc_attr( (string) $ride->ID ); ?>" <?php selected( $value( 'ride_id' ), (string) $ride->ID ); ?>><?php echo esc_html( get_the_title( $ride ) . ( $park ? ' (' . get_the_title( $park ) . ')' : '' ) ); ?></option>
-						<?php endforeach; ?>
-						<option value="0" <?php selected( $value( 'ride_id' ), '0' ); ?>>It's not on here yet</option>
-					</select>
-					<?php echo $error( 'ride_id' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-				</div>
+				<?php
+				// Room for a suggested "Title (Park)" label; only a new ride's name is held to MAX_PLACE.
+				echo $text_field( 'ride', 'Which ride is it for?', 2 * Validator::MAX_PLACE + 3, "Start typing to pick one that's already on the site, or type a new one.", 'text', 'off', $id( 'rides' ) ); // phpcs:ignore WordPress.Security.EscapeOutput
+				?>
+				<datalist id="<?php echo esc_attr( $id( 'rides' ) ); ?>">
+					<?php foreach ( $rides as $ride ) : ?>
+						<?php // data-title lets the script treat the bare title as known, unless two rides share it. ?>
+						<option value="<?php echo esc_attr( $ride['label'] ); ?>"<?php echo Handler::find_ride( $ride['title'] ) === $ride['id'] ? ' data-title="' . esc_attr( $ride['title'] ) . '"' : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?>></option>
+					<?php endforeach; ?>
+				</datalist>
 
 				<div class="dp-suggest__group" data-dp-new-ride>
-					<p class="dp-suggest__help dp-suggest__nojs">Only if you picked "It's not on here yet":</p>
-					<?php echo $text_field( 'new_ride_name', 'Ride name', Validator::MAX_PLACE ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-					<div class="dp-suggest__field">
-						<label class="dp-label" for="<?php echo esc_attr( $id( 'park_id' ) ); ?>">Park</label>
-						<select id="<?php echo esc_attr( $id( 'park_id' ) ); ?>" name="park_id"<?php echo $invalid( 'park_id' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>>
-							<option value="">Choose a park</option>
-							<?php foreach ( $parks as $park ) : ?>
-								<option value="<?php echo esc_attr( (string) $park->ID ); ?>" <?php selected( $value( 'park_id' ), (string) $park->ID ); ?>><?php echo esc_html( get_the_title( $park ) ); ?></option>
-							<?php endforeach; ?>
-							<option value="0" <?php selected( $value( 'park_id' ), '0' ); ?>>It's a new park</option>
-						</select>
-						<?php echo $error( 'park_id' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-					</div>
+					<p class="dp-suggest__help dp-suggest__nojs">Only if it's a new ride:</p>
+					<?php echo $text_field( 'park', 'Which park is it at?', Validator::MAX_PLACE, '', 'text', 'off', $id( 'parks' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+					<datalist id="<?php echo esc_attr( $id( 'parks' ) ); ?>">
+						<?php foreach ( $parks as $park ) : ?>
+							<option value="<?php echo esc_attr( $park['title'] ); ?>"></option>
+						<?php endforeach; ?>
+					</datalist>
 					<div class="dp-suggest__group" data-dp-new-park>
-						<p class="dp-suggest__help dp-suggest__nojs">Only if you picked "It's a new park":</p>
-						<?php echo $text_field( 'new_park_name', 'Park name', Validator::MAX_PLACE ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						<p class="dp-suggest__help dp-suggest__nojs">Only if it's a new park:</p>
 						<?php echo $text_field( 'new_park_country', 'Country', Validator::MAX_COUNTRY, '', 'text', 'country-name' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</div>
 				</div>

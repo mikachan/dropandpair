@@ -42,7 +42,13 @@ final class Handler {
 	 * Fields the error page gives back, in form order. The email isn't one: it stays out
 	 * of storage, and the visitor is asked to type it again.
 	 */
-	public const FIELDS = array( 'ride_id', 'new_ride_name', 'park_id', 'new_park_name', 'new_park_country', 'title', 'moment', 'blurb', 'link', 'name' );
+	public const FIELDS = array( 'ride', 'park', 'new_park_country', 'title', 'moment', 'blurb', 'link', 'name' );
+
+	/** Built on first use, so a request looks the rides and parks up once at most. */
+	private static ?array $rides = null;
+	private static ?array $parks = null;
+	private static ?PlaceMatcher $ride_matcher = null;
+	private static ?PlaceMatcher $park_matcher = null;
 
 	public static function hooks(): void {
 		add_action( 'admin_post_nopriv_' . self::ACTION, array( self::class, 'handle_request' ) );
@@ -107,7 +113,7 @@ final class Handler {
 			return self::back( $post, array( self::FORM_ERROR => "Sorry, that form had been open a while and I couldn't take it. Could you press send again?" ) );
 		}
 
-		$result = Validator::validate( $post, array( self::class, 'is_published_ride' ), array( self::class, 'is_published_park' ) );
+		$result = Validator::validate( $post, array( self::class, 'find_ride' ), array( self::class, 'find_park' ) );
 		if ( ! $result['ok'] ) {
 			return self::back( $post, $result['errors'] );
 		}
@@ -120,12 +126,86 @@ final class Handler {
 		return self::thanks_url();
 	}
 
-	public static function is_published_ride( int $id ): bool {
-		return 'dp_ride' === get_post_type( $id ) && 'publish' === get_post_status( $id );
+	/**
+	 * Every published ride, by title, with the label the form suggests for it:
+	 * "Title (Park)", or just the title when it has no published park.
+	 *
+	 * @return array<int, array{id:int, title:string, label:string}>
+	 */
+	public static function ride_options(): array {
+		if ( null === self::$rides ) {
+			$parks = array_column( self::park_options(), 'title', 'id' );
+			self::$rides = array();
+			foreach ( self::published( 'dp_ride' ) as $ride ) {
+				$title         = self::plain_title( $ride );
+				$park          = $parks[ (int) get_post_meta( $ride->ID, 'dp_park_id', true ) ] ?? null;
+				self::$rides[] = array(
+					'id'    => $ride->ID,
+					'title' => $title,
+					'label' => null === $park ? $title : $title . ' (' . $park . ')',
+				);
+			}
+		}
+		return self::$rides;
 	}
 
-	public static function is_published_park( int $id ): bool {
-		return 'dp_park' === get_post_type( $id ) && 'publish' === get_post_status( $id );
+	/** @return array<int, array{id:int, title:string}> Every published park, by title. */
+	public static function park_options(): array {
+		if ( null === self::$parks ) {
+			self::$parks = array();
+			foreach ( self::published( 'dp_park' ) as $park ) {
+				self::$parks[] = array(
+					'id'    => $park->ID,
+					'title' => self::plain_title( $park ),
+				);
+			}
+		}
+		return self::$parks;
+	}
+
+	/** The published ride a visitor typed, by its title or its "Title (Park)" label. */
+	public static function find_ride( string $typed ): ?int {
+		if ( null === self::$ride_matcher ) {
+			$labels = array();
+			foreach ( self::ride_options() as $ride ) {
+				$labels[] = array( $ride['title'], $ride['id'] );
+				$labels[] = array( $ride['label'], $ride['id'] );
+			}
+			self::$ride_matcher = new PlaceMatcher( $labels, 'remove_accents' );
+		}
+		return self::$ride_matcher->find( $typed );
+	}
+
+	/** The published park a visitor typed. */
+	public static function find_park( string $typed ): ?int {
+		if ( null === self::$park_matcher ) {
+			$labels             = array_map( static fn( array $park ): array => array( $park['title'], $park['id'] ), self::park_options() );
+			self::$park_matcher = new PlaceMatcher( $labels, 'remove_accents' );
+		}
+		return self::$park_matcher->find( $typed );
+	}
+
+	/** @return \WP_Post[] */
+	private static function published( string $type ): array {
+		return get_posts(
+			array(
+				'post_type'      => $type,
+				'post_status'    => 'publish',
+				'posts_per_page' => -1,
+				'orderby'        => 'title',
+				'order'          => 'ASC',
+				'no_found_rows'  => true,
+			)
+		);
+	}
+
+	/**
+	 * The title as a visitor would type it. Not get_the_title(), whose curly quotes
+	 * wouldn't match a typed "'"; and entities such as the "&lt;" create() stores are
+	 * decoded, since the form's values are escaped when they're printed.
+	 */
+	private static function plain_title( \WP_Post $post ): string {
+		return html_entity_decode( $post->post_title, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 	}
 
 	/**

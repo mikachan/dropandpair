@@ -63,7 +63,7 @@ $payload = static function ( array $overrides = array() ) use ( $ride ) {
 		Handler::NONCE_FIELD => wp_create_nonce( Handler::ACTION ),
 		'started_at'         => (string) ( time() - 10 ),
 		'website_url'        => '',
-		'ride_id'            => (string) $ride,
+		'ride'               => 'Smoke ride (Smoke park)',
 		'title'              => 'Smoke chips',
 		'moment'             => 'eat-and-drink',
 		'blurb'              => 'Hot chips after a cold splash, eaten on the sea wall.',
@@ -80,8 +80,8 @@ $token_of = static function ( string $url ) use ( &$tokens ) {
 	return $q['dp_form'] ?? null;
 };
 
-// 1. Existing ride.
-$url = Handler::process( $payload(), $ips[0], time() );
+// 1. Existing ride, by its label. Park and country are ignored for it, as they're on screen with JS off.
+$url = Handler::process( $payload( array( 'park' => 'Stray park', 'new_park_country' => 'Strayland' ) ), $ips[0], time() );
 $url === Handler::thanks_url() || $fail( "Existing ride: expected the thank-you, got $url" );
 1 === $count( 'dp_pairing' ) || $fail( 'Existing ride: expected one new pairing' );
 0 === $count( 'dp_ride' ) && 0 === $count( 'dp_park' ) || $fail( 'Existing ride: made a ride or park it should not have' );
@@ -110,14 +110,14 @@ foreach ( array( array( 'website_url' => 'http://spam.example' ), array( 'starte
 $all_ids() === $snapshot || $fail( 'A bot submission created posts' );
 1 === count( $mail ) || $fail( 'A bot submission sent an email' );
 
-// 3. New ride at the existing park, then new ride at a new park.
-Handler::process( $payload( array( 'ride_id' => '0', 'new_ride_name' => 'Smoke new ride', 'park_id' => (string) $park ) ), $ips[0], time() );
+// 3. New ride at the existing park (typed without its accent), then new ride at a new park.
+Handler::process( $payload( array( 'ride' => 'Smoke new ride', 'park' => '  smoke PÄRK ' ) ), $ips[0], time() );
 1 === $count( 'dp_ride' ) && 0 === $count( 'dp_park' ) || $fail( 'New ride: expected one draft ride and no park' );
 $new_ride = get_posts( array( 'post_type' => 'dp_ride', 'post_status' => 'draft', 'title' => 'Smoke new ride', 'fields' => 'ids' ) )[0] ?? 0;
 $park === (int) get_post_meta( $new_ride, 'dp_park_id', true ) || $fail( 'New ride not linked to the park' );
 1 === count( get_post_meta( $new_ride, 'dp_pairings', true ) ) || $fail( 'New ride has no pairing link' );
 
-Handler::process( $payload( array( 'ride_id' => '0', 'new_ride_name' => 'Smoke newer ride', 'park_id' => '0', 'new_park_name' => 'Smoke new park', 'new_park_country' => 'Smokeland' ) ), $ips[0], time() );
+Handler::process( $payload( array( 'ride' => 'Smoke newer ride', 'park' => 'Smoke new park', 'new_park_country' => 'Smokeland' ) ), $ips[0], time() );
 $new_park = get_posts( array( 'post_type' => 'dp_park', 'post_status' => 'draft', 'title' => 'Smoke new park', 'fields' => 'ids' ) )[0] ?? 0;
 $new_park || $fail( 'New park not created as a draft' );
 'Smokeland' === get_post_meta( $new_park, 'dp_country', true ) || $fail( 'New park country not saved' );
@@ -136,7 +136,7 @@ kses_init_filters();
 $titled = static function ( string $type, string $title ) {
 	return get_posts( array( 'post_type' => $type, 'post_status' => 'draft', 'title' => $title, 'fields' => 'ids' ) )[0] ?? 0;
 };
-Handler::process( $payload( array( 'ride_id' => '0', 'new_ride_name' => "Rock 'n' Roll Coaster", 'park_id' => '0', 'new_park_name' => 'Fish & Chips Land', 'new_park_country' => 'Smokeland', 'title' => 'Fish & Chips' ) ), $ips[3], time() );
+Handler::process( $payload( array( 'ride' => "Rock 'n' Roll Coaster", 'park' => 'Fish & Chips Land', 'new_park_country' => 'Smokeland', 'title' => 'Fish & Chips' ) ), $ips[3], time() );
 Handler::process( $payload( array( 'title' => "Rock 'n' Roll" ) ), $ips[3], time() );
 Handler::process( $payload( array( 'title' => 'Kids <3 it <img src=x onerror=alert(1)//' ) ), $ips[3], time() );
 $fish = $titled( 'dp_pairing', 'Fish & Chips' );
@@ -179,6 +179,12 @@ str_contains( $html, "pop it in again if you" ) || $fail( 'No note asking for th
 str_contains( $html, 'name="dp_form" value="' . $token . '"' ) || $fail( 'Re-shown form does not carry its token' );
 $all_ids() === $snapshot || $fail( 'A failed submission created posts' );
 
+// A new ride with no park asks for one, and keeps what was typed for the ride.
+$saved = Handler::saved_form( (string) $token_of( Handler::process( $payload( array( 'ride' => 'Smoke unknown ride' ) ), $ips[1], time() ) ) );
+$saved && array( 'park' ) === array_keys( $saved['errors'] ) || $fail( 'A new ride with no park should only ask for the park' );
+'Smoke unknown ride' === $saved['values']['ride'] || $fail( 'The typed ride was not kept' );
+$all_ids() === $snapshot || $fail( 'A failed submission created posts' );
+
 // The token is single use: sending the re-shown form deletes the saved values.
 $token_of( Handler::process( $payload( array( 'dp_form' => $token, 'moment' => 'snack' ) ), $ips[1], time() ) );
 null === Handler::saved_form( (string) $token ) || $fail( 'Saved values survived the next submit' );
@@ -201,11 +207,18 @@ $_GET['dp_error'] = 'busy';
 str_contains( do_blocks( '<!-- wp:drop-and-pair/suggest-form /-->' ), 'Have a breather and try again in a bit.' ) || $fail( 'Busy message not shown' );
 unset( $_GET['dp_error'] );
 
-// 6. ?ride= pre-selects a published ride only; ?thanks shows the thank-you.
+// 6. ?ride= fills in a published ride only; the suggestions offer published rides and
+// parks only; ?thanks shows the thank-you.
 $_GET['ride'] = (string) $ride;
-preg_match( '/<option value="' . $ride . '"\s+selected/', do_blocks( '<!-- wp:drop-and-pair/suggest-form /-->' ) ) || $fail( '?ride= did not pre-select' );
+$html         = do_blocks( '<!-- wp:drop-and-pair/suggest-form /-->' );
+str_contains( $html, 'name="ride" value="Smoke ride (Smoke park)"' ) || $fail( '?ride= did not fill in the ride' );
+str_contains( $html, '<option value="Smoke ride (Smoke park)" data-title="Smoke ride">' ) || $fail( 'Ride not suggested with its label and title' );
+str_contains( $html, '<option value="Smoke park">' ) || $fail( 'Park not suggested' );
+str_contains( $html, 'list="dp-suggest-rides"' ) && str_contains( $html, 'list="dp-suggest-parks"' ) || $fail( 'Inputs not tied to their suggestions' );
 $_GET['ride'] = (string) $new_ride;
-str_contains( do_blocks( '<!-- wp:drop-and-pair/suggest-form /-->' ), 'value="' . $new_ride . '"' ) && $fail( 'A draft ride is offered in the list' );
+$html         = do_blocks( '<!-- wp:drop-and-pair/suggest-form /-->' );
+str_contains( $html, 'Smoke new ride' ) && $fail( 'A draft ride is offered or filled in' );
+str_contains( $html, 'Smoke new park' ) && $fail( 'A draft park is offered' );
 unset( $_GET['ride'] );
 $_GET['thanks'] = '1';
 str_contains( do_blocks( '<!-- wp:drop-and-pair/suggest-form /-->' ), "if it makes it onto the site your name will be next to it." ) || $fail( 'Thank-you not shown' );
