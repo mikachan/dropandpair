@@ -52,3 +52,24 @@ wordpress/bin/package.sh            # or: wordpress/bin/package.sh <output dir>
 Production needs no Composer. `vendor/` is left out, and the plugin falls back to its own small autoloader (`DropAndPair\Foo` is `src/Foo.php`) when `vendor/autoload.php` isn't there. Also left out: `tests/`, `composer.json`, `composer.lock`, `phpunit.xml.dist` and every dotfile (`.phpunit.result.cache` included). The script fails if any of those got in, if a file WordPress needs is missing, or if any PHP file doesn't lint. `dist/` is gitignored.
 
 After installing or updating, flush the rewrite rules once (Settings > Permalinks > Save, or `wp rewrite flush`), so URL changes such as the dropped `/moment/`, `/vibe/` and `/ride-type/` archives take effect. Those old URLs redirect to the filtered ride list either way.
+
+## Pressable staging
+
+drop-pair.mystagingwebsite.com runs on Pressable. SSH in with the site's own SSH username (MyPressable > the site > Collaborators) at `ssh.pressable.com`, using a key attached to that site. WP-CLI works from `/srv/htdocs`.
+
+`scp` and SFTP drop files into the web root (`/srv/htdocs`), not the SSH home folder, which is recreated each session. Move uploads to `/tmp` before installing and delete them afterwards, so the zips and `content.json` are never served:
+
+```sh
+scp wordpress/dist/*.zip wordpress/import/content.json <user>@ssh.pressable.com:dp-deploy/
+ssh <user>@ssh.pressable.com
+mkdir -p /tmp/dp-deploy && mv /srv/htdocs/dp-deploy/* /tmp/dp-deploy/ && rmdir /srv/htdocs/dp-deploy
+cd /srv/htdocs
+wp plugin install /tmp/dp-deploy/drop-and-pair-plugin.zip --activate --force
+wp theme install /tmp/dp-deploy/drop-and-pair-theme.zip --activate --force
+wp rewrite flush && wp cache flush
+rm -rf /tmp/dp-deploy
+```
+
+Then run `bin/coming-soon.sh https://drop-pair.mystagingwebsite.com` from your machine. Never run the smoke scripts in `tests/smoke/` on staging: they create and delete posts.
+
+The import (`wp dropandpair import <file>`) only creates what isn't there, so re-running it never overwrites edits made on staging.
