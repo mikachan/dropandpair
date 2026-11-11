@@ -18,8 +18,8 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 /**
  * The about page's prose, first copied from src/routes/about/+page.svelte and since
  * reworded for WordPress (static text, so a constant is simpler than parsing Svelte).
- * The lede and the moments list come from code there, so aboutHtml() builds them
- * from the same modules.
+ * The moments list comes from code there, so aboutHtml() builds it from the same
+ * modules.
  */
 const ABOUT_INTRO = `<p>I love getting properly immersed in whatever I'm doing. When I travel, I read up on the local folklore, pick up a local novel and put together a playlist of local music for the journey (rock, ideally).</p>
 <p>Rides make that easy, because so many are already based on a film, a book or a legend. I'm also a massive fan of a well-themed ride. Wicker Man at Alton Towers has a whole pre-show before you even get on. Drop and Pair tries to give every ride that feeling, with something to read, watch or listen to beforehand and something to do afterwards. Some rides make it easier than others!</p>
@@ -41,13 +41,12 @@ const ABOUT_THANKS = `<h2>Thank you</h2>
 const escapeHtml = (text) =>
 	text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-function aboutHtml({ site, PAIRING_TYPES, pairingTypeLabels, pairingTypeDescriptions }) {
+function aboutHtml({ PAIRING_TYPES, pairingTypeLabels, pairingTypeDescriptions }) {
 	const moments = PAIRING_TYPES.map(
 		(type) =>
 			`<dt>${escapeHtml(pairingTypeLabels[type])}</dt>\n<dd>${escapeHtml(pairingTypeDescriptions[type])}</dd>`
 	).join('\n');
 	return [
-		`<p>${escapeHtml(site.tagline)}</p>`,
 		ABOUT_INTRO,
 		`<dl>\n${moments}\n</dl>`,
 		ABOUT_THANKS
@@ -82,14 +81,13 @@ export async function exportContent(rootDir) {
 			pairings: readCollection(rootDir, 'pairings')
 		});
 		validateReferences(collections);
-		const { site } = await vite.ssrLoadModule('/src/lib/site.ts');
 		const { PAIRING_TYPES } = await vite.ssrLoadModule('/src/lib/content/constants.ts');
 		const labels = await vite.ssrLoadModule('/src/lib/content/labels.ts');
 		return {
 			parks: collections.parks,
 			rides: collections.rides,
 			pairings: collections.pairings,
-			pages: { about: { title: 'About', html: aboutHtml({ site, PAIRING_TYPES, ...labels }) } }
+			pages: { about: { title: 'About', html: aboutHtml({ PAIRING_TYPES, ...labels }) } }
 		};
 	} finally {
 		await vite.close();

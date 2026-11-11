@@ -31,7 +31,7 @@ describe('exportContent', () => {
 		expect(data.pages.about.title).toBe('About');
 		expect(data.pages.about.html).toContain('<h2>Thank you</h2>');
 		const html = data.pages.about.html;
-		expect(html).toContain('Before the queue and after the drop.');
+		expect(html).not.toContain('Before the queue and after the drop.');
 		const labels = [...html.matchAll(/<dt>(.*?)<\/dt>/g)].map((m) => m[1]);
 		expect(labels).toEqual([
 			'Before',
