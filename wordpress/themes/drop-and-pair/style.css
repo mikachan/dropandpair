@@ -376,13 +376,58 @@ Text Domain: drop-and-pair
 	font-weight: 600;
 }
 
+/*
+ * Narrow screens: each ride becomes a block, its name on one line and the other
+ * columns as labelled items under it, so nothing scrolls sideways. The header row
+ * stays for screen readers only; each cell carries its column name in data-label.
+ */
 @media (max-width: 600px) {
-	.dp-park-rides {
-		overflow-x: auto;
+	.dp-park-rides__table,
+	.dp-park-rides__table tbody,
+	.dp-park-rides__table tr,
+	.dp-park-rides__table td {
+		display: block;
 	}
 
-	.dp-park-rides__table {
-		min-width: 460px;
+	.dp-park-rides__table thead {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+
+	.dp-park-rides__table tr {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2px 16px;
+		padding: 9px 0;
+		border-top: 1px solid var(--wp--preset--color--line);
+	}
+
+	.dp-park-rides__table tr:last-child {
+		border-bottom: 1px solid var(--wp--preset--color--line);
+	}
+
+	.dp-park-rides__table td,
+	.dp-park-rides__table tr:last-child td {
+		padding: 0;
+		border: 0;
+	}
+
+	.dp-park-rides__table td:first-child {
+		flex-basis: 100%;
+		font-weight: 600;
+	}
+
+	.dp-park-rides__table td:empty {
+		display: none;
+	}
+
+	.dp-park-rides__table td[data-label]::before {
+		content: attr(data-label) " ";
+		color: var(--wp--preset--color--ink-muted);
 	}
 }
 

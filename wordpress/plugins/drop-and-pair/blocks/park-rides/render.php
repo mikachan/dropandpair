@@ -25,6 +25,7 @@ $word = static function ( $value, callable $label ): string {
 	<?php if ( ! $rides ) : ?>
 		<p>No rides here yet.</p>
 	<?php else : ?>
+		<?php // Each cell names its column so the row can stack on a phone; see style.css. ?>
 		<table class="dp-table dp-park-rides__table">
 			<thead>
 				<tr><th scope="col">Ride</th><th scope="col">Type</th><th scope="col">Opened</th><th scope="col">Intensity</th><th scope="col">Comfort</th></tr>
@@ -37,10 +38,10 @@ $word = static function ( $value, callable $label ): string {
 					?>
 					<tr>
 						<td><a href="<?php echo esc_url( get_permalink( $ride ) ); ?>"><?php echo esc_html( get_the_title( $ride ) ); ?></a></td>
-						<td><?php echo esc_html( $type ); ?></td>
-						<td><?php echo esc_html( (string) get_post_meta( $ride->ID, 'dp_opened', true ) ); ?></td>
-						<td><?php echo esc_html( $word( get_post_meta( $ride->ID, 'dp_intensity', true ), array( Vocab::class, 'intensity_label' ) ) ); ?></td>
-						<td><?php echo esc_html( $word( get_post_meta( $ride->ID, 'dp_roughness', true ), array( Vocab::class, 'comfort_label' ) ) ); ?></td>
+						<td data-label="Type"><?php echo esc_html( $type ); ?></td>
+						<td data-label="Opened"><?php echo esc_html( (string) get_post_meta( $ride->ID, 'dp_opened', true ) ); ?></td>
+						<td data-label="Intensity"><?php echo esc_html( $word( get_post_meta( $ride->ID, 'dp_intensity', true ), array( Vocab::class, 'intensity_label' ) ) ); ?></td>
+						<td data-label="Comfort"><?php echo esc_html( $word( get_post_meta( $ride->ID, 'dp_roughness', true ), array( Vocab::class, 'comfort_label' ) ) ); ?></td>
 					</tr>
 				<?php endforeach; ?>
 			</tbody>
