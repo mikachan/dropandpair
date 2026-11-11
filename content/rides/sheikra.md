@@ -34,14 +34,11 @@ pairings:
     strength: 4
 ---
 
-SheiKra is a dive coaster, which means the whole ride is built around one
-question: how long can it hold you over a 90-degree drop before letting go?
-Here it's about four seconds, which is plenty.
+SheiKra is a Bolliger & Mabillard dive coaster at Busch Gardens Tampa Bay, open
+since 2005. It holds you over a 90-degree drop for about four seconds, then lets
+go. Then there's a second vertical drop, an Immelmann loop and a splashdown that
+throws two huge sheets of water into the air. It was the first dive coaster to
+have one.
 
-Then it does it all again. There's a second vertical drop, an Immelmann loop,
-and a splashdown that sends two huge sheets of water into the air. It was the
-first dive coaster ever to have one.
-
-The name comes from the shikra, a hawk that dives straight down on its prey.
-The trains have been floorless since 2007, so there's nothing at all under
-your feet while you wait.
+It's named after the shikra, a hawk that dives on its prey. The trains have been
+floorless since 2007, so there's nothing under your feet while you hang there.

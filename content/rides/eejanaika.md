@@ -17,7 +17,7 @@ vibe:
   - dizzying
   - brutal
 gist: >-
-  Your seat spins head over heels on its own while the train does something else entirely, with Mount Fuji somewhere behind you.
+  Your seat flips head over heels on its own while the train does something else entirely, with Mount Fuji somewhere behind you.
 furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/Eejanaika_(roller_coaster)
@@ -34,14 +34,12 @@ pairings:
     strength: 4
 ---
 
-Eejanaika roughly means "ain't it great!", and it's a fourth-dimension coaster.
-The seats sit out on wings either side of the track and spin a full 360
-degrees, forwards or backwards, while the train's busy doing its own thing.
+Eejanaika is a fourth-dimension coaster at Fuji-Q Highland, and the name
+roughly means "ain't it great!". The seats sit on wings either side of the
+track and spin a full 360 degrees while the train gets on with its own thing.
 
-It opened in 2006, a bigger, faster and longer cousin of X2 at Six Flags Magic
-Mountain. The first drop is 65 metres at 89 degrees, and the top speed is 126
-km/h.
+It opened in 2006 as a bigger cousin of X2 at Six Flags Magic Mountain, with a
+65-metre first drop at 89 degrees.
 
-It's counted as having 14 inversions, which ties it with The Smiler for the
-world record, although 11 of them come from the seat flipping rather than the
-track.
+It counts as 14 inversions, a joint world record with The Smiler. Eleven of
+those are just your seat flipping over.

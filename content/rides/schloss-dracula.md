@@ -46,14 +46,11 @@ pairings:
     strength: 3
 ---
 
-Schloss Dracula isn't strictly a ride, because you walk through it. It opened
-in 2008 in Fantasiana's Schlosshof area, built by the park itself with figures
-by Hofmann, and it tells the story of Count Dracula from inside his castle.
+Schloss Dracula is a walk-through at Fantasiana, so strictly it isn't a ride. It
+opened in 2008, built by the park with figures by Hofmann, and tells Count
+Dracula's story from inside his castle.
 
-It runs all year and mixes live actors with animatronics, which is an ambitious
-thing for a small park to pull off. Despite the subject, it's aimed at families
-and older children, and it isn't too frightening.
-
-That changes at the park's Halloween event, when the scares are reportedly
-turned up. The rest of the year it's more about the story, so Halloween's
-the time to go if you want a proper fright.
+It runs all year, with live actors and animatronics, which is pretty ambitious
+for a small park. It's aimed at families and older children and isn't too
+frightening. At Halloween the scares are reportedly turned up, so go then if you
+want a proper fright.

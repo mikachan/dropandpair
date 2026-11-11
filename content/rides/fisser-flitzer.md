@@ -15,7 +15,7 @@ vibe:
   - scenic
   - whimsical
 gist: >-
-  Your own little sledge down two kilometres of Alpine hillside, past caves and a pirate ship. You're in charge of the brakes, so it's as wild as you make it.
+  Your own sledge down two kilometres of Alpine hillside, past caves and a pirate ship. You've got the brake, so it's up to you.
 furtherReading:
   - title: RCDB
     url: https://rcdb.com/13016.htm
@@ -36,14 +36,11 @@ pairings:
     strength: 3
 ---
 
-It's a mountain coaster. You take the Möseralmbahn cable car up to the start,
-then ride a small car down more than two kilometres of track, with 370 metres
-of drop along the way. It runs through caves and tunnels and past a pirate ship
-on its way down to the valley station in Fiss.
+Fisser Flitzer is a mountain coaster in Fiss. The Möseralmbahn cable car takes
+you up, then you ride a small car down more than two kilometres of track,
+dropping 370 metres through caves and tunnels and past a pirate ship.
 
-The best thing about these is that you're driving. Brake as much or as little
-as you like, and the ride's exactly as wild as you make it. Most people start
-off cautious and are flat out by the second go.
+You're driving. Brake as much or as little as you like. Most people start off
+cautious and are flat out by the second go.
 
-It doesn't run in the rain or in the wet, so check the sky before you plan
-your day around it.
+It doesn't run in the wet, so check the sky first.

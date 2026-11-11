@@ -33,15 +33,10 @@ pairings:
     strength: 4
 ---
 
-Zadra is the centrepiece of Energylandia's Dragon Zone, a whole area themed
-around dragons, and it opened there in 2019. The name means "splinter", which
-suits a coaster with a wooden structure and steel track.
+Zadra is a Rocky Mountain Construction hybrid at Energylandia, open since 2019.
+It's the centrepiece of the Dragon Zone. The name means "splinter", which suits
+a coaster with a wooden structure and steel track.
 
-It's a Rocky Mountain Construction hybrid, and the first coaster built from
-scratch with RMC's I-Box track rather than on top of an old wooden ride. It
-climbs 63 metres, drops at 90 degrees, reaches 121 km/h and fits in three
-inversions.
-
-It ties with Iron Gwazi as the tallest RMC coaster in the world, and it's been
-ranked among the best steel coasters anywhere. It's worth riding twice, once
-from each end of the train.
+It was the first coaster built from scratch with RMC's I-Box track, and it ties
+with Iron Gwazi as the tallest RMC coaster in the world. It drops at 90 degrees
+and fits in three inversions. Ride it twice, once from each end of the train.

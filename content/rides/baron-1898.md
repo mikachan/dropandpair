@@ -17,7 +17,7 @@ vibe:
   - eerie
   - brutal
 gist: >-
-  You're the latest shift sent down a haunted gold mine. The train stops over the shaft, the spirits start wailing, and then it lets go.
+  You're the latest shift sent down a haunted gold mine. The train hangs over the shaft while the spirits wail, then lets go.
 furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/Baron_1898
@@ -36,15 +36,13 @@ pairings:
     strength: 3
 ---
 
-The story's set in 1898. Baron Gustave Hooghmoed finds gold, and the Witte
-Wieven, the White Women, warn him to leave it alone. He sends his workers down
-the mine anyway, and you're the latest shift.
+Baron 1898 is a Bolliger & Mabillard dive coaster at Efteling, open since 2015.
+It's 1898, Baron Gustave Hooghmoed has found gold, and the Witte Wieven (the
+White Women) warn him off. He sends his workers down anyway, and you're the
+latest shift.
 
-Baron 1898 is a Bolliger & Mabillard dive coaster, and when it opened in 2015
-it was the first of its kind in the Benelux. Just before the drop, the train
-stops dead over the shaft. Smoke rises, the Witte Wieven wail from the pit, and
-you're left hanging there for a lot longer than you'd like.
+At the top, the train stops dead over the shaft. The Witte Wieven wail from the
+pit, and you hang there for far too long. Then it lets go, 37.5 metres straight
+down and out through two inversions.
 
-Then it lets go, 37.5 metres straight down into the mine at up to 90 km/h, and
-out through two inversions. It's short and really nicely staged, and the pause
-is the bit everyone talks about afterwards.
+Everyone comes off talking about the pause.

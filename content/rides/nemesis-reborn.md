@@ -19,7 +19,7 @@ vibe:
   - scenic
   - eerie
 gist: >-
-  Alton Towers' coaster that's dug down into a pit, with the queue winding round and under it. Once it gets going, it doesn't let go until the brakes.
+  Alton Towers' coaster dug down into a pit, with the queue winding round and under it. It doesn't let go until the brakes.
 furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/Nemesis_Reborn
@@ -46,22 +46,14 @@ pairings:
     strength: 3
 ---
 
-This is the 2024 version of a 1994 original. Nemesis closed in November 2022
-for a full retrack, with most of its support columns replaced too, and
-reopened in March 2024 as Nemesis Reborn. The layout and the manufacturer are
-the same, so it's still the ride you remember.
+Nemesis Reborn is a Bolliger & Mabillard coaster at Alton Towers, built down
+into a pit. It opened in 1994, closed in November 2022 for a full retrack, and
+reopened in March 2024 with the same layout.
 
-What makes Nemesis different is that it's built down into the ground instead of up
-into the sky, so there's no skyline and no big reveal. You queue beside it,
-below it and sometimes underneath it, and the ride keeps going a few feet from
-your head while you wait.
+You queue round it and sometimes underneath it, with the trains flying past a
+few feet from your head.
 
-Riding it, you don't really notice the separate elements, because it just
-doesn't let go. There's no airtime pause and no coasting bit, no moment where the train's just
-getting from one thing to the next. Once it's at the bottom of the first drop,
-it keeps going until the brake run.
-
-The surprising part is how you feel afterwards. For something this relentless
-it's really smooth, because all the intensity comes from the forces and the
-track itself barely rattles. So you'll probably walk off a bit shaken, and
-that's why the pairings below are mostly about calming down.
+Once it's down the first drop, it doesn't let go. There's no coasting bit at all
+until the brake run. It's really smooth for something this relentless, because
+it's all forces and the track barely rattles. You'll still walk off a bit
+shaken.

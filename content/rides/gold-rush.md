@@ -15,7 +15,7 @@ stats:
 vibe:
   - whimsical
 gist: >-
-  A Wild West family coaster that switches tracks and runs bits of its course backwards, so it's never quite the same ride twice.
+  A Wild West family coaster at Drayton Manor that switches tracks and runs bits backwards, so it's never quite the same ride twice.
 furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/Gold_Rush_(Drayton_Manor)
@@ -39,15 +39,13 @@ pairings:
     strength: 3
 ---
 
-Gold Rush opened in July 2024 as the centrepiece of Frontier Falls, Drayton
-Manor's new Wild West area. It's an Intamin "Lift & Launch" family coaster, and
-it replaced three older rides: Apocalypse, Pandemonium and the Big Wheel.
+Gold Rush is an Intamin "Lift & Launch" family coaster at Drayton Manor. It
+opened in July 2024 as the centrepiece of Frontier Falls, the new Wild West
+area, replacing Apocalypse, Pandemonium and the Big Wheel.
 
-The clever bit is a track switch. Trains run forwards over part of the course
-and then backwards over it, and the switch lets the park swap that order round,
-so there are two different versions of the ride. The train covers around 810
-metres in total on just 593 metres of track.
+The clever bit is a track switch. Trains run forwards over part of the course,
+then backwards over it, and the park can swap that order round, so there are
+two versions of the ride.
 
-With no inversions and a 1-metre height limit, it's a proper first big coaster
-for children, but it's fun for everyone. Look out for the nods to the old rides
-in the queue.
+With no inversions and a 1-metre height limit, it's a great first big coaster
+for children. Look out for nods to the old rides in the queue.

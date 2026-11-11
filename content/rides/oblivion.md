@@ -13,7 +13,7 @@ vibe:
   - industrial
   - weightless
 gist: >-
-  It parks you over the edge of a hole in the ground and makes you wait, then drops you straight down into it. I think the wait's the scariest bit.
+  It parks you over the edge of a hole in the ground and just waits. Then it drops you straight down into it.
 furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/Oblivion_(roller_coaster)
@@ -40,15 +40,10 @@ pairings:
     strength: 2
 ---
 
-Oblivion has one idea, and it really commits to it. The train climbs, turns,
-and then stops with the front row hanging out over the edge. It stays there
-long enough for everyone on board to have second thoughts, with no way to do
-anything about it. Then it drops straight down into a hole in the ground.
+Oblivion is a Bolliger & Mabillard coaster at Alton Towers, open since 1998, and
+it has one idea. The train climbs, turns and stops with the front row hanging
+out over the edge. It stays there long enough for everyone to have second
+thoughts, then it drops straight down into a hole in the ground.
 
-I think the hold is the best bit. Most coasters hide their scariest moment
-behind speed, but this one parks you right in front of it and waits. The drop
-itself is quick and a bit of an anticlimax, but that's fine, because the scary
-part has already happened up at the top, in your head.
-
-Afterwards, it's worth giving yourself a little job to do, so you're not just
-standing around thinking about it.
+The hold is the best bit. The drop's quick and a bit of an anticlimax, because
+the scary part's already happened in your head.

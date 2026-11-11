@@ -14,7 +14,7 @@ vibe:
   - whimsical
   - nostalgic
 gist: >-
-  Float through castles, fairy gardens and a forest full of trolls in a little cabin hanging from the ceiling, for about six minutes.
+  A little cabin hangs from the ceiling and floats you through Efteling's fairy worlds for six slow minutes, ending in a squelchy troll forest.
 furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/Droomvlucht
@@ -31,14 +31,12 @@ pairings:
     strength: 2
 ---
 
-Droomvlucht means "dreamflight", and that's exactly what it is. You sit in a
-small open cabin hanging from the ceiling and float through five worlds: a
-castle realm, an enchanted forest, a fairy garden, castles in the sky, and a
-squelchy forest of trolls at the end.
+Droomvlucht means "dreamflight". Ton van de Ven designed it, and it opened at
+Efteling in 1993. You float in a little open cabin hanging from the ceiling
+through five worlds, from a castle realm and a fairy garden to a squelchy troll
+forest.
 
-It was designed by Ton van de Ven and opened in 1993. None of it is fast, and
-its one big move is a slow spiral down from 13 metres into the troll marshes.
+Its one big move is a slow spiral down from 13 metres into the troll marshes.
 
-It's about six minutes long, which is a real luxury for a dark ride. Take your
-time and look up, down and sideways, because there's far more in here than
-you'll catch in one go.
+It lasts about six minutes, which is a real luxury for a dark ride. There's way
+more in here than you'll catch in one go.

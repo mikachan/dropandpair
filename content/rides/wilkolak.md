@@ -15,7 +15,7 @@ stats:
 vibe:
   - eerie
 gist: >-
-  A Polish wooden coaster named after a werewolf, loud and full of creaking timber. I'd save it for when the moon's coming up.
+  A Polish wooden coaster named after a werewolf, loud and full of creaking timber. Save it for when the moon's coming up.
 furtherReading:
   - title: RCDB
     url: https://rcdb.com/16099.htm
@@ -32,14 +32,10 @@ pairings:
     strength: 3
 ---
 
-Wilkołak is Polish for "werewolf". It's a wooden coaster by Great Coasters
-International, designed by Skyline, and it opened at Majaland Kownaty in 2019.
+Wilkołak is Polish for "werewolf". It's a Great Coasters International wooden
+coaster at Majaland Kownaty, designed by Skyline, and it opened in 2019.
 
-It's a mirror image of Heidi The Ride at Plopsaland De Panne in Belgium, which
-is itself similar to White Lightning at Fun Spot America in Florida. So if
-you've ridden either of those, you know the shape of this one, just the other
-way round.
-
-A chain lift takes you up 22 metres, and the train runs at up to 71 km/h with
-no inversions. It's a classic wooden coaster: loud, lively and a little rough
-round the edges.
+It's a mirror image of Heidi The Ride at Plopsaland De Panne in Belgium, so if
+you've ridden that, you know the shape, just the other way round. A chain lift
+takes you up and there are no inversions. It's a proper wooden coaster, loud and
+a bit rough round the edges.

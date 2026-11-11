@@ -16,7 +16,7 @@ vibe:
   - scenic
   - stately
 gist: >-
-  A slow turn above Vienna on a wheel that's been going since 1897. Watch The Third Man first and you'll spend the whole ride looking down.
+  A slow turn above Vienna on a wheel that's been going since 1897. Watch The Third Man first and you'll spend your turn looking down.
 furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/Wiener_Riesenrad
@@ -38,14 +38,10 @@ pairings:
     strength: 3
 ---
 
-This is the oldest ride on the site by about a century. It went up in 1897,
-built by the British engineer Walter Basset Bassett, and it's still turning at
-the entrance to the Prater.
+The Wiener Riesenrad is a giant wheel at the entrance to the Prater, and it's
+the oldest ride on the site by about a century. It went up in 1897, built by the
+British engineer Walter Basset Bassett. It was badly damaged in the Second World
+War and rebuilt with fifteen cabins instead of the original thirty.
 
-It hasn't had an easy life. The wheel was badly damaged in the Second World War
-and rebuilt with fifteen cabins instead of the original thirty. What's left is
-slow, steady and still very grand, and mostly an excuse to look at the city
-from 65 metres up.
-
-It's not a thrill ride at all, and I love it for that. It's really just for looking
-out at the city and chatting to whoever you came with.
+It's slow and still very grand. It's not a thrill ride at all, and I love it for
+that. You go up 65 metres to look at Vienna and chat to whoever you came with.

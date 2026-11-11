@@ -17,7 +17,7 @@ vibe:
   - dizzying
   - weightless
 gist: >-
-  A compact little coaster at Fantasiana with three inversions in about fifty seconds. It's over so quickly that you'll probably go straight back round.
+  Fantasiana's compact little coaster packs three inversions into about fifty seconds. It's over so fast you'll be straight back in the queue.
 furtherReading:
   - title: RCDB
     url: https://rcdb.com/19395.htm
@@ -34,13 +34,11 @@ pairings:
     strength: 4
 ---
 
-Helios opened in April 2025, replacing the Wild Train as Fantasiana's big
-coaster. It's a Mack Rides BigDipper with Stryker Coaster trains, which means
-cars of eight, sitting four across in two rows.
+Helios is a Mack Rides BigDipper at Fantasiana. It opened in April 2025 in
+place of the Wild Train, and you sit four across in Stryker Coaster trains.
 
 It doesn't waste a second. After the chain lift there's an outward-banked
 airtime hill, a corkscrew, a barrel roll drop and another corkscrew, and the
-train flies through the station along the way.
+train flies through the station on the way.
 
-The whole thing's over in about fifty seconds, and it's the kind of ride you
-queue for twice in a row. It's one of my favourite rides anywhere.
+It's all over in about fifty seconds. One of my favourite rides anywhere!

@@ -16,7 +16,7 @@ stats:
 vibe:
   - brutal
 gist: >-
-  Nought to 180 km/h in under two seconds, fired by compressed air. In the end it was too much, and it's now closed for good.
+  Fuji-Q's compressed-air launch coaster went from nought to 180 km/h in under two seconds. In the end it was too much, and it's closed for good.
 furtherReading:
   - title: 'Wikipedia (as Do-Dodonpa)'
     url: https://en.wikipedia.org/wiki/Do-Dodonpa
@@ -33,15 +33,13 @@ pairings:
     strength: 4
 ---
 
-Dodonpa opened in 2001, and it was all about acceleration.
-Launched by compressed air, it was the fastest roller coaster in the world
-until 2003, and the fastest-accelerating for twenty years after that.
+Dodonpa was a compressed-air launch coaster at Fuji-Q Highland, open from 2001.
+It was the fastest coaster in the world until 2003.
 
-In 2017 it was rebuilt and renamed Do-Dodonpa, with a vertical loop added and
-a launch from nought to 180 km/h in 1.56 seconds. That turned out to be too
-much. After 18 injuries between December 2020 and August 2021, including
-broken bones, it closed indefinitely, and in 2024 the park announced it
+In 2017 it was rebuilt as Do-Dodonpa, with a vertical loop and a launch from
+nought to 180 km/h in 1.56 seconds. That was too much. After 18 injuries,
+including broken bones, it closed in 2021, and in 2024 the park said it
 wouldn't reopen.
 
-So you can't ride it any more, but I've kept it on here because I don't think
-many rides have ever hit harder.
+You can't ride it any more. It's on here because hardly anything has ever hit
+harder.

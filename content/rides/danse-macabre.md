@@ -36,15 +36,11 @@ pairings:
     strength: 3
 ---
 
-Danse Macabre opened in 2024 on the site of Spookslot, Efteling's old haunted
-castle, and it reuses some of the original props. The story's set in the ruins
-of a 14th-century abbey, where a cursed orchestra plays Saint-Saëns's _Danse
-macabre_ in a new orchestral arrangement.
+Danse Macabre is a dark ride at Efteling, built in 2024 on the site of
+Spookslot, the park's old haunted castle. In the ruins of a 14th-century abbey,
+a cursed orchestra plays a new orchestral arrangement of Saint-Saëns's _Danse
+macabre_.
 
-It was the first ride to use Intamin's Dynamic Motion Stage, a big rotating
-platform that turns and glides so it feels like you're dancing in time with
-the music. It's half show and half ride, and it isn't really trying to scare
-you.
-
-It's already picked up awards, including a Golden Ticket for Best New Family
-Attraction in 2025. It's worth going for the music as much as the ride itself.
+It was the first ride to use Intamin's Dynamic Motion Stage, a big platform
+that turns and glides in time with the music, so it feels like you're dancing.
+It isn't really trying to scare you.

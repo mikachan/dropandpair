@@ -33,15 +33,12 @@ pairings:
     strength: 3
 ---
 
-This is the oldest coaster at Alton Towers. It opened in 1992 with a layout by
-John Wardley, and it's a Mack Rides powered coaster, so there's no lift hill:
-the motors are on board, and the long single train just sets off and keeps
-going.
+Runaway Mine Train is the oldest coaster at Alton Towers. It opened in 1992 with
+a layout by John Wardley. It's a Mack Rides powered coaster, so the motors are
+on board and there's no lift hill.
 
-Its trick is the second lap. Just as it seems to be pulling back into the
-station, it heads off round the circuit again, and on quiet days it's been
-known to do a third. Along the way it shares a tunnel with the Congo River
-Rapids.
+Just as it seems to be pulling into the station, off it goes round again, and on
+quiet days it's been known to do a third lap. It shares a tunnel with the Congo
+River Rapids.
 
-It's small, friendly and slightly ramshackle in the best way, and it's the
-perfect first coaster for anyone who hasn't been on one before.
+It's small and a bit ramshackle, and a perfect first coaster.

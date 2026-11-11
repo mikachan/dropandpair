@@ -16,7 +16,7 @@ stats:
 vibe:
   - brutal
 gist: >-
-  A trip to one of Saturn's moons, with an 82-metre drop on the way. It's a lot longer than you'd expect, too.
+  A space mission to one of Saturn's moons, with an 82-metre drop on the way. It goes on for way longer than you'd expect.
 furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/Hyperion_(roller_coaster)
@@ -38,13 +38,12 @@ pairings:
     strength: 3
 ---
 
-Hyperion is an Intamin mega coaster at Energylandia, and it opened in 2018. The
-story is a space mission to Hyperion, one of Saturn's moons. On the way, the
-ship runs into a black hole and comes out through a vortex into another universe,
-where there's a twin of Earth (it's a surprisingly big story for a coaster!).
+Hyperion is a huge Intamin mega coaster at Energylandia, open since 2018. The
+story's a space mission to Saturn's moon Hyperion, by way of a black hole, a
+vortex and a twin of Earth in another universe.
 
-It's 77 metres tall, with an 82-metre drop at 85 degrees, a top speed of
-142 km/h and almost a kilometre and a half of track. There's only one
-inversion, a dive-drop turnaround, so most of the ride is speed and hills.
+It's 77 metres tall, drops 82 metres at 85 degrees and hits 142 km/h. There's
+almost a kilometre and a half of track and only one inversion, a dive-drop
+turnaround. The rest is pretty much speed and hills.
 
 As of 2021 it was the tallest, fastest and longest coaster in Poland.

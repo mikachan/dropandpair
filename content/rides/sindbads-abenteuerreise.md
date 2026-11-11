@@ -31,15 +31,13 @@ pairings:
     strength: 3
 ---
 
-Sindbads Abenteuerreise opened in 2004 in Fantasiana's Afrika Orient area.
-It's a dark ride on an I.E. Park ride system, with figures by Hofmann, and
-since around 2010 its cars have been themed as little ships.
+Sindbads Abenteuerreise is a dark ride in Fantasiana's Afrika Orient area, open
+since 2004. It's an I.E. Park ride system with figures by Hofmann, and since
+around 2010 the cars have been little ships.
 
-The story follows Sindbad the Sailor from the Arabian Nights, with a few Greek
-and Egyptian myths mixed in. The cars rotate as they go, the ride spreads over
-more than one floor, and along the way you meet the creatures from his travels,
-including a cyclops.
+It follows Sindbad the Sailor from the Arabian Nights, with some Greek and
+Egyptian myths mixed in. The ships spin as they go, over more than one floor,
+past creatures from his travels such as a cyclops.
 
-It counts as a ghost train, but only just: the jump scares are mild, and it's
-more storybook than scary. Don't miss the talking statue with the waterfall
-pouring out of its mouth before you board.
+It counts as a ghost train, but only just, and the jump scares are mild. Before
+you board, stop at the talking statue with a waterfall pouring out of its mouth.

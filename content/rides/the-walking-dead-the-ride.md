@@ -40,14 +40,11 @@ pairings:
     strength: 3
 ---
 
-This one's had a few lives. It opened in 1996 as X:\ No Way Out, running
-backwards in the dark, then turned round to run forwards in 2013, and reopened
-as The Walking Dead: The Ride in 2018.
+The Walking Dead: The Ride is a small Vekoma coaster at Thorpe Park, and it's
+had a few lives. It opened in 1996 as X:\ No Way Out, running backwards in the
+dark, turned round in 2013 and got its current name in 2018.
 
-The coaster itself is small. All the work is done by the dark and the build-up:
-the queue's themed as a bunker overrun by zombies, and by the time you get to a
-seat you've spent long enough in there to feel a bit under siege.
-
-The ride's short, mild and a little jolting, because you can never see the next
-corner coming. It's really built to give you a scare, and it does a good job
-of it.
+The dark and the build-up do all the work. The queue's a bunker overrun by
+zombies, so you feel a bit under siege by the time you sit down. The ride's
+short and mild, but a little jolting, because you never see the next corner
+coming.

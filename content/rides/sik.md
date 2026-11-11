@@ -35,14 +35,10 @@ pairings:
     strength: 3
 ---
 
-Sik has an odd history for something so new. It was ordered by Hopi Hari in
-Brazil in 2011, never built there, and sat in storage for years before Flamingo
-Land took it on. It opened in 2022, named after the Scarborough clothing brand
-SikSilk.
+Sik is an Intamin coaster at Flamingo Land with an odd history. Hopi Hari in
+Brazil ordered it in 2011 and never built it, so it sat in storage for years. It
+opened in 2022, named after the Scarborough clothing brand SikSilk.
 
-There's no theme to speak of, but I don't think it really needs one. A cable lift takes you up, and then
-it gets straight to work: a loop, a cobra roll, a double corkscrew and a run of
-heartline rolls, one straight after another.
-
-It isn't rattly, but ten inversions in a row adds up, so it's probably best to
-ride it once and then go and have a sit-down.
+There's no theme, and it doesn't need one. A cable lift takes you up, then it's
+a loop, a cobra roll, a double corkscrew and a run of heartline rolls, one after
+another. It isn't rattly, but ten inversions in a row adds up.

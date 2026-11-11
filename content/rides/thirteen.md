@@ -33,14 +33,11 @@ pairings:
     strength: 3
 ---
 
-Most of Thirteen is a family coaster through the trees, but that's really just
-a cover story. The main event is a few seconds in the dark, when the train stops, the
-section of track it's sitting on lets go, and the whole lot drops about five
-metres with you still on it.
+Thirteen is an Intamin coaster at Alton Towers, and most of it's a family ride
+through the trees. That's just a cover story. In the dark, the train stops, its
+bit of track lets go, and you drop about five metres. Then you carry on
+backwards through an underground helix while you work out what just happened.
 
-When it opened in 2010, it was the world's first coaster with a vertical
-free-fall drop of the track itself. Then it carries on backwards through an
-underground helix while you work out what just happened.
-
-Once you know the trick, it's a gentler, almost sweet ride, so the first go is
-the one that counts. Try not to let anyone spoil it for you!
+When it opened in 2010, it was the world's first coaster with a free-fall drop
+of the track itself. The first go is the one that counts. Don't let anyone spoil
+it for you!

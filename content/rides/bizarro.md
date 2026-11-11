@@ -16,7 +16,7 @@ vibe:
   - brutal
   - weightless
 gist: >-
-  Superman's evil twin took over this hyper coaster for a few years, with purple paint, fire and a soundtrack. It's gone back to being Superman now.
+  Superman's evil twin took over this New England hyper coaster for a few years, with purple paint, fire and a soundtrack. It's Superman again now.
 furtherReading:
   - title: 'Wikipedia (as Superman The Ride)'
     url: https://en.wikipedia.org/wiki/Superman_the_Ride
@@ -33,15 +33,13 @@ pairings:
     strength: 3
 ---
 
-This ride opened in 2000 as Superman: Ride of Steel, and for its first decade
-it was regularly voted the best steel coaster in the world. In 2009 it became
-Bizarro: the track was painted purple, flame effects went in, and the trains
-got on-board audio playing film quotes and rock music.
+Bizarro is an Intamin hyper coaster at Six Flags New England. It opened in 2000
+as Superman: Ride of Steel and was regularly voted the best steel coaster in
+the world.
 
-The Bizarro years lasted until 2015. In 2016 it went back to being Superman,
-repainted in its original colours and with the audio taken out. So the ride's
-still there, but this version of it isn't.
+In 2009 it became Bizarro, with purple track, flame effects and on-board audio
+playing film quotes and rock music. In 2016 it went back to being Superman, in
+its original colours and silent again.
 
-Whatever colour it's painted, it's the same ride underneath, with a 67-metre
-drop and a long, fast run at well over 100 km/h. Bizarro just gave it a
-soundtrack.
+Underneath the paint it's the same ride, with a 67-metre drop and a long, fast
+run.

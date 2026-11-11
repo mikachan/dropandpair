@@ -33,16 +33,12 @@ pairings:
     strength: 3
 ---
 
-The Swarm is a Bolliger & Mabillard wing coaster, so you sit out on either side
-of the track with nothing above or below you. It opened in 2012, and its story
-is the end of the world: a swarm of semi-organic machines has attacked, and the
-ride takes you through what's left.
+The Swarm is a Bolliger & Mabillard wing coaster at Thorpe Park, open since
+2012. You sit out to the side of the track with nothing above or below you. A
+swarm of semi-organic machines has ended the world, and the ride takes you
+through what's left.
 
-Everything around the track has already been wrecked: a half-destroyed church,
-a crashed plane, an upturned ambulance, a fire engine sinking into the water
-and a damaged helicopter. The ride threads past all of it really closely,
-through a billboard and right through the church tower.
+It whips really close past a crashed plane, an upturned ambulance and a damaged
+helicopter, then right through the tower of a half-destroyed church.
 
-For a few years the back rows faced backwards, but since 2016 everyone's faced
-forwards again. Sit on the right if you want the closest brush with the water
-by the helicopter.
+Sit on the right for the closest brush with the water by the helicopter.

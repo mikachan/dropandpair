@@ -14,7 +14,7 @@ vibe:
   - whimsical
   - indoor
 gist: >-
-  A steampunk professor has worked out how to beat gravity, and you're strapped in for the demonstration, which doesn't quite go to plan.
+  A steampunk professor has worked out how to beat gravity, and you're strapped in for the demonstration. It doesn't quite go to plan.
 furtherReading:
   - title: Dark Ride Database
     url: https://darkridedatabase.com/rides/crazy-professor/
@@ -31,14 +31,12 @@ pairings:
     strength: 3
 ---
 
-Crazy Professor opened at Conny-Land in 2023, and it's a one-off: the park
-developed it together with Ride Engineers Switzerland. It's an indoor drop
-tower, 20 metres tall, with a projection screen running the full height of the
-tower.
+Crazy Professor is a one-off indoor drop tower at Conny-Land, built with Ride
+Engineers Switzerland and open since 2023. It's 20 metres tall, with a
+projection screen running all the way up.
 
-The story's pure steampunk. A mad professor, played by the Swiss clown Gaston
-Häni, has worked out how to defy gravity, and you're strapped in to help with
-the demonstration. Naturally, something goes wrong partway through.
+A mad steampunk professor, played by the Swiss clown Gaston Häni, has worked
+out how to defy gravity, and you're strapped in for the demonstration. Of
+course, it goes wrong.
 
-It's short and silly, and much more theatrical than most drop towers. I think
-it's a great one if you'd like a story with your drop.
+It's short and silly, and way more theatrical than most drop towers.

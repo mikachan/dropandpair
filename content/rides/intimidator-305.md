@@ -15,7 +15,7 @@ stats:
 vibe:
   - brutal
 gist: >-
-  A 93-metre climb, an 85-degree drop and a first turn that used to grey people out. These days it's called Pantherian.
+  Kings Dominion's giga coaster, with a first turn so tight it used to grey riders out. These days it's called Pantherian.
 furtherReading:
   - title: 'Wikipedia (as Pantherian)'
     url: https://en.wikipedia.org/wiki/Intimidator_305
@@ -32,15 +32,13 @@ pairings:
     strength: 4
 ---
 
-Intimidator 305 opened in 2010. It's an Intamin giga coaster, named after the
-NASCAR driver Dale Earnhardt, "The Intimidator", and its own height of 305
-feet. It was the second giga coaster in North America, after Millennium Force.
+Intimidator 305 is an Intamin giga coaster at Kings Dominion, open since 2010.
+It's named after the NASCAR driver Dale Earnhardt, "The Intimidator", and its
+305-foot height.
 
-A cable lift hauls you up at 45 degrees, then the drop falls 91 metres at 85
-degrees, and the train reaches 145 km/h. The first turn at the bottom was so
-intense that some riders greyed out, so trim brakes went in to slow the train
-down. Later the turn was rebuilt with a wider radius, the brakes came off, and
-the ride got its full speed back.
+A cable lift hauls you up, then you drop 91 metres at 85 degrees. The turn at
+the bottom greyed some riders out, so trim brakes went in. Later it was rebuilt
+wider, the brakes came off and the ride got its full speed back.
 
-The licence for the name ran out, so it was called Project 305 in 2024, and
-it's been Pantherian since 2025, though it's still the same ride.
+The licence for the name ran out, so it was Project 305 in 2024 and it's been
+Pantherian since 2025.
