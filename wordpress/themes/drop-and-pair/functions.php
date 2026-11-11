@@ -53,3 +53,17 @@ add_action(
 		);
 	}
 );
+
+/**
+ * GoatCounter analytics. Only on the live domain, so staging and local visits
+ * don't count, and not for logged-in users, so editing the site doesn't either.
+ */
+add_action(
+	'wp_head',
+	static function () {
+		if ( is_user_logged_in() || 'dropandpair.com' !== wp_parse_url( home_url(), PHP_URL_HOST ) ) {
+			return;
+		}
+		echo '<script data-goatcounter="https://dropandpair.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>' . "\n";
+	}
+);
