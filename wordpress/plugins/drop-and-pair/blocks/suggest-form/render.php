@@ -105,7 +105,7 @@ $text_field = static function ( string $field, string $label, int $max, string $
 };
 ?>
 <div <?php echo $wrapper; // phpcs:ignore WordPress.Security.EscapeOutput ?>>
-	<p class="dp-suggest__intro">Got something that goes really well with one of the rides? Tell me about it here. It can be a film, a song, something to eat, anything you think belongs with it.</p>
+	<p class="dp-suggest__intro">Got something that goes really well with one of the rides? Tell me about it here. It can be a film, a song, something to eat, anything you think belongs with it. If the ride isn't on the site yet, that's fine too, just type its name in and I'll have a look.</p>
 
 	<?php if ( $notice ) : ?>
 		<p class="dp-suggest__notice" role="alert" tabindex="-1"><?php echo esc_html( $notice ); ?></p>
