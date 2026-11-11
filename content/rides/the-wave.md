@@ -17,7 +17,7 @@ vibe:
   - nostalgic
   - brutal
 gist: >-
-  A 1994 stand-up coaster that finally learned to sit down in 2024. Same loop, same zero-g roll, and now far more people can ride it.
+  Drayton Manor's 1994 stand-up coaster, which swapped to sit-down trains in 2024. It's the same loop and zero-g roll, and now far more people can ride it.
 furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/The_Wave_(Drayton_Manor)
@@ -43,4 +43,5 @@ sit-down trains by ART Engineering and a new name. The height limit dropped
 from 1.4 metres to 1.2 at the same time, so far more people can ride it now.
 
 Its four inversions are a vertical loop, a zero-g roll and a double corkscrew,
-at up to 90 km/h. It's an old favourite, sitting down at last.
+at up to 90 km/h. It's an old favourite, and now you get to ride it sitting
+down.

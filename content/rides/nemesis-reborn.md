@@ -19,7 +19,7 @@ vibe:
   - scenic
   - eerie
 gist: >-
-  Buried in a pit at Alton Towers, and it doesn't let go until the brakes. Brutal on paper, but you'll walk off grinning.
+  Alton Towers' coaster that's dug down into a pit, with the queue winding round and under it. Once it gets going, it doesn't let go until the brakes.
 furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/Nemesis_Reborn
@@ -31,8 +31,8 @@ pairings:
     strength: 5
   - pairing: alien-1979
     blurb: >-
-      It has exactly the same feel: something enormous lurking in a damp, dark
-      place, taking its time. It's perfect for the same evening.
+      It's got the same feel: something enormous lurking in a damp, dark place,
+      taking its time. They'd make a really good evening together.
     strength: 5
   - pairing: the-gardens
     blurb: >-
@@ -51,17 +51,17 @@ for a full retrack, with most of its support columns replaced too, and
 reopened in March 2024 as Nemesis Reborn. The layout and the manufacturer are
 the same, so it's still the ride you remember.
 
-What makes Nemesis different is that it's built down into the ground rather than up
+What makes Nemesis different is that it's built down into the ground instead of up
 into the sky, so there's no skyline and no big reveal. You queue beside it,
 below it and sometimes underneath it, and the ride keeps going a few feet from
 your head while you wait.
 
-Riding it, you don't really notice the elements. It just doesn't let go.
-There's no airtime pause and no coasting bit, no moment where the train's just
-getting from one thing to the next. It commits at the bottom of the first drop
-and doesn't stop until the brake run.
+Riding it, you don't really notice the separate elements, because it just
+doesn't let go. There's no airtime pause and no coasting bit, no moment where the train's just
+getting from one thing to the next. Once it's at the bottom of the first drop,
+it keeps going until the brake run.
 
 The surprising part is how you feel afterwards. For something this relentless
-it's really smooth, because the intensity is all in the forces rather than the
-track, so you walk off shaken rather than rattled. That's why the pairings
-below lean towards _calm down_ rather than _lie down_.
+it's really smooth, because all the intensity comes from the forces and the
+track itself barely rattles. So you'll probably walk off a bit shaken, and
+that's why the pairings below are mostly about calming down.

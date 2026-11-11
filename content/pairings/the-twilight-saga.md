@@ -8,8 +8,8 @@ description: >-
   Washington, falls for a boy who turns out to be a vampire.
 ---
 
-These are the romantic side of vampire stories. The older Dracula stories are
-all about dread, but these are much more about longing: lots of meaningful
+These are vampire stories, but the romantic kind. The older Dracula stories
+are all about dread, but these are much more about longing: lots of meaningful
 looks across the school canteen, lots of forest, and a werewolf who'd also
 quite like a chance.
 

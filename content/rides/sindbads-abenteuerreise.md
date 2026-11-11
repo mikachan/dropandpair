@@ -12,7 +12,7 @@ vibe:
   - whimsical
   - eerie
 gist: >-
-  Set sail with Sindbad on a spinning ship, past a cyclops and a statue with a waterfall for a mouth. More storybook than scary.
+  Set sail with Sindbad on a spinning ship, past a cyclops and a statue with a waterfall for a mouth. It's more storybook than scary.
 furtherReading:
   - title: Dark Ride Database
     url: https://darkridedatabase.com/rides/sindbads-abenteuerreise/

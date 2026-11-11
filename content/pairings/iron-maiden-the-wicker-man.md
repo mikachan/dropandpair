@@ -3,8 +3,8 @@ id: iron-maiden-the-wicker-man
 title: Iron Maiden – "The Wicker Man"
 pairingType: listen
 description: >-
-  The lead single from Brave New World (2000), and a UK top-ten hit. Big riffs,
-  an even bigger chorus, and a title taken from the 1973 film.
+  The lead single from Brave New World (2000), and a UK top-ten hit. It's got
+  big riffs, an even bigger chorus, and a title taken from the 1973 film.
 ---
 
 This was the song that marked Bruce Dickinson and Adrian Smith's return to

@@ -17,7 +17,7 @@ vibe:
   - dizzying
   - weightless
 gist: >-
-  Fifty seconds and three inversions, packed in so tight you'll want to go straight back round.
+  A compact little coaster at Fantasiana with three inversions in about fifty seconds. It's over so quickly that you'll probably go straight back round.
 furtherReading:
   - title: RCDB
     url: https://rcdb.com/19395.htm

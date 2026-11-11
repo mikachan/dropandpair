@@ -29,8 +29,8 @@ pairings:
     strength: 4
   - pairing: an-ice-cream-you-have-to-eat-fast
     blurb: >-
-      A family ride deserves a family treat. Get one each and eat them while
-      you argue about whether to go again.
+      It's a family ride, so get an ice cream each and eat them while you
+      argue about whether to go again.
     strength: 4
   - pairing: nothing-for-ten-minutes
     blurb: >-

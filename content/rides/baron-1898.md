@@ -43,9 +43,8 @@ the mine anyway, and you're the latest shift.
 Baron 1898 is a Bolliger & Mabillard dive coaster, and when it opened in 2015
 it was the first of its kind in the Benelux. Just before the drop, the train
 stops dead over the shaft. Smoke rises, the Witte Wieven wail from the pit, and
-you're left hanging there long enough to regret every decision that got you
-here.
+you're left hanging there for a lot longer than you'd like.
 
-Then it lets go: 37.5 metres straight down into the mine, at up to 90 km/h, and
-out through two inversions. It's short and beautifully staged, and the pause is
-the bit everyone talks about afterwards.
+Then it lets go, 37.5 metres straight down into the mine at up to 90 km/h, and
+out through two inversions. It's short and really nicely staged, and the pause
+is the bit everyone talks about afterwards.

@@ -36,7 +36,7 @@ pairings:
 
 SheiKra is a dive coaster, which means the whole ride is built around one
 question: how long can it hold you over a 90-degree drop before letting go?
-Here the answer's about four seconds, and that's plenty.
+Here it's about four seconds, which is plenty.
 
 Then it does it all again. There's a second vertical drop, an Immelmann loop,
 and a splashdown that sends two huge sheets of water into the air. It was the

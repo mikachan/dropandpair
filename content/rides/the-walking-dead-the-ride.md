@@ -49,5 +49,5 @@ the queue's themed as a bunker overrun by zombies, and by the time you get to a
 seat you've spent long enough in there to feel a bit under siege.
 
 The ride's short, mild and a little jolting, because you can never see the next
-corner coming. Go in expecting a scare rather than a thrill, and it does
-exactly what it says.
+corner coming. It's really built to give you a scare, and it does a good job
+of it.

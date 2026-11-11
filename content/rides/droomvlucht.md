@@ -14,7 +14,7 @@ vibe:
   - whimsical
   - nostalgic
 gist: >-
-  Float through castles, fairy gardens and a forest full of trolls in a little cabin hanging from the ceiling. Six minutes of pure daydream.
+  Float through castles, fairy gardens and a forest full of trolls in a little cabin hanging from the ceiling, for about six minutes.
 furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/Droomvlucht
@@ -36,9 +36,8 @@ small open cabin hanging from the ceiling and float through five worlds: a
 castle realm, an enchanted forest, a fairy garden, castles in the sky, and a
 squelchy forest of trolls at the end.
 
-It was designed by Ton van de Ven and opened in 1993. Nothing about it is fast,
-and none of it needs to be. Its one big move is a slow spiral down from 13
-metres into the troll marshes.
+It was designed by Ton van de Ven and opened in 1993. None of it is fast, and
+its one big move is a slow spiral down from 13 metres into the troll marshes.
 
 It's about six minutes long, which is a real luxury for a dark ride. Take your
 time and look up, down and sideways, because there's far more in here than

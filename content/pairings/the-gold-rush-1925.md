@@ -11,5 +11,5 @@ It has three scenes everyone remembers: the Tramp cooking and eating his own
 boot, the dance of the bread rolls on forks, and a cabin wobbling on the edge
 of a cliff in a blizzard. It's funny, sad and surprisingly tense.
 
-Chaplin re-released it in 1942 with music and his own narration. Both versions
-are brilliant.
+Chaplin re-released it in 1942 with music and his own narration, and I think
+both versions are brilliant.

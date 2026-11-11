@@ -44,5 +44,4 @@ km/h.
 
 It's counted as having 14 inversions, which ties it with The Smiler for the
 world record, although 11 of them come from the seat flipping rather than the
-track. You won't be counting, though. You'll be too busy working out where the
-ground went.
+track.

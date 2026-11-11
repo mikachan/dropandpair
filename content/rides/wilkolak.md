@@ -15,7 +15,7 @@ stats:
 vibe:
   - eerie
 gist: >-
-  A wooden coaster named after a werewolf, all timber and noise. Best ridden as the moon comes up.
+  A Polish wooden coaster named after a werewolf, loud and full of creaking timber. I'd save it for when the moon's coming up.
 furtherReading:
   - title: RCDB
     url: https://rcdb.com/16099.htm

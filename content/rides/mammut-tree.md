@@ -14,7 +14,7 @@ vibe:
   - whimsical
   - scenic
 gist: >-
-  It looks like a gentle cable car up into a tree. It isn't, quite: there's fire, water, wind and one small drop you won't see coming.
+  It looks like a gentle cable car up into a tree, but on the way there's fire, water, wind and one small drop you won't see coming.
 furtherReading:
   - title: Conny-Land
     url: https://www.connyland.ch/en/attraktionen-details/mammut-tree/

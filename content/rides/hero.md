@@ -17,7 +17,7 @@ vibe:
   - dizzying
   - brutal
 gist: >-
-  A flying coaster at Flamingo Land that you ride face down, four to a car. You'll really want a good stretch afterwards.
+  A flying coaster at Flamingo Land that you ride lying face down, four to a car, up a spiral lift and through two rolls.
 furtherReading:
   - title: RCDB
     url: https://rcdb.com/11436.htm
@@ -36,13 +36,14 @@ pairings:
     strength: 4
 ---
 
-Hero is a Zamperla Volare, a flying coaster that opened at Flamingo Land in 2013. You ride it lying face down, four to a car, side by side, and it carries
+Hero is a Zamperla Volare, a flying coaster that opened at Flamingo Land in
+2013. You ride it lying face down, four to a car, side by side, and it carries
 you up a spiral lift and through two heartline rolls.
 
-The numbers are modest: 15 metres up and around 40 km/h. What people
-remember is the riding position, and it's famous for being uncomfortable.
+It's only 15 metres up and around 40 km/h, so what people remember is the
+riding position, and it's famous for being uncomfortable.
 You're held face down in a frame that presses into you in all the wrong
 places, and every swoop and roll finds a new one.
 
-Luckily it's short. Ride it once for the story, then go and do something
-kinder to your body.
+Luckily it's short. It's probably one to ride once for the story, and then
+go and find something a bit kinder to your body.

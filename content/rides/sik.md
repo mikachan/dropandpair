@@ -40,9 +40,9 @@ Brazil in 2011, never built there, and sat in storage for years before Flamingo
 Land took it on. It opened in 2022, named after the Scarborough clothing brand
 SikSilk.
 
-There's no theme, and it doesn't need one. A cable lift takes you up, and then
+There's no theme to speak of, but I don't think it really needs one. A cable lift takes you up, and then
 it gets straight to work: a loop, a cobra roll, a double corkscrew and a run of
 heartline rolls, one straight after another.
 
-It isn't rattly, but ten inversions in a row adds up. Ride it once, properly,
-and then go and sit down.
+It isn't rattly, but ten inversions in a row adds up, so it's probably best to
+ride it once and then go and have a sit-down.

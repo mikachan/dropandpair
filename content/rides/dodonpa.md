@@ -33,7 +33,7 @@ pairings:
     strength: 4
 ---
 
-Dodonpa opened in 2001, and it was built around one idea: acceleration.
+Dodonpa opened in 2001, and it was all about acceleration.
 Launched by compressed air, it was the fastest roller coaster in the world
 until 2003, and the fastest-accelerating for twenty years after that.
 
@@ -43,5 +43,5 @@ much. After 18 injuries between December 2020 and August 2021, including
 broken bones, it closed indefinitely, and in 2024 the park announced it
 wouldn't reopen.
 
-So this one's here for the record rather than the to-do list. Not many rides
-have ever hit harder.
+So you can't ride it any more, but I've kept it on here because I don't think
+many rides have ever hit harder.

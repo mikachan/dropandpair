@@ -55,12 +55,12 @@ Wicker Man is one of my favourite rides, and a big part of why is how much it
 does before you even get on. There's a whole pre-show, and by the time you
 reach the train you're properly in the mood.
 
-It's a wooden coaster, and it rides like one. It isn't about one big moment
-but a long run of small ones, with the track throwing you side to side while
+It's a wooden coaster, and it rides like one. There's no single big moment,
+just a long run of small ones, with the track throwing you side to side while
 the structure creaks along with it.
 
-What sets it apart is the fire. A wooden coaster and open flames shouldn't be
-in the same sentence, and that's what makes it so good. The whole ride leans on
-that unease: the feeling that you're the guest of honour at a ceremony nobody's
-explained. The bumps are all part of it rather than a punishment. Ride it near
-the end of the day, when the fire shows up best.
+What really sets it apart is the fire. You wouldn't think a wooden coaster and
+open flames would go together, and I think that's a big part of why it's so
+good. The whole ride leans on that unease, like you're the guest of honour at a
+ceremony nobody's explained, and the bumps are all part of it too. Try to ride
+it near the end of the day, when the fire's easier to see.

@@ -41,8 +41,8 @@ pairings:
     strength: 3
   - pairing: an-ice-cream-you-have-to-eat-fast
     blurb: >-
-      Grab something cold and enjoy it in the sunshine, where the vampires
-      can't follow you!
+      Grab something cold and eat it out in the sunshine. Vampires aren't keen
+      on that!
     strength: 3
 ---
 
@@ -55,5 +55,5 @@ thing for a small park to pull off. Despite the subject, it's aimed at families
 and older children, and it isn't too frightening.
 
 That changes at the park's Halloween event, when the scares are reportedly
-turned up. Go in the summer for the story, and at Halloween if you want the
-fright.
+turned up. The rest of the year it's more about the story, so Halloween's
+the time to go if you want a proper fright.

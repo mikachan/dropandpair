@@ -43,4 +43,4 @@ down. Later the turn was rebuilt with a wider radius, the brakes came off, and
 the ride got its full speed back.
 
 The licence for the name ran out, so it was called Project 305 in 2024, and
-it's been Pantherian since 2025. Same ride, new name.
+it's been Pantherian since 2025, though it's still the same ride.

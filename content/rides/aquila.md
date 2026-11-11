@@ -32,9 +32,9 @@ pairings:
     strength: 3
 ---
 
-Aquila opened in January 2025: a custom Vekoma launch coaster designed by
-Camiel Bilsen, and it lives entirely indoors. That makes it a bit of a rarity,
-a proper launched ride you can do in the middle of a Polish winter.
+Aquila opened in January 2025. It's a custom Vekoma launch coaster designed by
+Camiel Bilsen, and it's entirely indoors, which makes it a bit of a rarity: a
+proper launched ride you can do in the middle of a Polish winter.
 
 The launch uses linear motors, and it takes a single 20-seat train, riding two
 abreast, from standing to 70 km/h in about three seconds. There are no

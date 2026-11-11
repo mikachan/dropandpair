@@ -14,7 +14,7 @@ vibe:
   - whimsical
   - indoor
 gist: >-
-  A steampunk professor has worked out how to beat gravity, and you're strapped in for the demonstration. It doesn't go to plan.
+  A steampunk professor has worked out how to beat gravity, and you're strapped in for the demonstration, which doesn't quite go to plan.
 furtherReading:
   - title: Dark Ride Database
     url: https://darkridedatabase.com/rides/crazy-professor/
@@ -40,5 +40,5 @@ The story's pure steampunk. A mad professor, played by the Swiss clown Gaston
 Häni, has worked out how to defy gravity, and you're strapped in to help with
 the demonstration. Naturally, something goes wrong partway through.
 
-It's short and silly, and much more theatrical than most drop towers. A great
-one if you want your drop to come with a story.
+It's short and silly, and much more theatrical than most drop towers. I think
+it's a great one if you'd like a story with your drop.

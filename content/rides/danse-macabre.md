@@ -47,4 +47,4 @@ the music. It's half show and half ride, and it isn't really trying to scare
 you.
 
 It's already picked up awards, including a Golden Ticket for Best New Family
-Attraction in 2025. Go for the music as much as the motion.
+Attraction in 2025. It's worth going for the music as much as the ride itself.

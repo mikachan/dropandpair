@@ -3,8 +3,8 @@ id: alien-1979
 title: Alien (1979)
 pairingType: watch
 description: >-
-  Ridley Scott's Alien. It's mostly slow, damp, creeping dread, and then all
-  at once it isn't.
+  Ridley Scott's Alien. Most of it is slow, damp, creeping dread, right up until
+  it suddenly isn't.
 ---
 
 I've paired this one for the mood rather than any real connection: that

@@ -16,7 +16,7 @@ vibe:
   - eerie
   - nostalgic
 gist: >-
-  A friendly run through a dark forest, until the floor stops agreeing with the track. Don't let anyone spoil it for you.
+  A friendly run through a dark forest, until the floor stops agreeing with the track. It's best if nobody's told you what happens.
 furtherReading:
   - title: Wikipedia
     url: https://en.wikipedia.org/wiki/Thirteen_(roller_coaster)
@@ -33,8 +33,8 @@ pairings:
     strength: 3
 ---
 
-Most of Thirteen is a family coaster through the trees, and that's the cover
-story. The real ride is a few seconds in the dark, when the train stops, the
+Most of Thirteen is a family coaster through the trees, but that's really just
+a cover story. The main event is a few seconds in the dark, when the train stops, the
 section of track it's sitting on lets go, and the whole lot drops about five
 metres with you still on it.
 
@@ -42,5 +42,5 @@ When it opened in 2010, it was the world's first coaster with a vertical
 free-fall drop of the track itself. Then it carries on backwards through an
 underground helix while you work out what just happened.
 
-Once you know the trick, it's a different ride: gentler, almost sweet. The
-first time's the one that counts, so don't let anyone spoil it.
+Once you know the trick, it's a gentler, almost sweet ride, so the first go is
+the one that counts. Try not to let anyone spoil it for you!

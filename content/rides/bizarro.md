@@ -16,7 +16,7 @@ vibe:
   - brutal
   - weightless
 gist: >-
-  Superman's evil twin took over this hyper coaster for a few years, with purple paint, fire and a soundtrack. It's Superman again now, but we remember.
+  Superman's evil twin took over this hyper coaster for a few years, with purple paint, fire and a soundtrack. It's gone back to being Superman now.
 furtherReading:
   - title: 'Wikipedia (as Superman The Ride)'
     url: https://en.wikipedia.org/wiki/Superman_the_Ride
@@ -42,5 +42,6 @@ The Bizarro years lasted until 2015. In 2016 it went back to being Superman,
 repainted in its original colours and with the audio taken out. So the ride's
 still there, but this version of it isn't.
 
-Under any paint job it's the same thing: a 67-metre drop and a long, fast run
-at well over 100 km/h. Bizarro just gave it a soundtrack.
+Whatever colour it's painted, it's the same ride underneath, with a 67-metre
+drop and a long, fast run at well over 100 km/h. Bizarro just gave it a
+soundtrack.

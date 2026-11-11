@@ -9,7 +9,7 @@ description: >-
 ---
 
 It stars Andrew Lincoln, Norman Reedus and an awful lot of walkers. The
-zombies are really just the backdrop, though. The real story is about the
-people, and how far they'll go to survive each other.
+zombies are really just the backdrop, though. It's mostly about the people,
+and how far they'll go to survive each other.
 
 It's a big commitment, so start at the beginning and see how far you get.

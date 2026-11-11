@@ -43,5 +43,5 @@ climbs 63 metres, drops at 90 degrees, reaches 121 km/h and fits in three
 inversions.
 
 It ties with Iron Gwazi as the tallest RMC coaster in the world, and it's been
-ranked among the best steel coasters anywhere. Ride it, then ride it again from
-the other end of the train.
+ranked among the best steel coasters anywhere. It's worth riding twice, once
+from each end of the train.

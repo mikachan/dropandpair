@@ -47,5 +47,5 @@ and rebuilt with fifteen cabins instead of the original thirty. What's left is
 slow, steady and still very grand, and mostly an excuse to look at the city
 from 65 metres up.
 
-It's not a thrill ride at all, and I love it for that. It's a ride for looking
-out of, and for chatting to whoever you came with.
+It's not a thrill ride at all, and I love it for that. It's really just for looking
+out at the city and chatting to whoever you came with.

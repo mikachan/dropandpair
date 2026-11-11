@@ -11,4 +11,5 @@ I love this one because it's so immediate. Your hands are still a bit shaky,
 the ice cream's already melting, and you have to concentrate on something small
 and urgent. It's a really good way to come back down after a big ride.
 
-It's best on a warm day, which is also when it's hardest to keep up with.
+It's best on a warm day, though that's also when it melts fastest and it's
+hardest to keep up with.
