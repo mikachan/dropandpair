@@ -32,7 +32,9 @@ final class Tickets {
 		if ( '' !== $meta ) {
 			$html .= '<div class="dp-label">' . esc_html( $meta ) . '</div>';
 		}
-		$html .= '<p class="dp-ticket__blurb">' . esc_html( $t['blurb'] ) . '</p>';
+		if ( '' !== $t['blurb'] ) {
+			$html .= '<p class="dp-ticket__blurb">' . esc_html( $t['blurb'] ) . '</p>';
+		}
 		if ( null !== ( $t['strength'] ?? null ) ) {
 			$html .= '<div class="dp-ticket__match">' . esc_html( strtolower( Vocab::strength_label( (int) $t['strength'] ) ) ) . '</div>';
 		}

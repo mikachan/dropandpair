@@ -121,13 +121,13 @@ final class Seo {
 		return $when->setTimezone( $gmt ? new \DateTimeZone( 'UTC' ) : wp_timezone() )->format( $format );
 	}
 
-	/** Gist, then "<Type> at <Park>, <Country>.", then "N pairings." (public links only). */
+	/** First sentence of the write-up, then "<Type> at <Park>, <Country>.", then "N pairings." (public links only). */
 	public static function ride_description( \WP_Post $ride ): string {
 		$park  = Queries::park_for_ride( $ride->ID );
 		$types = get_the_terms( $ride->ID, 'dp_ride_type' );
 		$type  = is_array( $types ) && $types ? ( Vocab::RIDE_TYPES[ $types[0]->slug ] ?? $types[0]->name ) : '';
 		return self::describe(
-			(string) get_post_meta( $ride->ID, 'dp_gist', true ),
+			self::lead( $ride->post_content ),
 			$type,
 			$park ? get_the_title( $park ) : '',
 			$park ? (string) get_post_meta( $park->ID, 'dp_country', true ) : '',
@@ -135,11 +135,22 @@ final class Seo {
 		);
 	}
 
+	/**
+	 * The first sentence of some post content, as plain text, for descriptions and
+	 * search snippets. A full stop only ends the sentence when a space or the end
+	 * follows it, so "1.56 seconds" stays whole.
+	 */
+	public static function lead( string $html ): string {
+		$text = (string) preg_replace( '/<!--.*?-->|<[^>]+>/s', ' ', $html );
+		$text = trim( (string) preg_replace( '/\s+/u', ' ', html_entity_decode( $text, ENT_QUOTES | ENT_HTML5, 'UTF-8' ) ) );
+		return preg_match( '/^.*?[.!?](?=\s|$)/u', $text, $m ) ? $m[0] : $text;
+	}
+
 	/** Pure formatter behind ride_description, mirroring the rss.xml route. */
-	public static function describe( string $gist, string $type, string $park, string $country, int $pairings ): string {
+	public static function describe( string $lead, string $type, string $park, string $country, int $pairings ): string {
 		$where = '' === $park ? '' : trim( $type . ' at ' ) . ' ' . $park . ( '' === $country ? '' : ', ' . $country ) . '.';
 		$parts = array(
-			trim( $gist ),
+			trim( $lead ),
 			'' === $where ? '' : trim( $where ),
 			$pairings > 0 ? $pairings . ( 1 === $pairings ? ' pairing.' : ' pairings.' ) : '',
 		);
@@ -314,7 +325,7 @@ final class Seo {
 			'@type'       => 'TouristAttraction',
 			'@id'         => get_permalink( $ride ),
 			'name'        => get_the_title( $ride ),
-			'description' => (string) get_post_meta( $ride->ID, 'dp_gist', true ),
+			'description' => self::lead( $ride->post_content ),
 			'url'         => get_permalink( $ride ),
 		);
 		if ( '' !== $type ) {

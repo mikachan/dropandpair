@@ -38,7 +38,7 @@ final class ContentTypes {
 					'show_in_rest' => true,
 					'has_archive'  => true,
 					'rewrite'      => array( 'slug' => $slug ),
-					// No excerpt: ride "gist" and pairing "description" are meta fields.
+					// No excerpt: a pairing's "description" is a meta field, and a ride's comes from its text.
 					'supports'     => array( 'title', 'editor', 'custom-fields' ),
 					'menu_icon'    => 'dashicons-star-filled',
 				)
@@ -125,7 +125,7 @@ final class ContentTypes {
 		foreach ( array( 'park_id', 'opened', 'inversions' ) as $key ) {
 			$reg( 'dp_ride', $key, array( 'type' => 'integer' ) );
 		}
-		foreach ( array( 'manufacturer', 'added', 'gist' ) as $key ) {
+		foreach ( array( 'manufacturer', 'added' ) as $key ) {
 			$reg( 'dp_ride', $key, $text );
 		}
 		foreach ( array( 'height', 'speed', 'length' ) as $key ) {

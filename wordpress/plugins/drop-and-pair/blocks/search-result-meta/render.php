@@ -1,6 +1,6 @@
 <?php
 /**
- * Type label (Ride, Park, Pairing, Page) plus the gist, description or park location.
+ * Type label (Ride, Park, Pairing, Page) plus the ride's park, the pairing's description or the park's location.
  *
  * @var array    $attributes Block attributes.
  * @var string   $content    Inner content.
@@ -21,7 +21,8 @@ if ( ! isset( $labels[ $type ] ) ) {
 	return;
 }
 if ( 'dp_ride' === $type ) {
-	$summary = (string) get_post_meta( $post_id, 'dp_gist', true );
+	$park    = \DropAndPair\Queries::park_for_ride( $post_id );
+	$summary = $park ? get_the_title( $park ) : '';
 } elseif ( 'dp_pairing' === $type ) {
 	$summary = (string) get_post_meta( $post_id, 'dp_description', true );
 } elseif ( 'dp_park' === $type ) {

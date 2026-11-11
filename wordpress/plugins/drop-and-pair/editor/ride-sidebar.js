@@ -267,7 +267,6 @@
 			number( 'dp_length', __( 'Length (m)', 'drop-and-pair' ), false ),
 			number( 'dp_inversions', __( 'Inversions', 'drop-and-pair' ), true, { min: 0 } ),
 			el( c.ToggleControl, { label: __( 'Featured', 'drop-and-pair' ), checked: !! meta.dp_featured, onChange: function ( v ) { set( 'dp_featured', v ); } } ),
-			el( c.TextareaControl, { label: __( 'Gist', 'drop-and-pair' ), value: meta.dp_gist || '', onChange: function ( v ) { set( 'dp_gist', v ); } } ),
 			el( 'h3', null, __( 'Further reading', 'drop-and-pair' ) ),
 			el( FurtherReading, { items: meta.dp_further_reading, onChange: function ( v ) { set( 'dp_further_reading', v ); } } ),
 			el( 'h3', null, __( 'Pairings', 'drop-and-pair' ) ),
@@ -278,7 +277,7 @@
 	/*
 	 * A visitor's suggestion is added to dp_pairings on the server, maybe while Sarah has
 	 * the ride open. Core-data merges meta edits, but what it saves is the whole merged
-	 * meta object, so a gist edit (or an autosave) would resend the links as the editor
+	 * meta object, so any other meta edit (or an autosave) would resend the links as the editor
 	 * loaded them and quietly drop that suggestion. So: unless the links were changed
 	 * here, leave them out of the request and the server keeps what it has. Editing the
 	 * links themselves still sends the full list, so a suggestion that lands between

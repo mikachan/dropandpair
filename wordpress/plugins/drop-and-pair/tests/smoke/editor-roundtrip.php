@@ -30,19 +30,19 @@ $post = static function ( array $meta ) use ( $id ) {
 
 $before = $get();
 count( $before['dp_pairings'] ) >= 2 || $fail( 'Expected hyperion to have several pairing links' );
-$orig = array( 'dp_pairings' => $before['dp_pairings'], 'dp_gist' => $before['dp_gist'] );
+$orig = array( 'dp_pairings' => $before['dp_pairings'], 'dp_manufacturer' => $before['dp_manufacturer'] );
 
 try {
 	$reversed = array_reverse( $before['dp_pairings'] );
-	$post( array( 'dp_pairings' => $reversed, 'dp_gist' => 'Round-trip gist' ) );
+	$post( array( 'dp_pairings' => $reversed, 'dp_manufacturer' => 'Round-trip maker' ) );
 	$after = $get();
 	wp_list_pluck( $after['dp_pairings'], 'pairing_id' ) === wp_list_pluck( $reversed, 'pairing_id' ) || $fail( 'Pairing order did not stick' );
 	$after['dp_pairings'] === $reversed || $fail( 'Pairing fields changed in the round trip' );
-	'Round-trip gist' === $after['dp_gist'] || $fail( 'Gist did not stick' );
+	'Round-trip maker' === $after['dp_manufacturer'] || $fail( 'Manufacturer did not stick' );
 } finally {
 	$post( $orig );
 }
 $back = $get();
-$back['dp_pairings'] === $orig['dp_pairings'] && $back['dp_gist'] === $orig['dp_gist'] || $fail( 'Original values were not restored' );
+$back['dp_pairings'] === $orig['dp_pairings'] && $back['dp_manufacturer'] === $orig['dp_manufacturer'] || $fail( 'Original values were not restored' );
 
 WP_CLI::success( 'OK' );

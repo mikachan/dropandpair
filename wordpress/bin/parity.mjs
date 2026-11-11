@@ -182,7 +182,6 @@ for (const e of content.rides) {
 	for (const k of ['height', 'speed', 'length', 'inversions']) eq(label, k, e.stats?.[k], m['dp_' + k]);
 	eq(label, 'intensity', e.intensity, m.dp_intensity);
 	eq(label, 'roughness', e.roughness, m.dp_roughness);
-	eq(label, 'gist', e.gist, m.dp_gist);
 	eq(label, 'featured', Boolean(e.featured), Boolean(m.dp_featured));
 
 	const types = (p.dp_ride_type || []).map((id) => typeById.get(id)?.slug);

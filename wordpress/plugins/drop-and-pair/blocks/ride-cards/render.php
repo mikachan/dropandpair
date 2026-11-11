@@ -1,6 +1,6 @@
 <?php
 /**
- * Rides as small tickets: name, park and gist. "featured" falls back to the newest rides
+ * Rides as small tickets: name, park and ride type. "featured" falls back to the newest rides
  * when none are flagged, so the home page is never empty while rides exist.
  *
  * @var array    $attributes Block attributes.
@@ -36,7 +36,7 @@ if ( ! $rides ) {
 				'meta'         => $park ? get_the_title( $park ) : '',
 				'title'        => get_the_title( $ride ),
 				'url'          => get_permalink( $ride ),
-				'blurb'        => (string) get_post_meta( $ride->ID, 'dp_gist', true ),
+				'blurb'        => '',
 				'strength'     => null,
 				'suggested_by' => null,
 			)

@@ -128,7 +128,6 @@ final class Importer {
 				'dp_inversions'   => $stats['inversions'] ?? null,
 				'dp_intensity'    => $ride['intensity'] ?? null,
 				'dp_roughness'    => $ride['roughness'] ?? null,
-				'dp_gist'         => $ride['gist'] ?? null,
 			)
 		);
 		$meta['dp_featured']        = (bool) ( $ride['featured'] ?? false );
