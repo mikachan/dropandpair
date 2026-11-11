@@ -12,6 +12,12 @@
 			.normalize( 'NFD' )
 			.replace( /[\u0300-\u036f]/g, '' )
 			.toLowerCase()
+			// Letters NFD doesn't split, which remove_accents() still folds (Wilko\u0142ak).
+			.replace( /\u0142/g, 'l' )
+			.replace( /\u00f8/g, 'o' )
+			.replace( /\u0111/g, 'd' )
+			.replace( /\u00df/g, 'ss' )
+			.replace( /\u00e6/g, 'ae' )
 			.replace( /\s+/g, ' ' )
 			.trim();
 	}
