@@ -32,7 +32,23 @@ describe('exportContent', () => {
 		expect(data.pages.about.html).toContain('<h2>Thank you</h2>');
 		const html = data.pages.about.html;
 		expect(html).not.toContain('Before the queue and after the drop.');
-		const labels = [...html.matchAll(/<dt>(.*?)<\/dt>/g)].map((m) => m[1]);
+		expect(html).toContain('<h2>Pairing types</h2>');
+		expect(html).not.toMatch(/moment/i);
+		expect(html).toContain('<dl class="dp-type-list">');
+		// Each name carries its type's slug, so the theme can colour its stub.
+		const names = [...html.matchAll(/<dt class="dp-type-list__name dp-type--([a-z-]+)">(.*?)<\/dt>/g)];
+		expect(names.map((m) => m[1])).toEqual([
+			'before',
+			'right-after',
+			'wind-down',
+			'eat-and-drink',
+			'do-next',
+			'listen',
+			'read',
+			'watch',
+			'later'
+		]);
+		const labels = names.map((m) => m[2]);
 		expect(labels).toEqual([
 			'Before',
 			'Right after',
@@ -45,7 +61,7 @@ describe('exportContent', () => {
 			'Later'
 		]);
 		expect(html).toContain(
-			'<dd>For the hotel, the flight, or the long wait over the winter closed season.</dd>'
+			'<dd class="dp-type-list__desc">For the hotel, the flight, or the long wait over the winter closed season.</dd>'
 		);
 	});
 });

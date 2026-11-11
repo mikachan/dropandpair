@@ -321,6 +321,57 @@ Text Domain: drop-and-pair
 	margin: 12px 0;
 }
 
+/*
+ * About page: the pairing types as a two-column list, each name on its own stub
+ * colour, like the pairing page's tag. The markup comes from scripts/export-content.js.
+ */
+.dp-type-list {
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	gap: 10px 16px;
+	align-items: baseline;
+	margin: 16px 0 24px;
+}
+
+.dp-type-list__name {
+	justify-self: start;
+	padding: 2px 10px;
+	border-radius: 4px;
+	background: var(--dp-stub);
+	color: var(--wp--custom--stub-ink);
+	font-family: var(--wp--preset--font-family--mono);
+	font-size: var(--wp--preset--font-size--x-small);
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+
+.dp-type-list__desc {
+	margin: 0;
+}
+
+.dp-type--before { --dp-stub: var(--wp--preset--color--stub-before); }
+.dp-type--right-after { --dp-stub: var(--wp--preset--color--stub-right-after); }
+.dp-type--wind-down { --dp-stub: var(--wp--preset--color--stub-wind-down); }
+.dp-type--eat-and-drink { --dp-stub: var(--wp--preset--color--stub-eat-and-drink); }
+.dp-type--do-next { --dp-stub: var(--wp--preset--color--stub-do-next); }
+.dp-type--listen { --dp-stub: var(--wp--preset--color--stub-listen); }
+.dp-type--read { --dp-stub: var(--wp--preset--color--stub-read); }
+.dp-type--watch { --dp-stub: var(--wp--preset--color--stub-watch); }
+.dp-type--later { --dp-stub: var(--wp--preset--color--stub-later); }
+
+/* Narrow screens: each name sits above its description. */
+@media (max-width: 600px) {
+	.dp-type-list {
+		grid-template-columns: 1fr;
+		gap: 4px;
+	}
+
+	.dp-type-list__desc {
+		margin-bottom: 10px;
+	}
+}
+
 .dp-park-rides__table th[scope="col"] {
 	font-weight: 600;
 }

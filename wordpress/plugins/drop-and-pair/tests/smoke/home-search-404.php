@@ -57,7 +57,7 @@ $html = $home;
 $has  = static function ( string $needle ) use ( &$html ) {
 	return false !== strpos( $html, $needle );
 };
-foreach ( array( 'Curated pairings for theme park rides', 'Before the queue and after the drop.', 'Browse the rides', 'How this works', 'Worth a ride', 'Newly added', 'Browse by moment', 'Suggest a pairing', 'href="/suggest/"' ) as $needle ) {
+foreach ( array( 'Curated pairings for theme park rides', 'Before the queue and after the drop.', 'Browse the rides', 'How this works', 'Worth a ride', 'Newly added', 'Browse by pairing type', 'Suggest a pairing', 'href="/suggest/"' ) as $needle ) {
 	$has( $needle ) || $fail( "Home missing: $needle" );
 }
 $totals = DropAndPair\Queries::totals();
@@ -118,7 +118,8 @@ $post = $posts['about'];
 setup_postdata( $post );
 $html = $render( 'page.html' );
 wp_reset_postdata();
-$has( 'Before the queue and after the drop.' ) && $has( '<h1' ) || $fail( 'About page not rendered' );
+$has( 'Pairing types</h2>' ) && $has( '<h1' ) || $fail( 'About page not rendered' );
+$has( '<dt class="dp-type-list__name dp-type--before">Before</dt>' ) || $fail( 'About pairing type classes missing' );
 
 // --- 404 ---
 $html = $render( '404.html' );

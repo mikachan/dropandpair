@@ -18,15 +18,15 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 /**
  * The about page's prose, first copied from src/routes/about/+page.svelte and since
  * reworded for WordPress (static text, so a constant is simpler than parsing Svelte).
- * The moments list comes from code there, so aboutHtml() builds it from the same
+ * The pairing types list comes from code there, so aboutHtml() builds it from the same
  * modules.
  */
 const ABOUT_INTRO = `<p>I love getting properly immersed in whatever I'm doing. When I travel, I read up on the local folklore, pick up a local novel and put together a playlist of local music for the journey (rock, ideally).</p>
 <p>Rides make that easy, because so many are already based on a film, a book or a legend. I'm also a massive fan of a well-themed ride. Wicker Man at Alton Towers has a whole pre-show before you even get on. Drop and Pair tries to give every ride that feeling, with something to read, watch or listen to beforehand and something to do afterwards. Some rides make it easier than others!</p>
 <h2>About me</h2>
 <p>I'm a coaster nerd and a software engineer. My favourite park is Alton Towers, and my favourite rides include Wicker Man, Zadra at Energylandia and Helios at Fantasiana.</p>
-<h2>The moments</h2>
-<p>Every pairing has a moment. They're in the order you'd probably want them, from before you queue to after you've left the park.</p>`;
+<h2>Pairing types</h2>
+<p>Every pairing has a type. They're in the order you'd probably want them, from before you queue to after you've left the park.</p>`;
 
 const ABOUT_THANKS = `<h2>Thank you</h2>
 <p>The ride facts and stats come from some brilliant resources, and I'm really grateful to everyone who keeps them going:</p>
@@ -41,14 +41,20 @@ const ABOUT_THANKS = `<h2>Thank you</h2>
 const escapeHtml = (text) =>
 	text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+/**
+ * Classes rather than inline styles, since kses may strip `style` when the page is
+ * saved. The slug class picks the type's stub colour in the theme's style.css; the
+ * slugs are the same as Vocab::MOMENTS in the plugin.
+ */
 function aboutHtml({ PAIRING_TYPES, pairingTypeLabels, pairingTypeDescriptions }) {
-	const moments = PAIRING_TYPES.map(
+	const types = PAIRING_TYPES.map(
 		(type) =>
-			`<dt>${escapeHtml(pairingTypeLabels[type])}</dt>\n<dd>${escapeHtml(pairingTypeDescriptions[type])}</dd>`
+			`<dt class="dp-type-list__name dp-type--${type}">${escapeHtml(pairingTypeLabels[type])}</dt>\n` +
+			`<dd class="dp-type-list__desc">${escapeHtml(pairingTypeDescriptions[type])}</dd>`
 	).join('\n');
 	return [
 		ABOUT_INTRO,
-		`<dl>\n${moments}\n</dl>`,
+		`<dl class="dp-type-list">\n${types}\n</dl>`,
 		ABOUT_THANKS
 	].join('\n');
 }

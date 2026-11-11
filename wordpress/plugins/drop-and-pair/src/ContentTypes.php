@@ -86,8 +86,16 @@ final class ContentTypes {
 			'dp_pairing',
 			$fixed + array(
 				'labels' => array(
-					'name'          => 'Moments',
-					'singular_name' => 'Moment',
+					'name'          => 'Pairing types',
+					'singular_name' => 'Pairing type',
+					'menu_name'     => 'Pairing types',
+					'all_items'     => 'All pairing types',
+					'edit_item'     => 'Edit pairing type',
+					'view_item'     => 'View pairing type',
+					'search_items'  => 'Search pairing types',
+					'not_found'     => 'No pairing types found.',
+					'no_terms'      => 'No pairing types',
+					'back_to_items' => '&larr; Go to pairing types',
 				),
 			)
 		);

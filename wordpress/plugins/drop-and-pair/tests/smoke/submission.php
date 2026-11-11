@@ -173,7 +173,7 @@ $html            = do_blocks( '<!-- wp:drop-and-pair/suggest-form /-->' );
 unset( $_GET['dp_form'] );
 str_contains( $html, '<script>alert' ) && $fail( 'Raw input echoed into the form' );
 str_contains( $html, '&lt;script&gt;alert(1)&lt;/script&gt;' ) || $fail( 'Title value not re-shown' );
-str_contains( $html, 'Pick a moment, so I know when it goes.' ) || $fail( 'Moment error not shown' );
+str_contains( $html, 'Pick a pairing type, so I know where it goes.' ) || $fail( 'Moment error not shown' );
 str_contains( $html, 'value="nope"' ) && $fail( 'Email re-shown; it should never be stored' );
 str_contains( $html, "pop it in again if you" ) || $fail( 'No note asking for the email again' );
 str_contains( $html, 'name="dp_form" value="' . $token . '"' ) || $fail( 'Re-shown form does not carry its token' );

@@ -79,7 +79,7 @@ final class Validator {
 			$data['moment'] = $moment;
 		} else {
 			$data['moment']   = null;
-			$errors['moment'] = 'Pick a moment, so I know when it goes.';
+			$errors['moment'] = 'Pick a pairing type, so I know where it goes.';
 		}
 
 		$blurb = self::text( $input['blurb'] ?? null );

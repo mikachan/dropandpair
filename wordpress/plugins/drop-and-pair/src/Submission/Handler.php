@@ -265,7 +265,7 @@ final class Handler {
 			// tax_input needs a logged-in user who can assign terms; visitors aren't one.
 			$terms = wp_set_object_terms( $pairing_id, $data['moment'], 'dp_moment' );
 			if ( is_wp_error( $terms ) ) {
-				throw new \RuntimeException( 'Could not set the moment' );
+				throw new \RuntimeException( 'Could not set the pairing type' );
 			}
 
 			$links   = get_post_meta( $ride_id, 'dp_pairings', true );
@@ -309,7 +309,7 @@ final class Handler {
 			$lines[] = 'Ride: ' . $ride;
 		}
 		$lines[] = 'Pairing: ' . $data['title'];
-		$lines[] = 'Moment: ' . Vocab::MOMENTS[ $data['moment'] ]['label'];
+		$lines[] = 'Pairing type: ' . Vocab::MOMENTS[ $data['moment'] ]['label'];
 		$lines[] = 'Why it works: ' . $data['blurb'];
 		$lines[] = 'Link: ' . ( $data['link'] ?? '(none)' );
 		$lines[] = 'Suggested by: ' . $data['name'];

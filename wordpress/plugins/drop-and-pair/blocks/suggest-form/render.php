@@ -155,7 +155,7 @@ $text_field = static function ( string $field, string $label, int $max, string $
 				<?php echo $text_field( 'title', "What's the pairing?", Validator::MAX_TITLE, 'A film, a song, a snack, somewhere to go. Whatever you think goes with the ride.' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 
 				<fieldset class="dp-suggest__moments"<?php echo $invalid( 'moment' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>>
-					<legend class="dp-label">When's it for?</legend>
+					<legend class="dp-label">What type of pairing is it?</legend>
 					<div class="dp-suggest__moment-grid">
 						<?php foreach ( Vocab::MOMENTS as $slug => $moment ) : ?>
 							<label class="dp-suggest__moment" style="<?php echo esc_attr( '--dp-stub: var(--wp--preset--color--stub-' . $slug . ')' ); ?>">

@@ -4,7 +4,7 @@
 	"name": "drop-and-pair/pairing-intro",
 	"title": "Pairing intro",
 	"category": "widgets",
-	"description": "Moment label and description for the current pairing.",
+	"description": "Pairing type label and description for the current pairing.",
 	"textdomain": "drop-and-pair",
 	"usesContext": [ "postId" ],
 	"supports": { "html": false, "autoRegister": true },
