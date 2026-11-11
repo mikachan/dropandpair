@@ -52,7 +52,7 @@ pairings:
 ---
 
 Wicker Man is a Great Coasters International wooden coaster at Alton Towers,
-open since 2018, and it's one of my favourite rides. There's a whole pre-show,
+open since 2018, and it's brilliant. There's a whole pre-show,
 so you're properly in the mood before you get on.
 
 There's no single big moment, just a long run of small ones, with the track

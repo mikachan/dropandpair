@@ -43,5 +43,5 @@ the oldest ride on the site by about a century. It went up in 1897, built by the
 British engineer Walter Basset Bassett. It was badly damaged in the Second World
 War and rebuilt with fifteen cabins instead of the original thirty.
 
-It's slow and still very grand. It's not a thrill ride at all, and I love it for
+It's slow and still very grand. It's not a thrill ride at all, and it's lovely for
 that. You go up 65 metres to look at Vienna and chat to whoever you came with.

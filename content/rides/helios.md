@@ -41,4 +41,4 @@ It doesn't waste a second. After the chain lift there's an outward-banked
 airtime hill, a corkscrew, a barrel roll drop and another corkscrew, and the
 train flies through the station on the way.
 
-It's all over in about fifty seconds. One of my favourite rides anywhere!
+It's all over in about fifty seconds, so you'll want to go straight back round!
