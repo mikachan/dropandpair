@@ -16,26 +16,27 @@ import { createServer } from 'vite';
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 /**
- * The about page's prose, copied from src/routes/about/+page.svelte (static
- * text, so a constant is simpler than parsing Svelte). The lede and the moments
- * list come from code there, so aboutHtml() builds them from the same modules.
+ * The about page's prose, first copied from src/routes/about/+page.svelte and since
+ * reworded for WordPress (static text, so a constant is simpler than parsing Svelte).
+ * The lede and the moments list come from code there, so aboutHtml() builds them
+ * from the same modules.
  */
-const ABOUT_INTRO = `<p>Getting as immersed as possible in whatever I'm doing is one of my favourite things. When I travel, I'll often read up on the local folklore, or pick up a local story or bestselling novel, and on the way there I'll usually have a playlist of local music on (especially local rock music).</p>
-<p>Rides are an easy fit for this, because so many of them are already based on a film, a book or a legend. I'm also a massive fan of a well-themed ride. Wicker Man at Alton Towers is a great example: there's a whole pre-show before you even get on. Drop and Pair is my way of trying to give every ride that feeling, with things to read, watch or listen to in anticipation, and things to do afterwards. Some rides make that easier than others!</p>
+const ABOUT_INTRO = `<p>I love getting properly immersed in whatever I'm doing. When I travel, I read up on the local folklore, pick up a local novel and put together a playlist of local music for the journey (rock, ideally).</p>
+<p>Rides make that easy, because so many are already based on a film, a book or a legend. I'm also a massive fan of a well-themed ride. Wicker Man at Alton Towers has a whole pre-show before you even get on. Drop and Pair tries to give every ride that feeling, with something to read, watch or listen to beforehand and something to do afterwards. Some rides make it easier than others!</p>
 <h2>About me</h2>
-<p>I'm a coaster nerd and a software engineer. My favourite park is Alton Towers, and my favourite rides include Wicker Man at Alton Towers, Zadra at Energylandia and Helios at Fantasiana.</p>
+<p>I'm a coaster nerd and a software engineer. My favourite park is Alton Towers, and my favourite rides include Wicker Man, Zadra at Energylandia and Helios at Fantasiana.</p>
 <h2>The moments</h2>
-<p>Every pairing has a moment. They're listed in the order you'd likely want to experience them, from before you queue to after you've left the park.</p>`;
+<p>Every pairing has a moment. They're in the order you'd probably want them, from before you queue to after you've left the park.</p>`;
 
 const ABOUT_THANKS = `<h2>Thank you</h2>
-<p>The ride facts and stats here come from some brilliant resources, and I'm really grateful to everyone who keeps them going:</p>
+<p>The ride facts and stats come from some brilliant resources, and I'm really grateful to everyone who keeps them going:</p>
 <ul>
 <li><a href="https://rcdb.com" rel="noopener">RCDB</a>, the Roller Coaster DataBase, for most of the coaster stats and opening dates</li>
 <li><a href="https://darkridedatabase.com" rel="noopener">the Dark Ride Database</a>, for the dark rides</li>
 <li>Wikipedia and YouTube, for ride histories, and for the films, books and music</li>
 <li>the parks' own websites and local tourist boards</li>
 </ul>
-<p>Every ride page links to the sources used for it, under Further reading.</p>`;
+<p>Each ride page links to its sources under Further reading.</p>`;
 
 const escapeHtml = (text) =>
 	text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
