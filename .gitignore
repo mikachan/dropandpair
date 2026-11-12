@@ -9,8 +9,12 @@ node_modules/
 vite.config.ts.timestamp-*
 vite.config.js.timestamp-*
 
-### Brainstorming mockups
+### Brainstorming mockups, specs and plans
 /.superpowers/
+/docs/superpowers/
+
+### Spacefast project link
+/.spacefast/
 
 ### macOS
 # Finder metadata
