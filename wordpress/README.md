@@ -53,6 +53,18 @@ Production needs no Composer. `vendor/` is left out, and the plugin falls back t
 
 After installing or updating, flush the rewrite rules once (Settings > Permalinks > Save, or `wp rewrite flush`), so URL changes such as the dropped `/moment/`, `/vibe/` and `/ride-type/` archives take effect. Those old URLs redirect to the filtered ride list either way.
 
+## Deploying from GitHub
+
+Pressable deploys the plugin and theme from github.com/mikachan/dropandpair on every push to the deploy branch. It's set up in MyPressable > the site > Advanced > GitHub Integration:
+
+- Repository: `mikachan/dropandpair`, branch `main`
+- Repository Subdirectory: `wordpress`
+- Destination Path: `wp-content`
+
+The deploy copies files as they are, with no build step, which is fine because neither the plugin nor the theme has one. It also deletes anything at the destination that isn't in the repo. `.deployignore` at the repo root stops that: it keeps other plugins, themes and the rest of `wp-content` on the server, and keeps `bin/`, this README, `tests/` and the Composer and PHPUnit files off it. Add a line there before installing anything on the server that lives outside the two `drop-and-pair` folders.
+
+Each push shows up in the integration's Git History. After a deploy that changes URLs, flush the rewrite rules once (see above).
+
 ## Pressable staging
 
 drop-pair.mystagingwebsite.com runs on Pressable. SSH in with the site's own SSH username (MyPressable > the site > Collaborators) at `ssh.pressable.com`, using a key attached to that site. WP-CLI works from `/srv/htdocs`.
