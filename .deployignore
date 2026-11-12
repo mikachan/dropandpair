@@ -10,7 +10,6 @@
 # Repo-only files
 README.md
 .gitignore
-bin/
 
 # Development files (production uses the plugin's own autoloader, not Composer)
 **/tests/

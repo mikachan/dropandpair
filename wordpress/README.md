@@ -24,65 +24,22 @@ composer install
 vendor/bin/phpunit
 ```
 
-## Parity check
-
-`bin/parity.mjs` reads every park, ride, pairing and the About page back through the REST API (`context=edit`, so drafts are included) and compares them with `import/content.json`: titles, park links, stats, intensity, roughness, ride type, vibes, further reading, each pairing link's target, blurb and strength, and body text with tags and entities stripped. It prints each mismatch and exits 1 if there are any. It only reads.
-
-`import/content.json` is the last export of the old SvelteKit site's Markdown content. The script that made it was removed along with the SvelteKit site, so it won't change again, and the check only tells you how far the site has moved on from the original import.
-
-Coming-soon mode blocks anonymous REST, so it needs an application password, passed through the environment (never commit one):
-
-```sh
-cd ~/Studio/drop-and-pair
-studio wp user application-password create admin parity --porcelain   # prints the password
-cd -
-DP_USER=admin DP_APP_PASSWORD='the password' node wordpress/bin/parity.mjs http://localhost:8886
-studio wp user application-password delete admin <uuid>              # uuid from `... list admin`
-```
-
-Expected: `0 mismatches (65 items checked against http://localhost:8886)`.
-
-## Deploy artefact
-
-`bin/package.sh` builds what goes on the server: `dist/drop-and-pair-plugin.zip` and `dist/drop-and-pair-theme.zip`, each holding a `drop-and-pair/` folder. Upload them through Plugins > Add New > Upload and Themes > Add New > Upload, or unzip them into `wp-content/plugins` and `wp-content/themes`.
-
-```sh
-wordpress/bin/package.sh            # or: wordpress/bin/package.sh <output dir>
-```
-
-Production needs no Composer. `vendor/` is left out, and the plugin falls back to its own small autoloader (`DropAndPair\Foo` is `src/Foo.php`) when `vendor/autoload.php` isn't there. Also left out: `tests/`, `composer.json`, `composer.lock`, `phpunit.xml.dist` and every dotfile (`.phpunit.result.cache` included). The script fails if any of those got in, if a file WordPress needs is missing, or if any PHP file doesn't lint. `dist/` is gitignored.
-
-After installing or updating, flush the rewrite rules once (Settings > Permalinks > Save, or `wp rewrite flush`), so URL changes such as the dropped `/moment/`, `/vibe/` and `/ride-type/` archives take effect. Those old URLs redirect to the filtered ride list either way.
-
 ## Deploying from GitHub
 
-Pressable deploys the plugin and theme from github.com/mikachan/dropandpair on every push to the deploy branch. It's set up in MyPressable > the site > Advanced > GitHub Integration:
+Pressable deploys the plugin and theme from github.com/mikachan/dropandpair on every push to `main`. It's set up in MyPressable > the site > Advanced > GitHub Integration:
 
 - Repository: `mikachan/dropandpair`, branch `main`
 - Repository Subdirectory: `wordpress`
 - Destination Path: `wp-content`
 
-The deploy copies files as they are, with no build step, which is fine because neither the plugin nor the theme has one. It also deletes anything at the destination that isn't in the repo. `.deployignore` at the repo root stops that: it keeps other plugins, themes and the rest of `wp-content` on the server, and keeps `bin/`, this README, `tests/` and the Composer and PHPUnit files off it. Add a line there before installing anything on the server that lives outside the two `drop-and-pair` folders.
+The deploy copies files as they are, with no build step, which is fine because neither the plugin nor the theme has one. Production doesn't need Composer either: `vendor/` isn't in the repo, and the plugin falls back to its own small autoloader (`DropAndPair\Foo` is `src/Foo.php`) when `vendor/autoload.php` isn't there.
 
-Each push shows up in the integration's Git History. After a deploy that changes URLs, flush the rewrite rules once (see above).
+It also deletes anything at the destination that isn't in the repo. `.deployignore` at the repo root stops that: it keeps other plugins, themes and the rest of `wp-content` on the server, and keeps this README, `tests/` and the Composer and PHPUnit files off it. Add a line there before installing anything on the server that lives outside the two `drop-and-pair` folders.
 
-## Pressable staging
+Each push shows up in the integration's Git History. After a deploy that changes URLs, flush the rewrite rules once (Settings > Permalinks > Save, or `wp rewrite flush`). The old `/moment/`, `/vibe/` and `/ride-type/` archives redirect to the filtered ride list either way.
+
+## Pressable
 
 drop-pair.mystagingwebsite.com runs on Pressable. SSH in with the site's own SSH username (MyPressable > the site > Collaborators) at `ssh.pressable.com`, using a key attached to that site. WP-CLI works from `/srv/htdocs`.
 
-`scp` and SFTP drop files into the web root (`/srv/htdocs`), not the SSH home folder, which is recreated each session. Move uploads to `/tmp` before installing and delete them afterwards, so the zips and `content.json` are never served:
-
-```sh
-scp wordpress/dist/*.zip wordpress/import/content.json <user>@ssh.pressable.com:dp-deploy/
-ssh <user>@ssh.pressable.com
-mkdir -p /tmp/dp-deploy && mv /srv/htdocs/dp-deploy/* /tmp/dp-deploy/ && rmdir /srv/htdocs/dp-deploy
-cd /srv/htdocs
-wp plugin install /tmp/dp-deploy/drop-and-pair-plugin.zip --activate --force
-wp theme install /tmp/dp-deploy/drop-and-pair-theme.zip --activate --force
-wp rewrite flush && wp cache flush
-rm -rf /tmp/dp-deploy
-```
-
-Then run `bin/coming-soon.sh https://drop-pair.mystagingwebsite.com` from your machine. Never run the smoke scripts in `tests/smoke/` on staging: they create and delete posts.
-
-The import (`wp dropandpair import <file>`) only creates what isn't there, so re-running it never overwrites edits made on staging.
+Never run the smoke scripts in `tests/smoke/` there: they create and delete posts.
