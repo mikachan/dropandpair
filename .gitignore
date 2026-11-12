@@ -9,6 +9,9 @@ node_modules/
 vite.config.ts.timestamp-*
 vite.config.js.timestamp-*
 
+### Brainstorming mockups
+/.superpowers/
+
 ### macOS
 # Finder metadata
 .DS_Store
