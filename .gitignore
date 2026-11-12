@@ -1,13 +1,7 @@
-### Node / SvelteKit
-node_modules/
-/build/
-/.svelte-kit/
-/static/pagefind/
+### Secrets
 .env
 .env.*
 !.env.example
-vite.config.ts.timestamp-*
-vite.config.js.timestamp-*
 
 ### Brainstorming mockups, specs and plans
 /.superpowers/

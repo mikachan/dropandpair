@@ -28,10 +28,11 @@ vendor/bin/phpunit
 
 `bin/parity.mjs` reads every park, ride, pairing and the About page back through the REST API (`context=edit`, so drafts are included) and compares them with `import/content.json`: titles, park links, stats, intensity, roughness, ride type, vibes, further reading, each pairing link's target, blurb and strength, and body text with tags and entities stripped. It prints each mismatch and exits 1 if there are any. It only reads.
 
+`import/content.json` is the last export of the old SvelteKit site's Markdown content. The script that made it was removed along with the SvelteKit site, so it won't change again, and the check only tells you how far the site has moved on from the original import.
+
 Coming-soon mode blocks anonymous REST, so it needs an application password, passed through the environment (never commit one):
 
 ```sh
-node scripts/export-content.js
 cd ~/Studio/drop-and-pair
 studio wp user application-password create admin parity --porcelain   # prints the password
 cd -
