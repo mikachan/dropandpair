@@ -1,4 +1,4 @@
-# Drop and Pair
+# Drop and Pair 🎢
 
 Curated pairings for theme park rides. Every ride gets a short gist and a set of things worth putting either side of it: a film, a record, a meal, a walk, or occasionally a hot bath.
 
