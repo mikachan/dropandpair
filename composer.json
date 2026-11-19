@@ -4,7 +4,7 @@
     "type": "wordpress-plugin",
     "require": { "php": ">=8.1" },
     "require-dev": { "phpunit/phpunit": "^11.0" },
-    "autoload": { "psr-4": { "DropAndPair\\": "src/" } },
+    "autoload": { "psr-4": { "DropAndPair\\": "wp-content/plugins/drop-and-pair/src/" } },
     "autoload-dev": { "psr-4": { "DropAndPair\\Tests\\": "tests/" } },
     "config": { "sort-packages": true },
     "scripts": { "test": "phpunit" }

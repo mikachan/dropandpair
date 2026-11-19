@@ -1,0 +1,5 @@
+/import/
+/dist/
+
+# Scripts used to build and check the site during the move to WordPress, kept locally
+/bin/

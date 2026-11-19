@@ -19,7 +19,7 @@ const wp = {
   editor: {}, plugins: { registerPlugin: (n, s) => { render = s.render; } }, apiFetch: { use: (f) => { mw = f; } },
 };
 window.wp = wp;
-new Function('window', fs.readFileSync(require('path').join(__dirname, '../../editor/ride-sidebar.js'), 'utf8'))(window);
+new Function('window', fs.readFileSync(require('path').join(__dirname, '../../wp-content/plugins/drop-and-pair/editor/ride-sidebar.js'), 'utf8'))(window);
 const sent = (o) => mw(o, (x) => x);
 // Gist edit: merged meta carries the loaded links; they're dropped.
 let out = sent({ path: '/wp/v2/dp_ride/12', method: 'PUT', data: { id: 12, meta: { dp_pairings: [ { pairing_id: 1, blurb: 'a' } ], dp_gist: 'new' } } });

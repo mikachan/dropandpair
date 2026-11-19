@@ -1,3 +1,12 @@
+### Composer and PHPUnit
+/vendor/
+.phpunit.result.cache
+
+### Importer tests used during the move to WordPress, kept locally
+/tests/ImporterTest.php
+/tests/HtmlToBlocksTest.php
+/tests/smoke/importer-trash.php
+
 ### Secrets
 .env
 .env.*
