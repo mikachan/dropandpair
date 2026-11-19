@@ -53,3 +53,47 @@ add_action(
 		);
 	}
 );
+
+/**
+ * Marks the menu link for the page being viewed.
+ *
+ * The menu uses plain links so it works on any domain, which means core can't
+ * tell which one is current. Compare paths instead: the rides, parks and
+ * pairings archives (and their later pages), and pages such as /suggest/.
+ */
+add_filter(
+	'render_block_core/navigation-link',
+	static function ( string $block_content, array $block ): string {
+		if ( is_front_page() ) {
+			$link = home_url( '/' );
+		} elseif ( is_page() ) {
+			$link = get_permalink();
+		} elseif ( is_post_type_archive() && get_queried_object() instanceof WP_Post_Type ) {
+			$link = get_post_type_archive_link( get_queried_object()->name );
+		} else {
+			return $block_content;
+		}
+
+		$url = $block['attrs']['url'] ?? '';
+		if ( ! is_string( $link ) || '' === $url ) {
+			return $block_content;
+		}
+
+		$path    = trailingslashit( (string) wp_parse_url( $url, PHP_URL_PATH ) );
+		$current = trailingslashit( (string) wp_parse_url( $link, PHP_URL_PATH ) );
+		if ( $path !== $current ) {
+			return $block_content;
+		}
+
+		$tags = new WP_HTML_Tag_Processor( $block_content );
+		if ( $tags->next_tag( 'li' ) ) {
+			$tags->add_class( 'current-menu-item' );
+		}
+		if ( $tags->next_tag( 'a' ) ) {
+			$tags->set_attribute( 'aria-current', 'page' );
+		}
+		return $tags->get_updated_html();
+	},
+	10,
+	2
+);
