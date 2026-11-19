@@ -1,7 +1,31 @@
 <!-- wp:template-part {"slug":"header","tagName":"div","className":"dp-site-header"} /-->
 
 <!-- wp:group {"tagName":"main","className":"dp-main","layout":{"type":"constrained"}} -->
-<main class="wp-block-group dp-main"><!-- wp:post-content /--></main>
+<main class="wp-block-group dp-main"><!-- wp:query-title {"type":"archive","level":1} /-->
+
+<!-- wp:query {"queryId":0,"query":{"inherit":true}} -->
+<div class="wp-block-query"><!-- wp:post-template -->
+<!-- wp:group {"className":"dp-search-item","layout":{"type":"constrained"}} -->
+<div class="wp-block-group dp-search-item"><!-- wp:post-title {"level":2,"isLink":true} /-->
+
+<!-- wp:post-excerpt {"className":"dp-search-result__summary"} /--></div>
+<!-- /wp:group -->
+<!-- /wp:post-template -->
+
+<!-- wp:query-pagination -->
+<!-- wp:query-pagination-previous /-->
+
+<!-- wp:query-pagination-numbers /-->
+
+<!-- wp:query-pagination-next /-->
+<!-- /wp:query-pagination -->
+
+<!-- wp:query-no-results -->
+<!-- wp:paragraph -->
+<p>Nothing here yet. Browse <a href="/rides/">all rides</a>, <a href="/parks/">all parks</a> or <a href="/pairings/">all pairings</a> instead.</p>
+<!-- /wp:paragraph -->
+<!-- /wp:query-no-results --></div>
+<!-- /wp:query --></main>
 <!-- /wp:group -->
 
 <!-- wp:template-part {"slug":"footer","tagName":"div","className":"dp-site-footer"} /-->

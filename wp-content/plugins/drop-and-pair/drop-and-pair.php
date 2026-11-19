@@ -32,6 +32,7 @@ if ( file_exists( DROP_AND_PAIR_DIR . 'vendor/autoload.php' ) ) {
 	);
 }
 
+DropAndPair\Analytics::hooks();
 DropAndPair\AssetVersions::hooks();
 DropAndPair\ComingSoon::hooks();
 DropAndPair\ContentTypes::hooks();
